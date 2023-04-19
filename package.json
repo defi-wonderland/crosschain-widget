@@ -5,7 +5,16 @@
   "version": "0.0.1",
   "type": "module",
   "license": "MIT",
-  "main": "index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/CrossChainWidget.es.js",
+      "require": "./dist/CrossChainWidget.cjs.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "main": "./dist/CrossChainWidget.cjs.js",
+  "module": "./dist/CrossChainWidget.es.js",
+  "types": "./dist/index.d.ts",
   "repository": "git@github.com:defi-wonderland/crosschain-widget-private.git",
   "author": "Wonderland",
   "scripts": {
@@ -23,11 +32,16 @@
     "src/**/*.{js,jsx,ts,tsx}": "eslint --cache --fix",
     "src/**/*.{js,jsx,ts,tsx,css,scss,md,html}": "prettier --write --ignore-unknown"
   },
+  "peerDependencies": {
+    "react": "16.8.0 || >=17.x",
+    "react-dom": "16.8.0 || >=17.x"
+  },
   "dependencies": {
     "react-transition-group": "4.4.5"
   },
   "devDependencies": {
     "@defi-wonderland/crypto-husky-checks": "1.3.0",
+    "@types/node": "18.15.11",
     "@types/react": "18.0.37",
     "@types/react-dom": "18.0.11",
     "@types/react-transition-group": "4.4.5",
@@ -48,6 +62,7 @@
     "react-dom": "18.2.0",
     "typescript": "5.0.4",
     "vite": "4.2.1",
+    "vite-plugin-dts": "2.3.0",
     "vite-tsconfig-paths": "4.2.0"
   }
 }

@@ -17,8 +17,10 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/package/*", "src/*"]
-    }
+      "~/*": ["src/package/*", "src/*"],
+      "CrossChainWidget": ["src/package/index.tsx"]
+    },
+    "typeRoots": ["node_modules/@types", "src/package/index.d.ts"]
   },
   "include": ["vite.config.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
