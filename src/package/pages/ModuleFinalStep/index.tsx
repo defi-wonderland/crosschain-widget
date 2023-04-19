@@ -1,9 +1,24 @@
+import { useState } from "react";
+
 import { BaseModal, Button, Text } from "~/components";
 import { ModalProps, StepType } from "~/types";
-import { useModalContext } from "~/Context";
+import { useNavigationContext } from "~/Context";
+import { copyData } from "~/utils";
 
 export const ModuleFinalStep = ({ onClose, ...props }: ModalProps) => {
-  const { setType } = useModalContext();
+  const { setType } = useNavigationContext();
+  const [data, setData] = useState("arbitrary data...");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    setCopied(true);
+    copyData(data);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
+
   return (
     <BaseModal
       {...props}
@@ -26,7 +41,9 @@ export const ModuleFinalStep = ({ onClose, ...props }: ModalProps) => {
       <span>Wrong network/Bad query params</span>
       <br />
       <Text>Module Address: 0xYourNewModuleAddress</Text>
-      <Button>Copy Address</Button>
+      <Button onClick={() => handleCopy()}>Copy Address</Button>
+      {copied && <Text>Copied to clipboard!</Text>}
+
       <Button>Open new tab: safe.global/0xsafe and add this module</Button>
       <br />
       <br />

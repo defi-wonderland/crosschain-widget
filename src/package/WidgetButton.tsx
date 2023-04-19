@@ -1,8 +1,8 @@
-import { useModalContext } from "./Context";
+import { useNavigationContext } from "./Context";
 import { StepType } from "./types";
 
 export const WidgetButton = ({ text }: { text?: string }) => {
-  const { setType } = useModalContext();
+  const { setType } = useNavigationContext();
   return (
     <button
       onClick={() => {

@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 
 import { StepType } from "./types";
 
-export type ModalContextType = {
+export type ContextType = {
   // Control Modal
   type: StepType | null;
   setType: (val: StepType | null) => void;
@@ -22,9 +22,9 @@ interface ModalProps {
   children: React.ReactElement;
 }
 
-export const ModalContentContext = createContext({} as ModalContextType);
+export const NavigationContext = createContext({} as ContextType);
 
-export const ModalContentProvider = ({
+export const NavigationProvider = ({
   children,
   originAddress,
   originChainId,
@@ -39,7 +39,7 @@ export const ModalContentProvider = ({
   }, [originAddress, originChainId]);
 
   return (
-    <ModalContentContext.Provider
+    <NavigationContext.Provider
       value={{
         type,
         setType,
@@ -50,15 +50,15 @@ export const ModalContentProvider = ({
       }}
     >
       {children}
-    </ModalContentContext.Provider>
+    </NavigationContext.Provider>
   );
 };
 
-export const useModalContext = () => {
-  const context = useContext(ModalContentContext);
+export const useNavigationContext = () => {
+  const context = useContext(NavigationContext);
 
   if (context === undefined) {
-    throw new Error("useModalContext must be used within a ModalProvider");
+    throw new Error("useNavigationContext must be used within a ModalProvider");
   }
 
   return context;

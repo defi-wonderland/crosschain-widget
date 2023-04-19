@@ -1,8 +1,8 @@
 import { FC } from "react";
 
-import { Modals } from "~/pages";
+import { Pages } from "~/pages";
 import { WidgetButton } from "~/WidgetButton";
-import { ModalContentProvider } from "~/Context";
+import { NavigationProvider } from "~/Context";
 
 export interface ModalProps {
   originAddress: string;
@@ -16,14 +16,14 @@ export const ZodiacConnextWidget: FC<ModalProps> = ({
   text,
 }) => {
   return (
-    <ModalContentProvider
+    <NavigationProvider
       originAddress={originAddress}
       originChainId={originChainId}
     >
       <>
         <WidgetButton text={text} />
-        <Modals />
+        <Pages />
       </>
-    </ModalContentProvider>
+    </NavigationProvider>
   );
 };

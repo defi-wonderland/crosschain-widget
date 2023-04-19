@@ -1,9 +1,9 @@
 import { BaseModal, Button, Text } from "~/components";
 import { ModalProps, StepType } from "~/types";
-import { useModalContext } from "~/Context";
+import { useNavigationContext } from "~/Context";
 
 export const ModuleStep = ({ onClose, ...props }: ModalProps) => {
-  const { setType } = useModalContext();
+  const { setType } = useNavigationContext();
   return (
     <BaseModal {...props} onClose={onClose} header="Off-Chain Module Setup">
       <h2>Safe Module Setup</h2>

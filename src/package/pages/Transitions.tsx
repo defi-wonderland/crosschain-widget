@@ -9,7 +9,7 @@ import {
   TransactionStep,
   SafeSettingsStep,
 } from "~/pages";
-import { useModalContext } from "~/Context";
+import { useNavigationContext } from "~/Context";
 import { StepType } from "~/types";
 import "./styles.css";
 
@@ -27,9 +27,9 @@ export const Backdrop = ({ setType }: BackdropProps) => {
   );
 };
 
-export const Modals = () => {
+export const Pages = () => {
   const modalTimeout = 200;
-  const { setType, type } = useModalContext();
+  const { setType, type } = useNavigationContext();
   const [activeModal, setActiveModal] = useState<StepType | null>(null);
   const backdropRef = useRef(null);
   const startStepRef = useRef(null);

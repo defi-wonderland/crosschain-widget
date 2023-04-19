@@ -1,9 +1,9 @@
 import { BaseModal, Button } from "~/components";
 import { ModalProps, StepType } from "~/types";
-import { useModalContext } from "~/Context";
+import { useNavigationContext } from "~/Context";
 
 export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
-  const { setType } = useModalContext();
+  const { setType } = useNavigationContext();
   return (
     <BaseModal {...props} onClose={onClose} header="Transaction Input Setup">
       <br />
