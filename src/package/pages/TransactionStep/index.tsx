@@ -6,9 +6,6 @@ export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
   return (
     <BaseModal {...props} onClose={onClose} header="Transaction Input Setup">
-      <br />
-      <br />
-      <br />
       <Button
         onClick={async () => {
           setType(StepType.XCALLDATA_REVIEW);

@@ -7,12 +7,12 @@ export const ModuleStep = ({ onClose, ...props }: ModalProps) => {
   return (
     <BaseModal {...props} onClose={onClose} header="Off-Chain Module Setup">
       <h2>Safe Module Setup</h2>
-      <br />
+
       <Text>
         Go to external site to deploy the module and setup the module on your
         safe.
       </Text>
-      <br />
+
       <Text>Then come back to this tab/widget and click check setup.</Text>
       <Button
         onClick={async () => {

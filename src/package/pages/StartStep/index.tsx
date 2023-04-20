@@ -1,4 +1,4 @@
-import { BaseModal, Button, Text } from "~/components";
+import { BaseModal, Button, Text, Dropdown } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useNavigationContext } from "~/Context";
 
@@ -8,32 +8,29 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
   const hasModule = false;
   return (
     <BaseModal {...props} onClose={onClose} header="Input Setup">
-      <br />
       <Text>Sending as: {address}</Text>
       <Text>Origin chain: {chainId}</Text>
-      <br />
-      <br />
+
       <Text>Has Module: {hasModule.toString()}</Text>
-      <br />
+
       <div>
         <Text>Select destination chain:</Text>
-        <select name="Chains">
+        <Dropdown name="Chains">
           <option value="Ethereum">Ethereum</option>
           <option value="Optimism">Optimism</option>
           <option value="Arbitrum">Arbitrum</option>
-        </select>
+        </Dropdown>
       </div>
-      <br />
+
       <div>
         <Text>Select destination safe:</Text>
-        <select name="SafeAlias">
+        <Dropdown name="SafeAlias">
           <option value="0x1234...abcd">0x1234...abcd</option>
           <option value="0x1234...abcd">0x1234...abcd</option>
           <option value="0x1234...abcd">0x1234...ffff</option>
-        </select>
+        </Dropdown>
       </div>
-      <br />
-      <br />
+
       <Button
         onClick={async () => {
           if (hasModule) {

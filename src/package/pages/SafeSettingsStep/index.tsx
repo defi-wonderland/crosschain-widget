@@ -1,7 +1,8 @@
-import { BaseModal, Button, Text } from "~/components";
+import { useEffect, useState } from "react";
+
+import { BaseModal, Button, Text, SInput } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useNavigationContext } from "~/Context";
-import { useEffect, useState } from "react";
 import { isAddress } from "~/utils";
 
 export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
@@ -36,16 +37,16 @@ export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
   return (
     <BaseModal {...props} onClose={onClose} header="Cross-chain Action">
       <h2>Safe Settings</h2>
-      <br />
+
       <Text>Safe Name:</Text>
-      <input
+      <SInput
         placeholder="Input Safe Name"
         value={safeName}
         onChange={(e) => setSafeName(e.target.value)}
       />
-      <br />
+
       <Text>Safe Owners:</Text>
-      <input
+      <SInput
         placeholder="Input Owner Address"
         value={inputAddress}
         onChange={(e) => setInputAddress(e.target.value)}
@@ -71,8 +72,7 @@ export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
           </div>
         ))}
       </div>
-      <br />
-      <br />
+
       <Button
         onClick={async () => {
           setType(StepType.START);
