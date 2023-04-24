@@ -1,42 +1,29 @@
 import { FC } from "react";
 import { createGlobalStyle } from "styled-components";
 
-import { Pages } from "~/pages";
+import { Navigator, Themable, FONT_SIZE_16 } from "~/components";
 import { WidgetButton } from "~/WidgetButton";
 import { NavigationProvider } from "~/Context";
+import { PropTheme } from "~/types";
 
-const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
+const GlobalStyle = createGlobalStyle<PropTheme>`
+  .modal p,.modal h1,.modal span,.modal strong {
     padding: 0;
+    margin: 0;
+    font-size: ${FONT_SIZE_16};
+  }
+
+  .modal * {
     box-sizing: border-box;
   }
-
-  html, body {
-    font-size: 18px;
-    font-weight: 400;
-    background-color: white;
-    color: #121212;
-
-    scroll-behavior: unset;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-  }
-
+  
   select {
     /* A reset of styles, including removing the default dropdown arrow */
     appearance: none;
     /* Additional resets for further consistency */
     background-color: transparent;
     border: none;
-    padding: 0 1em 0 0;
+    padding: 0 1rem 0 0;
     margin: 0;
     width: 100%;
     font-family: inherit;
@@ -44,7 +31,6 @@ const GlobalStyle = createGlobalStyle`
     cursor: inherit;
     line-height: inherit;
   }
-
 `;
 
 export interface ModalProps {
@@ -59,15 +45,17 @@ export const ZodiacConnextWidget: FC<ModalProps> = ({
   text,
 }) => {
   return (
-    <NavigationProvider
-      originAddress={originAddress}
-      originChainId={originChainId}
-    >
-      <>
-        <GlobalStyle />
-        <WidgetButton text={text} />
-        <Pages />
-      </>
-    </NavigationProvider>
+    <Themable>
+      <NavigationProvider
+        originAddress={originAddress}
+        originChainId={originChainId}
+      >
+        <>
+          <GlobalStyle />
+          <WidgetButton text={text} />
+          <Navigator />
+        </>
+      </NavigationProvider>
+    </Themable>
   );
 };

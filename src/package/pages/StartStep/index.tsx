@@ -5,13 +5,11 @@ import { useNavigationContext } from "~/Context";
 export const StartStep = ({ onClose, ...props }: ModalProps) => {
   const { address, setType, chainId } = useNavigationContext();
 
-  const hasModule = false;
+  const hasModule = true;
   return (
-    <BaseModal {...props} onClose={onClose} header="Input Setup">
+    <BaseModal {...props} onClose={onClose} header="Cross chain action">
       <Text>Sending as: {address}</Text>
       <Text>Origin chain: {chainId}</Text>
-
-      <Text>Has Module: {hasModule.toString()}</Text>
 
       <div>
         <Text>Select destination chain:</Text>
@@ -40,7 +38,7 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
           }
         }}
       >
-        Next
+        Use existent Safe
       </Button>
 
       <Button
@@ -48,7 +46,7 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
           setType(StepType.SAFE_MODULE_CREATION);
         }}
       >
-        Create New Safe
+        Create a new Safe
       </Button>
     </BaseModal>
   );

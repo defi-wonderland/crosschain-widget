@@ -1,9 +1,8 @@
 import { useRef, useState, useEffect } from "react";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 
 import {
   FinishStep,
-  ModuleFinalStep,
   ModuleStep,
   StartStep,
   TransactionStep,
@@ -11,7 +10,7 @@ import {
 } from "~/pages";
 import { useNavigationContext } from "~/Context";
 import { StepType } from "~/types";
-import "./styles.css";
+import { StyledBackdrop, StyledModals } from "./Transitions.styled";
 
 interface BackdropProps {
   setType?: (val: StepType | null) => void;
@@ -27,7 +26,7 @@ export const Backdrop = ({ setType }: BackdropProps) => {
   );
 };
 
-export const Pages = () => {
+export const Navigator = () => {
   const modalTimeout = 200;
   const { setType, type } = useNavigationContext();
   const [activeModal, setActiveModal] = useState<StepType | null>(null);
@@ -35,7 +34,6 @@ export const Pages = () => {
   const startStepRef = useRef(null);
   const safeRef = useRef(null);
   const moduleRef = useRef(null);
-  const moduleFinalStepRef = useRef(null);
   const txRef = useRef(null);
   const confirmationRef = useRef(null);
 
@@ -50,7 +48,7 @@ export const Pages = () => {
   }, [type]);
 
   return (
-    <>
+    <StyledBackdrop>
       {/* //////////////////////////// BACKDROP ///////////////////////////// */}
       {backdrop && (
         <CSSTransition
@@ -64,7 +62,7 @@ export const Pages = () => {
       )}
 
       {/* //////////////////////////// MODALS ///////////////////////////// */}
-      <TransitionGroup className="modal-transition">
+      <StyledModals>
         {activeModal === StepType.START && (
           <CSSTransition
             nodeRef={startStepRef}
@@ -129,20 +127,7 @@ export const Pages = () => {
             </div>
           </CSSTransition>
         )}
-
-        {activeModal === StepType.MODULE_SETUP_CONFIRMATION && (
-          <CSSTransition
-            nodeRef={moduleFinalStepRef}
-            key={StepType.MODULE_SETUP_CONFIRMATION}
-            timeout={modalTimeout}
-            classNames="slideBottom"
-          >
-            <div ref={moduleFinalStepRef}>
-              <ModuleFinalStep onClose={setType} />
-            </div>
-          </CSSTransition>
-        )}
-      </TransitionGroup>
-    </>
+      </StyledModals>
+    </StyledBackdrop>
   );
 };

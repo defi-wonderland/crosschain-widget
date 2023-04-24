@@ -1,27 +1,19 @@
 import styled from "styled-components";
+import { PropTheme } from "~/types";
 
 const SSelector = styled.select`
   width: 100%;
-  min-width: 15ch;
-  max-width: 30ch;
-  border: 1px solid #777;
-  border-radius: 0.25em;
-  padding: 0.25em 0.5em;
+  border: ${({ theme }: PropTheme) => theme.borderPrimary};
+  border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
+  padding: 0.25rem 1rem;
   font-size: 1.25rem;
   cursor: pointer;
-  line-height: 1.1;
-  background-color: #fff;
+  line-height: 1.5;
+  color: inherit;
 
-  &::after {
-    content: "";
-    width: 0.8em;
-    height: 0.5em;
-    background-color: #777;
-    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
-  }
-
-  &::-ms-expand {
-    display: none;
+  & option {
+    background-color: ${({ theme }: PropTheme) => theme.background};
+    color: ${({ theme }: PropTheme) => theme.textPrimary};
   }
 `;
 

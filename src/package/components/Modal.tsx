@@ -8,24 +8,37 @@ const SBaseModal = styled.div`
   border-radius: 12px;
   overflow: hidden;
   overflow-y: auto;
-  margin: 32px;
-  color: white;
   position: relative;
   pointer-events: all;
   z-index: 10;
   width: 652px;
-  height: 512px;
-  max-width: 85%;
   max-height: 85%;
-  background-color: white;
   display: flex;
   flex-direction: column;
-  justify-items: start;
+  justify-items: center;
   align-items: start;
+
+  box-sizing: border-box;
+
+  font-size: 18px;
+  font-weight: 400;
+  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.textPrimary};
+
+  scroll-behavior: unset;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 `;
 
 const ModalHeader = styled.div`
-  color: #121212;
+  color: ${(props) => props.theme.textPrimary};
   font-weight: bold;
   font-size: 28px;
   text-align: start;
@@ -69,7 +82,7 @@ export const BaseModal: FC<ModalProps> = ({
     );
   }
   return (
-    <SBaseModal className={className} {...props}>
+    <SBaseModal className={className + " modal"} {...props}>
       {closeButton}
       <ModalHeader>{header}</ModalHeader>
 

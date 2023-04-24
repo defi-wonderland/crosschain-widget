@@ -5,35 +5,37 @@ import { useNavigationContext } from "~/Context";
 export const ModuleStep = ({ onClose, ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
   return (
-    <BaseModal {...props} onClose={onClose} header="Off-Chain Module Setup">
-      <h2>Safe Module Setup</h2>
-
+    <BaseModal {...props} onClose={onClose} header="Safe Module Setup">
       <Text>
-        Go to external site to deploy the module and setup the module on your
-        safe.
+        Before continuing, you will need to deploy and enable the Connext Module
+        in your Safe.
       </Text>
 
-      <Text>Then come back to this tab/widget and click check setup.</Text>
+      <Text>1. Go to:</Text>
+      <Button>
+        <a href="/" target="_blank">
+          Zodiac Application
+        </a>
+      </Button>
+
+      <Text>
+        2. Select the &quot;Connect Module&quot; and follor the instructions
+      </Text>
+      <Text>3. In origin chain add: 0x00000000000000000</Text>
+      <Text>4. In origin address add: 0x00000000000000000</Text>
       <Button
         onClick={async () => {
-          setType(StepType.MODULE_SETUP_CONFIRMATION);
+          console.log("Checking setup...");
         }}
       >
-        Go to Module Setup and Safe Onboarding
+        Verify setup
       </Button>
       <Button
         onClick={async () => {
           setType(StepType.START);
         }}
       >
-        Go back
-      </Button>
-      <Button
-        onClick={async () => {
-          console.log("Checking setup...");
-        }}
-      >
-        Check Setup
+        Cancel
       </Button>
     </BaseModal>
   );

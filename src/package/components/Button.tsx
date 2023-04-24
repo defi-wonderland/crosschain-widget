@@ -1,21 +1,23 @@
 import styled from "styled-components";
+import { PropTheme } from "~/types";
+import { FONT_SIZE_20 } from "./Variables";
 
 const SButton = styled.button`
   border: none;
-  border-radius: 0.5rem;
-  background-color: #186faf;
-  color: hsl(0deg, 0%, 98%);
+  border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
+  background-color: ${({ theme }: PropTheme) => theme.buttonBackground};
+  color: inherit;
   padding: 0.75rem;
   cursor: pointer;
+  height: 56px;
+  width: 100%;
+  margin: 5px 0;
+  opacity: 1;
+  font-size: ${FONT_SIZE_20};
 
   &:hover {
-    background-color: #0a558c;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px #62b0e8;
-    background-color: #0a558c;
+    opacity: 0.9;
+    transition: opacity 200ms;
   }
 `;
 
