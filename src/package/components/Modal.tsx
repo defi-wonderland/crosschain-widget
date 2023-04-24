@@ -12,7 +12,7 @@ const SBaseModal = styled.div`
   pointer-events: all;
   z-index: 10;
   width: 652px;
-  max-height: 85%;
+  max-height: 700px;
   display: flex;
   flex-direction: column;
   justify-items: center;

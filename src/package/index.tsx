@@ -7,7 +7,7 @@ import { NavigationProvider } from "~/Context";
 import { PropTheme } from "~/types";
 
 const GlobalStyle = createGlobalStyle<PropTheme>`
-  .modal p,.modal h1,.modal span,.modal strong {
+  .modal h1,.modal span,.modal strong {
     padding: 0;
     margin: 0;
     font-size: ${FONT_SIZE_16};
@@ -30,6 +30,25 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
     font-size: inherit;
     cursor: inherit;
     line-height: inherit;
+  }
+
+  .modal::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+  .modal::-webkit-scrollbar-thumb {
+    background: #373737;
+    border-radius: 4px;
+  }
+
+  .modal::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .modal::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
   }
 `;
 

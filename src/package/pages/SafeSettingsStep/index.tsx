@@ -8,7 +8,6 @@ import { isAddress } from "~/utils";
 export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
   const [inputAddress, setInputAddress] = useState<string>("");
-  const [safeName, setSafeName] = useState<string>("");
   const [isValid, setValid] = useState(false);
   const [addresses, setAddresses] = useState<string[]>([]);
 
@@ -35,28 +34,8 @@ export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
   };
 
   return (
-    <BaseModal {...props} onClose={onClose} header="Cross-chain Action">
-      <h2>Safe Settings</h2>
-
-      <Text>Safe Name:</Text>
-      <SInput
-        placeholder="Input Safe Name"
-        value={safeName}
-        onChange={(e) => setSafeName(e.target.value)}
-      />
-
-      <Text>Safe Owners:</Text>
-      <SInput
-        placeholder="Input Owner Address"
-        value={inputAddress}
-        onChange={(e) => setInputAddress(e.target.value)}
-      />
-      {!isValid && (
-        <span style={{ color: "red" }}>Invalid Ethereum Address</span>
-      )}
-      {inputAddress && isValid && (
-        <Button onClick={() => addAddress()}>➕</Button>
-      )}
+    <BaseModal {...props} onClose={onClose} header="Safe Configuration">
+      <Text>Owner address:</Text>
       <div>
         {addresses.map((address) => (
           <div
@@ -72,20 +51,40 @@ export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
           </div>
         ))}
       </div>
+      <SInput
+        placeholder="Input Owner Address"
+        value={inputAddress}
+        onChange={(e) => setInputAddress(e.target.value)}
+      />
+      {!isValid && (
+        <span style={{ color: "red" }}>Invalid Ethereum Address</span>
+      )}
+      {inputAddress && isValid && (
+        <Button onClick={() => addAddress()}>➕</Button>
+      )}
+      <Button onClick={() => addAddress()}>+ Add new owner</Button>
 
-      <Button
-        onClick={async () => {
-          setType(StepType.START);
-        }}
-      >
-        Go back
-      </Button>
+      <h1>Threshold</h1>
+      <Text>Any transaction requires the confirmation of:</Text>
+      <SInput
+        placeholder="Threshold"
+        value={1}
+        onChange={(e) => setInputAddress(e.target.value)}
+      />
+      <Text>out of 1 owner(s).</Text>
       <Button
         onClick={async () => {
           setType(StepType.TRANSACTION);
         }}
       >
-        Next
+        Continue
+      </Button>
+      <Button
+        onClick={async () => {
+          setType(StepType.START);
+        }}
+      >
+        Back
       </Button>
     </BaseModal>
   );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { BaseModal, Button, Text } from "~/components";
+import { BaseModal, Button, SInput, STextArea, Text } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useNavigationContext } from "~/Context";
 import { copyData } from "~/utils";
@@ -20,22 +20,30 @@ export const FinishStep = ({ onClose, ...props }: ModalProps) => {
   };
 
   return (
-    <BaseModal {...props} onClose={onClose} header="xCallData Review Step">
-      <h2>Croos-chain Action</h2>
-
-      <h2>Success!</h2>
-
-      <Text>Data...</Text>
+    <BaseModal {...props} onClose={onClose} header="xCallData Confirmation">
+      <br />
+      <Text>Origin chain: Ethereum</Text>
+      <Text>Origin sender: 0x000000000000000000000000000001</Text>
+      <Text>Destination chain: Optimism</Text>
+      <Text>Destination sender: 0x000000000000000000000000000001</Text>
+      <br />
+      <h1>Transaction Information</h1>
+      <Text>to:</Text>
+      <SInput
+        placeholder="param 1"
+        value={"0x0000000000000000000000000000"}
+        disabled
+      />
+      <Text>value:</Text>
+      <SInput placeholder="param 2" value={"1.00"} disabled />
+      <Text>xCallData parameters:</Text>
+      <STextArea
+        wrap="on"
+        value={"0x606060405260408051908101604052..."}
+        disabled
+      />
       <Button onClick={() => handleCopy()}>Copy Data</Button>
       {copied && <Text>Copied to clipboard!</Text>}
-
-      <Text>Origin Chain: Ethereum</Text>
-      <Text>Origin sender: 0x0000000000000000000000</Text>
-      <Text>Destination Chain: Optimism</Text>
-      <Text>Destination Safe: 0x111111111111111111111111111</Text>
-
-      <Text>Transactions batch...</Text>
-
       <Button
         onClick={async () => {
           setType(StepType.None);

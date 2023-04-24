@@ -10,6 +10,7 @@ const SSelector = styled.select`
   cursor: pointer;
   line-height: 1.5;
   color: inherit;
+  margin: 5px 0;
 
   & option {
     background-color: ${({ theme }: PropTheme) => theme.background};
