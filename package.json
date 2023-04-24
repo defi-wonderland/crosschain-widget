@@ -20,7 +20,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview",
+    "build:dev": "vite build -c ./vite.config.dev.ts --outDir build",
+    "preview": "vite preview --outDir build",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "yarn run lint -- --fix",
     "prettier": "prettier src --write",
