@@ -8,7 +8,7 @@ import {
   TransactionStep,
   SafeSettingsStep,
 } from "~/pages";
-import { useNavigationContext } from "~/Context";
+import { useNavigationContext } from "~/providers";
 import { StepType } from "~/types";
 import { StyledBackdrop, StyledModals } from "./Transitions.styled";
 

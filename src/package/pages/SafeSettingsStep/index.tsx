@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { BaseModal, Button, Text, SInput } from "~/components";
 import { ModalProps, StepType } from "~/types";
-import { useNavigationContext } from "~/Context";
+import { useNavigationContext } from "~/providers";
 import { isAddress } from "~/utils";
 
 export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {

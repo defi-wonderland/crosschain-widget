@@ -7,7 +7,7 @@ import {
   STextArea,
 } from "~/components";
 import { ModalProps, StepType } from "~/types";
-import { useNavigationContext } from "~/Context";
+import { useNavigationContext } from "~/providers";
 
 export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
   const { setType } = useNavigationContext();

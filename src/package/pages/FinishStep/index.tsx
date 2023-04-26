@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { BaseModal, Button, SInput, STextArea, Text } from "~/components";
 import { ModalProps, StepType } from "~/types";
-import { useNavigationContext } from "~/Context";
+import { useNavigationContext } from "~/providers";
 import { copyData } from "~/utils";
 
 export const FinishStep = ({ onClose, ...props }: ModalProps) => {

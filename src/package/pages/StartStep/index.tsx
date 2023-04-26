@@ -1,9 +1,10 @@
 import { BaseModal, Button, Text, Dropdown } from "~/components";
 import { ModalProps, StepType } from "~/types";
-import { useNavigationContext } from "~/Context";
+import { useDataContext, useNavigationContext } from "~/providers";
 
 export const StartStep = ({ onClose, ...props }: ModalProps) => {
-  const { address, setType, chainId } = useNavigationContext();
+  const { address, chainId } = useDataContext();
+  const { setType } = useNavigationContext();
 
   const hasModule = true;
   return (

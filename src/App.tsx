@@ -7,8 +7,8 @@ function App() {
       <h1>Vite + React</h1>
 
       <ZodiacConnextWidget
-        originAddress="0x0000000"
-        originChainId={1}
+        originAddress="0x0000000123123131"
+        originChainId={55}
         text="Open Modal"
       />
 

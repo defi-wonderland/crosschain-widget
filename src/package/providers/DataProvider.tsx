@@ -1,12 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 
-import { StepType } from "./types";
-
-export type ContextType = {
-  // Control Modal
-  type: StepType | null;
-  setType: (val: StepType | null) => void;
-
+type ContextType = {
   // Address control
   address: string | null;
   setAddress: (val: string) => void;
@@ -22,14 +16,13 @@ interface ModalProps {
   children: React.ReactElement;
 }
 
-export const NavigationContext = createContext({} as ContextType);
+const DataContext = createContext({} as ContextType);
 
-export const NavigationProvider = ({
+export const DataProvider = ({
   children,
   originAddress,
   originChainId,
 }: ModalProps) => {
-  const [type, setType] = useState<StepType | null>(null);
   const [address, setAddress] = useState<string | null>(null);
   const [chainId, setChainId] = useState<number | null>(null);
 
@@ -39,10 +32,8 @@ export const NavigationProvider = ({
   }, [originAddress, originChainId]);
 
   return (
-    <NavigationContext.Provider
+    <DataContext.Provider
       value={{
-        type,
-        setType,
         address,
         setAddress,
         chainId,
@@ -50,15 +41,15 @@ export const NavigationProvider = ({
       }}
     >
       {children}
-    </NavigationContext.Provider>
+    </DataContext.Provider>
   );
 };
 
-export const useNavigationContext = () => {
-  const context = useContext(NavigationContext);
+export const useDataContext = () => {
+  const context = useContext(DataContext);
 
   if (context === undefined) {
-    throw new Error("useNavigationContext must be used within a ModalProvider");
+    throw new Error("useDataContext must be used within a DataProvider");
   }
 
   return context;

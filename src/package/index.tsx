@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 
 import { Navigator, Themable, FONT_SIZE_16 } from "~/components";
 import { WidgetButton } from "~/WidgetButton";
-import { NavigationProvider } from "~/Context";
+import { NavigationProvider, DataProvider } from "~/providers";
 import { PropTheme } from "~/types";
 
 const GlobalStyle = createGlobalStyle<PropTheme>`
@@ -52,29 +52,28 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
   }
 `;
 
-export interface ModalProps {
+export interface WidgetProps {
   originAddress: string;
   originChainId: number;
   text?: string;
 }
 
-export const ZodiacConnextWidget: FC<ModalProps> = ({
+export const ZodiacConnextWidget: FC<WidgetProps> = ({
   originAddress,
   originChainId,
   text,
 }) => {
   return (
     <Themable>
-      <NavigationProvider
-        originAddress={originAddress}
-        originChainId={originChainId}
-      >
-        <>
-          <GlobalStyle />
-          <WidgetButton text={text} />
-          <Navigator />
-        </>
-      </NavigationProvider>
+      <DataProvider originAddress={originAddress} originChainId={originChainId}>
+        <NavigationProvider>
+          <>
+            <GlobalStyle />
+            <WidgetButton text={text} />
+            <Navigator />
+          </>
+        </NavigationProvider>
+      </DataProvider>
     </Themable>
   );
 };

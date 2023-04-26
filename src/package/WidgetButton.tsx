@@ -1,4 +1,4 @@
-import { useNavigationContext } from "./Context";
+import { useNavigationContext } from "./providers";
 import { StepType } from "./types";
 
 export const WidgetButton = ({ text }: { text?: string }) => {
