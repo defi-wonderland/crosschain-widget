@@ -19,13 +19,22 @@ const SButton = styled.button`
     opacity: 0.9;
     transition: opacity 200ms;
   }
+
+  &:disabled {
+    opacity: 0.4;
+  }
 `;
 
 interface ButtonProps {
   children: any;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
-export const Button = ({ children, onClick }: ButtonProps) => {
-  return <SButton onClick={onClick}>{children}</SButton>;
+export const Button = ({ children, onClick, disabled }: ButtonProps) => {
+  return (
+    <SButton onClick={onClick} disabled={disabled}>
+      {children}
+    </SButton>
+  );
 };

@@ -1,56 +1,55 @@
 import { useEffect, useState } from "react";
 
-import { BaseModal, Button, Text, SInput } from "~/components";
+import { BaseModal, Button, Text, SInput, Dropdown } from "~/components";
+import { useDataContext, useNavigationContext } from "~/providers";
 import { ModalProps, StepType } from "~/types";
-import { useNavigationContext } from "~/providers";
 import { isAddress } from "~/utils";
 
 export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
+  const { setOwners, setThreshold, owners } = useDataContext();
   const { setType } = useNavigationContext();
+
   const [inputAddress, setInputAddress] = useState<string>("");
-  const [isValid, setValid] = useState(false);
-  const [addresses, setAddresses] = useState<string[]>([]);
+  const [isValid, setValid] = useState(true);
+
+  const removeItem = (item: string) => {
+    const index = owners.indexOf(item);
+    const newAddresses = [...owners];
+    newAddresses.splice(index, 1);
+    setOwners(newAddresses);
+  };
+
+  const addOwner = () => {
+    setOwners([...owners, inputAddress]);
+    setInputAddress("");
+  };
 
   useEffect(() => {
     if (inputAddress) {
-      const isRepited = addresses.find((address) => address === inputAddress);
-      console.log(isAddress(inputAddress), !isRepited);
+      const isRepited = owners.find((address) => address === inputAddress);
       setValid(isAddress(inputAddress) && !isRepited);
     } else {
       setValid(true);
     }
-  }, [inputAddress, isValid, addresses]);
-
-  const removeItem = (item: string) => {
-    const index = addresses.indexOf(item);
-    const newAddresses = [...addresses];
-    newAddresses.splice(index, 1);
-    setAddresses(newAddresses);
-  };
-
-  const addAddress = () => {
-    setAddresses([inputAddress, ...addresses]);
-    setInputAddress("");
-  };
+  }, [inputAddress, isValid, owners]);
 
   return (
     <BaseModal {...props} onClose={onClose} header="Safe Configuration">
+      {/* Owners Section */}
       <Text>Owner address:</Text>
-      <div>
-        {addresses.map((address) => (
-          <div
-            key={address}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Text>{address}</Text>
-            <Button onClick={() => removeItem(address)}>✖</Button>
-          </div>
-        ))}
-      </div>
+      {owners.map((address) => (
+        <div
+          key={address}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Text>{address}</Text>
+          <Button onClick={() => removeItem(address)}>✖</Button>
+        </div>
+      ))}
       <SInput
         placeholder="Input Owner Address"
         value={inputAddress}
@@ -59,26 +58,35 @@ export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
       {!isValid && (
         <span style={{ color: "red" }}>Invalid Ethereum Address</span>
       )}
-      {inputAddress && isValid && (
-        <Button onClick={() => addAddress()}>➕</Button>
-      )}
-      <Button onClick={() => addAddress()}>+ Add new owner</Button>
 
+      <Button onClick={() => addOwner()} disabled={!isValid || !inputAddress}>
+        + Add owner
+      </Button>
+
+      {/* Threshold section */}
       <h1>Threshold</h1>
+
       <Text>Any transaction requires the confirmation of:</Text>
-      <SInput
-        placeholder="Threshold"
-        value={1}
-        onChange={(e) => setInputAddress(e.target.value)}
-      />
-      <Text>out of 1 owner(s).</Text>
+      <Dropdown name="threshold" onChange={(e) => setThreshold(e.target.value)}>
+        {owners.map((value, index) => (
+          <option key={index + 1} value={index + 1}>
+            {index + 1}
+          </option>
+        ))}
+      </Dropdown>
+      <Text>out of {owners.length} owner(s).</Text>
+
+      {/* Continue button */}
       <Button
         onClick={async () => {
           setType(StepType.TRANSACTION);
         }}
+        disabled={!owners.length}
       >
         Continue
       </Button>
+
+      {/* Back button */}
       <Button
         onClick={async () => {
           setType(StepType.START);

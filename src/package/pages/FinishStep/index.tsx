@@ -2,11 +2,12 @@ import { useState } from "react";
 
 import { BaseModal, Button, SInput, STextArea, Text } from "~/components";
 import { ModalProps, StepType } from "~/types";
-import { useNavigationContext } from "~/providers";
+import { useDataContext, useNavigationContext } from "~/providers";
 import { copyData } from "~/utils";
 
 export const FinishStep = ({ onClose, ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
+  const { owners, threshold } = useDataContext();
   const [data, setData] = useState("arbitrary data...");
   const [copied, setCopied] = useState(false);
 
@@ -17,6 +18,9 @@ export const FinishStep = ({ onClose, ...props }: ModalProps) => {
     setTimeout(() => {
       setCopied(false);
     }, 2000);
+
+    // temporary
+    console.log(owners, threshold);
   };
 
   return (

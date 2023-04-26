@@ -8,6 +8,14 @@ type ContextType = {
   // Chain control
   chainId: number | null;
   setChainId: (val: number) => void;
+
+  // Safe onwners
+  owners: string[];
+  setOwners: (address: string[]) => void;
+
+  // Safe threshold
+  threshold: string | null;
+  setThreshold: (val: string) => void;
 };
 
 interface ModalProps {
@@ -25,6 +33,8 @@ export const DataProvider = ({
 }: ModalProps) => {
   const [address, setAddress] = useState<string | null>(null);
   const [chainId, setChainId] = useState<number | null>(null);
+  const [owners, setOwners] = useState<string[]>([]);
+  const [threshold, setThreshold] = useState<string | null>(null);
 
   useEffect(() => {
     setAddress(originAddress);
@@ -38,6 +48,10 @@ export const DataProvider = ({
         setAddress,
         chainId,
         setChainId,
+        owners,
+        setOwners,
+        threshold,
+        setThreshold,
       }}
     >
       {children}
