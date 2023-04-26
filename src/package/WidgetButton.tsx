@@ -1,16 +1,28 @@
+import { useEffect } from "react";
 import { useNavigationContext } from "./providers";
 import { StepType } from "./types";
 
-export const WidgetButton = ({ text }: { text?: string }) => {
+interface WidgetButtonProps {
+  text?: string;
+  modal?: boolean;
+}
+
+export const WidgetButton = ({ text, modal }: WidgetButtonProps) => {
   const { setType } = useNavigationContext();
+
+  useEffect(() => {
+    setType(StepType.None);
+    if (!modal) setType(StepType.START);
+  }, [modal]);
+
   return (
-    <button
-      onClick={() => {
-        setType(StepType.START);
-      }}
-    >
-      {text && text}
-      {!text && "Cross-Chain Widget"}
-    </button>
+    <>
+      {modal && (
+        <button onClick={() => setType(StepType.START)}>
+          {text && text}
+          {!text && "Cross-Chain Widget"}
+        </button>
+      )}
+    </>
   );
 };

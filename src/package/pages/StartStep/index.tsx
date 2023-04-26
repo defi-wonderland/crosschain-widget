@@ -1,12 +1,37 @@
+import { useEffect, useState } from "react";
+
+import { useDataContext, useNavigationContext } from "~/providers";
 import { BaseModal, Button, Text, Dropdown } from "~/components";
 import { ModalProps, StepType } from "~/types";
-import { useDataContext, useNavigationContext } from "~/providers";
 
 export const StartStep = ({ onClose, ...props }: ModalProps) => {
-  const { address, chainId } = useDataContext();
   const { setType } = useNavigationContext();
+  const [selectedChain, setSelectedChain] = useState("mainnet");
+  const [safeList, setSafeList] = useState<string[]>([]);
+  const { address, chainId } = useDataContext();
 
+  const [loading, setLoading] = useState(false);
   const hasModule = true;
+
+  const getSafe = async () => {
+    setLoading(true);
+    const endpoint = `api/v1/owners/${address}/safes/`;
+    try {
+      const response = await fetch(
+        `https://safe-transaction-${selectedChain}.safe.global/${endpoint}`
+      );
+      const jsonData = await response.json();
+      setSafeList(jsonData.safes);
+    } catch (error) {
+      console.log("error getting safes");
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getSafe();
+  }, [selectedChain]);
+
   return (
     <BaseModal {...props} onClose={onClose} header="Cross chain action">
       <Text>Sending as: {address}</Text>
@@ -14,20 +39,29 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
 
       <div>
         <Text>Select destination chain:</Text>
-        <Dropdown name="Chains">
-          <option value="Ethereum">Ethereum</option>
-          <option value="Optimism">Optimism</option>
-          <option value="Arbitrum">Arbitrum</option>
+        <Dropdown
+          name="Chains"
+          onChange={(e) => setSelectedChain(e.target.value)}
+        >
+          <option value="mainnet">Ethereum</option>
+          <option value="optimism">Optimism</option>
+          <option value="arbitrum">Arbitrum</option>
+          <option value="goerli">Goerli</option>
         </Dropdown>
       </div>
 
-      <div>
+      <div style={{ width: "100%" }}>
         <Text>Select destination safe:</Text>
-        <Dropdown name="SafeAlias">
-          <option value="0x1234...abcd">0x1234...abcd</option>
-          <option value="0x1234...abcd">0x1234...abcd</option>
-          <option value="0x1234...abcd">0x1234...ffff</option>
-        </Dropdown>
+        {loading && <Text>Fetching safe...</Text>}
+        {!loading && (
+          <Dropdown name="SafeAlias">
+            {safeList?.map((safeAddress) => (
+              <option key={safeAddress} value={safeAddress}>
+                {safeAddress}
+              </option>
+            ))}
+          </Dropdown>
+        )}
       </div>
 
       <Button

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { createGlobalStyle } from "styled-components";
 
-import { Navigator, Themable, FONT_SIZE_16 } from "~/components";
+import { Transitions, Themable, FONT_SIZE_16 } from "~/components";
 import { WidgetButton } from "~/WidgetButton";
 import { NavigationProvider, DataProvider } from "~/providers";
 import { PropTheme } from "~/types";
@@ -56,12 +56,14 @@ export interface WidgetProps {
   originAddress: string;
   originChainId: number;
   text?: string;
+  modal?: boolean;
 }
 
 export const ZodiacConnextWidget: FC<WidgetProps> = ({
   originAddress,
   originChainId,
   text,
+  modal = true,
 }) => {
   return (
     <Themable>
@@ -69,8 +71,8 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
         <NavigationProvider>
           <>
             <GlobalStyle />
-            <WidgetButton text={text} />
-            <Navigator />
+            <WidgetButton text={text} modal={modal} />
+            <Transitions modal={modal} />
           </>
         </NavigationProvider>
       </DataProvider>

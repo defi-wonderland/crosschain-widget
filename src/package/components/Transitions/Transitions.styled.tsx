@@ -1,10 +1,15 @@
 import { TransitionGroup } from "react-transition-group";
 import styled from "styled-components";
 
-export const StyledModals = styled(TransitionGroup)`
-  position: fixed;
-  top: 0;
-  left: 0;
+export const StyledModals = styled(TransitionGroup)<{ modal?: string }>`
+  ${({ modal }) =>
+    modal === "true" &&
+    `
+    position: fixed;
+    top: 0;
+    left: 0;
+  `}
+
   width: 100%;
   height: 100%;
   display: flex;

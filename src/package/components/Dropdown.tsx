@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { PropTheme } from "~/types";
 
-const SSelector = styled.select`
+export const Dropdown = styled.select`
   width: 100%;
   border: ${({ theme }: PropTheme) => theme.borderPrimary};
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
@@ -17,12 +17,3 @@ const SSelector = styled.select`
     color: ${({ theme }: PropTheme) => theme.textPrimary};
   }
 `;
-
-interface DropDownProps {
-  name: string;
-  children: any;
-}
-
-export const Dropdown = ({ children, name }: DropDownProps) => {
-  return <SSelector name={name}>{children}</SSelector>;
-};

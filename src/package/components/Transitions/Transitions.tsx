@@ -26,7 +26,7 @@ export const Backdrop = ({ setType }: BackdropProps) => {
   );
 };
 
-export const Navigator = () => {
+export const Transitions = ({ modal }: { modal?: boolean }) => {
   const modalTimeout = 200;
   const { setType, type } = useNavigationContext();
   const [activeModal, setActiveModal] = useState<StepType | null>(null);
@@ -50,7 +50,7 @@ export const Navigator = () => {
   return (
     <StyledBackdrop>
       {/* //////////////////////////// BACKDROP ///////////////////////////// */}
-      {backdrop && (
+      {modal && backdrop && (
         <CSSTransition
           nodeRef={backdropRef}
           key={"backdrop"}
@@ -62,7 +62,8 @@ export const Navigator = () => {
       )}
 
       {/* //////////////////////////// MODALS ///////////////////////////// */}
-      <StyledModals>
+      {/* 'modal?.toString()' is needed to avoid a TransitionGroup error */}
+      <StyledModals modal={modal?.toString()}>
         {activeModal === StepType.START && (
           <CSSTransition
             nodeRef={startStepRef}
