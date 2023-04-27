@@ -40,6 +40,7 @@
     "react-dom": "16.8.0 || >=17.x"
   },
   "dependencies": {
+    "ethers": "5.6.8",
     "react-transition-group": "4.4.5",
     "styled-components": "5.3.9"
   },

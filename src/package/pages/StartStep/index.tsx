@@ -3,24 +3,21 @@ import { useEffect, useState } from "react";
 import { useDataContext, useNavigationContext } from "~/providers";
 import { BaseModal, Button, Text, Dropdown } from "~/components";
 import { ModalProps, StepType } from "~/types";
+import { fetchData, getSafeAddressUrl } from "~/utils";
 
 export const StartStep = ({ onClose, ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
-  const [selectedChain, setSelectedChain] = useState("mainnet");
-  const [safeList, setSafeList] = useState<string[]>([]);
-  const { address, chainId } = useDataContext();
+  const { address, chainId, setDestinyChain, destinyChain } = useDataContext();
 
+  const [safeList, setSafeList] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const hasModule = true;
 
   const getSafe = async () => {
     setLoading(true);
-    const endpoint = `api/v1/owners/${address}/safes/`;
     try {
-      const response = await fetch(
-        `https://safe-transaction-${selectedChain}.safe.global/${endpoint}`
-      );
-      const jsonData = await response.json();
+      const url = getSafeAddressUrl(destinyChain, address!);
+      const jsonData = await fetchData(url);
       setSafeList(jsonData.safes);
     } catch (error) {
       console.log("error getting safes");
@@ -30,7 +27,7 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
 
   useEffect(() => {
     getSafe();
-  }, [selectedChain]);
+  }, [destinyChain]);
 
   return (
     <BaseModal {...props} onClose={onClose} header="Cross chain action">
@@ -41,7 +38,7 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
         <Text>Select destination chain:</Text>
         <Dropdown
           name="Chains"
-          onChange={(e) => setSelectedChain(e.target.value)}
+          onChange={(e) => setDestinyChain(e.target.value)}
         >
           <option value="mainnet">Ethereum</option>
           <option value="optimism">Optimism</option>

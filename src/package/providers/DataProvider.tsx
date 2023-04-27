@@ -5,9 +5,13 @@ type ContextType = {
   address: string | null;
   setAddress: (val: string) => void;
 
-  // Chain control
+  // Origin Chain control
   chainId: number | null;
   setChainId: (val: number) => void;
+
+  // Destiny Chain control
+  destinyChain: string;
+  setDestinyChain: (val: string) => void;
 
   // Safe onwners
   owners: string[];
@@ -33,6 +37,8 @@ export const DataProvider = ({
 }: ModalProps) => {
   const [address, setAddress] = useState<string | null>(null);
   const [chainId, setChainId] = useState<number | null>(null);
+  const [destinyChain, setDestinyChain] = useState<string>("mainnet");
+
   const [owners, setOwners] = useState<string[]>([]);
   const [threshold, setThreshold] = useState<string | null>(null);
 
@@ -47,6 +53,8 @@ export const DataProvider = ({
         address,
         setAddress,
         chainId,
+        destinyChain,
+        setDestinyChain,
         setChainId,
         owners,
         setOwners,

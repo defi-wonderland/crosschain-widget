@@ -24,8 +24,7 @@ export default defineConfig(() => ({
     },
     rollupOptions: {
       external: [
-        "react-transition-group",
-        "styled-components",
+        ...Object.keys(packageJson.dependencies),
         ...Object.keys(packageJson.peerDependencies),
       ],
       output: {

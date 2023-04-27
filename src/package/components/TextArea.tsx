@@ -36,4 +36,8 @@ export const STextArea = styled.textarea`
   &::-webkit-scrollbar-thumb:active {
     background-color: #999999;
   }
+
+  &:disabled {
+    opacity: 0.4;
+  }
 `;
