@@ -7,7 +7,7 @@ import { copyData } from "~/utils";
 
 export const FinishStep = ({ onClose, ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
-  const { owners, threshold } = useDataContext();
+  const { owners, threshold, txData } = useDataContext();
   const [data, setData] = useState("arbitrary data...");
   const [copied, setCopied] = useState(false);
 
@@ -20,7 +20,7 @@ export const FinishStep = ({ onClose, ...props }: ModalProps) => {
     }, 2000);
 
     // temporary
-    console.log(owners, threshold);
+    console.log(owners, threshold, txData);
   };
 
   return (
@@ -41,11 +41,7 @@ export const FinishStep = ({ onClose, ...props }: ModalProps) => {
       <Text>value:</Text>
       <SInput placeholder="param 2" value={"1.00"} disabled />
       <Text>xCallData parameters:</Text>
-      <STextArea
-        wrap="on"
-        value={"0x606060405260408051908101604052..."}
-        disabled
-      />
+      <STextArea wrap="on" value={JSON.stringify(txData)} disabled />
       <Button onClick={() => handleCopy()}>Copy Data</Button>
       {copied && <Text>Copied to clipboard!</Text>}
       <Button
@@ -54,6 +50,13 @@ export const FinishStep = ({ onClose, ...props }: ModalProps) => {
         }}
       >
         Confirm
+      </Button>
+      <Button
+        onClick={async () => {
+          setType(StepType.TRANSACTION);
+        }}
+      >
+        Back
       </Button>
     </BaseModal>
   );

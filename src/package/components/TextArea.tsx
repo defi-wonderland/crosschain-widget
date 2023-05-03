@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { PropTheme } from "~/types";
 import { FONT_SIZE_16 } from "./Variables";
 
-export const STextArea = styled.textarea`
+export const STextArea = styled.textarea.attrs({ spellcheck: false })`
   border: ${({ theme }: PropTheme) => theme.borderPrimary};
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.background};

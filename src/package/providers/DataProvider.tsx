@@ -1,5 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 
+import { TxData } from "~/types";
+
 type ContextType = {
   // Address control
   address: string | null;
@@ -20,6 +22,14 @@ type ContextType = {
   // Safe threshold
   threshold: string | null;
   setThreshold: (val: string) => void;
+
+  // Destiny Transaction data
+  txData: TxData | null;
+  setTxData: (value: TxData) => void;
+
+  // Origin Transaction data
+  // xCallData: XCallData;
+  // setCallData: (XCallData) => void;
 };
 
 interface ModalProps {
@@ -41,6 +51,7 @@ export const DataProvider = ({
 
   const [owners, setOwners] = useState<string[]>([]);
   const [threshold, setThreshold] = useState<string | null>(null);
+  const [txData, setTxData] = useState<TxData | null>(null);
 
   useEffect(() => {
     setAddress(originAddress);
@@ -60,6 +71,8 @@ export const DataProvider = ({
         setOwners,
         threshold,
         setThreshold,
+        txData,
+        setTxData,
       }}
     >
       {children}

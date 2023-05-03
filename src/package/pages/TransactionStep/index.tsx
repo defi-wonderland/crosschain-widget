@@ -11,67 +11,123 @@ import {
 } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useNavigationContext, useDataContext } from "~/providers";
-import { fetchData, isAddress, getContractAbiUrl } from "~/utils";
+import { isAddress, encodeFunction, getContractAbi } from "~/utils";
+
+interface TxState {
+  abiItem?: string;
+  method?: FunctionFragment;
+  contractAddress?: string;
+  contractInterface?: Interface;
+  paramsArray?: string[];
+  encodedTx?: string;
+  value?: string;
+}
 
 export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
-  const { destinyChain } = useDataContext();
-
-  const [abiItem, setAbiItem] = useState("");
-  const [method, setMethod] = useState<FunctionFragment | null>();
-  const [contractAddress, setContractAddress] = useState("");
-  const [contractInterface, setContractInterface] = useState<{
-    [name: string]: FunctionFragment;
-  } | null>();
+  const { destinyChain, txData, setTxData } = useDataContext();
+  const [txState, setTxState] = useState<TxState>({});
 
   const [abiError, setAbiError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const getContractAbi = async () => {
-    setLoading(true);
-    try {
-      const url = getContractAbiUrl(destinyChain, contractAddress);
-      const jsonData = await fetchData(url);
-      setAbiItem(JSON.stringify(jsonData.contractAbi.abi));
-    } catch (error) {
-      console.log("error getting contract abi");
+  const {
+    abiItem,
+    method,
+    contractAddress,
+    contractInterface,
+    paramsArray,
+    encodedTx,
+    value,
+  } = txState;
+
+  const handleSetState = (newValue: TxState) => {
+    setTxState({ ...txState, ...newValue });
+  };
+
+  const handleSetParam = (value: string, index: number) => {
+    if (paramsArray) {
+      const newParamsArray = [...paramsArray];
+      newParamsArray[index] = value;
+      handleSetState({ paramsArray: newParamsArray });
     }
-    setLoading(false);
   };
 
   useEffect(() => {
-    try {
-      const iContract = new Interface(abiItem);
-      setContractInterface(iContract.functions);
-      setAbiError(false);
-    } catch (error) {
-      setAbiError(true);
-      setContractInterface(null);
+    if (abiItem) {
+      try {
+        const iContract = new Interface(abiItem);
+        handleSetState({
+          contractInterface: iContract,
+          // set as default method the first writable method
+          method: Object.entries(iContract.functions).filter(
+            (key) =>
+              key[1].stateMutability === "payable" ||
+              key[1].stateMutability === "nonpayable"
+          )[0][1],
+        });
+
+        setAbiError(false);
+      } catch (error) {
+        setAbiError(true);
+        handleSetState({ contractInterface: undefined });
+      }
     }
   }, [abiItem]);
 
   useEffect(() => {
-    if (isAddress(contractAddress)) {
-      getContractAbi();
+    if (contractAddress && isAddress(contractAddress)) {
+      setLoading(true);
+      getContractAbi(destinyChain, contractAddress).then((abi) => {
+        handleSetState({
+          abiItem: abi,
+        });
+        setLoading(false);
+      });
     }
   }, [contractAddress]);
+
+  useEffect(() => {
+    if (contractInterface && method && paramsArray) {
+      const encondedFunction = encodeFunction(
+        contractInterface,
+        method,
+        paramsArray
+      );
+
+      handleSetState({
+        encodedTx: encondedFunction,
+      });
+    }
+  }, [method, paramsArray]);
+
+  useEffect(() => {
+    if (method && encodedTx && contractAddress)
+      setTxData({
+        ...txData,
+        to: contractAddress,
+        value: value || "0",
+        calldata: encodedTx,
+        name: method?.name,
+      });
+  }, [encodedTx, value]);
 
   return (
     <BaseModal {...props} onClose={onClose} header="Transaction Input Setup">
       <Text>Enter Address</Text>
       <SInput
         placeholder="target contract address"
-        onChange={(e) => setContractAddress(e.target.value)}
+        onChange={(e) => handleSetState({ contractAddress: e.target.value })}
       />
       <Text>Enter ABI</Text>
       <STextArea
         value={abiItem}
-        onChange={(e) => setAbiItem(e.target.value)}
+        onChange={(e) => handleSetState({ abiItem: e.target.value })}
         disabled={loading}
       />
       {abiItem && abiError && <Text style={{ color: "red" }}>Invalid ABI</Text>}
       <br />
-      {contractInterface && (
+      {contractInterface?.functions && (
         <>
           <h1>Transaction Information</h1>
 
@@ -79,15 +135,16 @@ export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
           <Text>Contract Method Selector</Text>
           <Dropdown
             name={"method"}
-            onChange={(e) =>
-              setMethod(
-                Object.entries(contractInterface).filter(
+            onChange={(e) => {
+              handleSetState({
+                paramsArray: [], // reset paramsArray before changing the method
+                method: Object.entries(contractInterface.functions).filter(
                   (key) => key[1].name === e.target.value
-                )[0][1]
-              )
-            }
+                )[0][1],
+              });
+            }}
           >
-            {Object.entries(contractInterface).map((functionName) => (
+            {Object.entries(contractInterface.functions).map((functionName) => (
               <>
                 {/* Show only writable functions */}
                 {(functionName[1].stateMutability === "payable" ||
@@ -104,11 +161,14 @@ export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
           </Dropdown>
 
           {/* Parameters */}
-          {method?.inputs.map((inputParam) => (
+          {method?.inputs.map((inputParam, index) => (
             <>
               <SInput
                 key={inputParam.name}
                 placeholder={`${inputParam.name || ""} (${inputParam.type})`}
+                onChange={(e) => {
+                  handleSetParam(e.target.value, index);
+                }}
               />
             </>
           ))}
@@ -117,7 +177,11 @@ export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
           {method?.payable && (
             <>
               <Text>value: </Text>
-              <SInput placeholder="value" />
+              <SInput
+                placeholder="value"
+                value={value}
+                onChange={(e) => handleSetState({ value: e.target.value })}
+              />
             </>
           )}
         </>
@@ -126,6 +190,7 @@ export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
         onClick={async () => {
           setType(StepType.XCALLDATA_REVIEW);
         }}
+        disabled={!encodedTx || !contractAddress}
       >
         Continue
       </Button>
