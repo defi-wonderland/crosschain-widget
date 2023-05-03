@@ -5,12 +5,15 @@ export interface Env {
 }
 
 export interface Constants {
+  XCALL_GAS_LIMIT: number;
+  CONNEXT_BUMP: number;
   Chains: {
     [key: string]: {
       name: string;
       id: number;
       domainId: number;
       connextContract: string;
+      gelatoPremium?: number;
       assets?: {
         [key: string]: string;
       };

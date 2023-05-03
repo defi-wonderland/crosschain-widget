@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { providers } from "ethers";
 
 import { BaseModal, Button, SInput, STextArea, Text } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useDataContext, useNavigationContext } from "~/providers";
-import { copyData } from "~/utils";
+import { copyData, estimateRelayerFee } from "~/utils";
 
 export const FinishStep = ({ onClose, ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
@@ -19,8 +20,16 @@ export const FinishStep = ({ onClose, ...props }: ModalProps) => {
       setCopied(false);
     }, 2000);
 
+    const relayerFee = await getRelayerFee();
     // temporary
-    console.log(owners, threshold, txData);
+    console.log(owners, threshold, txData, relayerFee);
+  };
+
+  // temporary
+  const getRelayerFee = async () => {
+    const provider = new providers.JsonRpcProvider("https://eth.llamarpc.com");
+    const relayerFee = await estimateRelayerFee(provider, "mainnet");
+    return relayerFee;
   };
 
   return (

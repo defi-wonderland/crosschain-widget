@@ -2,13 +2,18 @@ import { Constants } from "~/types";
 
 export const getConstants = (): Constants => {
   return {
+    XCALL_GAS_LIMIT: 400000,
+    CONNEXT_BUMP: 0.2,
+
     // See: https://docs.connext.network/resources/supported-chains#mainnet
+    //      https://docs.gelato.network/developer-services/relay/payment-and-fees#gelatos-fees
     Chains: {
       mainnet: {
         name: "Ethereum",
         id: 1,
         domainId: 6648936,
         connextContract: "0x8898B472C54c31894e3B9bb83cEA802a5d0e63C6",
+        gelatoPremium: 0.2,
         assets: {
           USDC: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
           WETH: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -21,6 +26,7 @@ export const getConstants = (): Constants => {
         id: 137,
         domainId: 1886350457,
         connextContract: "0x11984dc4465481512eb5b777E44061C158CF2259",
+        gelatoPremium: 0.7,
         assets: {
           nextUSDC: "0xF96C6d2537e1af1a9503852eB2A4AF264272a5B6",
           USDC: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
@@ -37,6 +43,7 @@ export const getConstants = (): Constants => {
         id: 10,
         domainId: 1869640809,
         connextContract: "0x8f7492DE823025b4CfaAB1D34c58963F2af5DEDA",
+        gelatoPremium: 0.5,
         assets: {
           nextUSDC: "0x67E51f46e8e14D4E4cab9dF48c59ad8F512486DD",
           USDC: "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
@@ -53,6 +60,7 @@ export const getConstants = (): Constants => {
         id: 42161,
         domainId: 1634886255,
         connextContract: "0xEE9deC2712cCE65174B561151701Bf54b99C24C8",
+        gelatoPremium: 0.5,
         assets: {
           nextUSDC: "0x8c556cF37faa0eeDAC7aE665f1Bb0FbD4b2eae36",
           USDC: "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
@@ -69,6 +77,7 @@ export const getConstants = (): Constants => {
         id: 100,
         domainId: 6778479,
         connextContract: "0x5bB83e95f63217CDa6aE3D181BA580Ef377D2109",
+        gelatoPremium: 1,
         assets: {
           nextUSDC: "0x44CF74238d840a5fEBB0eAa089D05b763B73faB8",
           USDC: "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83",
@@ -85,6 +94,7 @@ export const getConstants = (): Constants => {
         id: 56,
         domainId: 6450786,
         connextContract: "0xCd401c10afa37d641d2F594852DA94C700e4F2CE",
+        gelatoPremium: 0.3,
         assets: {
           nextUSDC: "0x5e7D83dA751F4C9694b13aF351B30aC108f32C38",
           USDC: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
@@ -170,3 +180,21 @@ export const getConstants = (): Constants => {
     },
   };
 };
+
+export const XCALL_ABI = [
+  {
+    inputs: [
+      { internalType: "uint32", name: "_destination", type: "uint32" },
+      { internalType: "address", name: "_to", type: "address" },
+      { internalType: "address", name: "_asset", type: "address" },
+      { internalType: "address", name: "_delegate", type: "address" },
+      { internalType: "uint256", name: "_amount", type: "uint256" },
+      { internalType: "uint256", name: "_slippage", type: "uint256" },
+      { internalType: "bytes", name: "_callData", type: "bytes" },
+    ],
+    name: "xcall",
+    outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
+    stateMutability: "payable",
+    type: "function",
+  },
+];
