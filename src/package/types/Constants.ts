@@ -9,6 +9,11 @@ export interface Constants {
     [key: string]: {
       name: string;
       id: number;
+      domainId: number;
+      connextContract: string;
+      assets?: {
+        [key: string]: string;
+      };
     };
   };
 }
