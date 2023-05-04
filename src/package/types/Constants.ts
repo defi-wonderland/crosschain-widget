@@ -13,7 +13,7 @@ export interface Constants {
       id: number;
       domainId: number;
       connextContract: string;
-      gelatoPremium?: number;
+      gelatoPremiumFee?: number;
       assets?: {
         [key: string]: string;
       };
