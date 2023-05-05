@@ -4,7 +4,12 @@ import { providers } from "ethers";
 import { BaseModal, Button, SInput, STextArea, Text } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useDataContext, useNavigationContext } from "~/providers";
-import { copyData, estimateRelayerFee, encodeXCall } from "~/utils";
+import {
+  copyData,
+  estimateRelayerFee,
+  encodeXCall,
+  getChainKey,
+} from "~/utils";
 import { getConstants } from "~/config/constants";
 
 interface FinishState {
@@ -19,16 +24,21 @@ interface FinishState {
 }
 
 export const FinishStep = ({ onClose, ...props }: ModalProps) => {
-  const destinyChainName = "arbitrum";
-  const provider = new providers.JsonRpcProvider("https://eth.llamarpc.com");
+  const provider = new providers.JsonRpcProvider(
+    "https://rpc.ankr.com/eth_goerli"
+  );
 
   const { setType } = useNavigationContext();
-  const { owners, threshold, txData } = useDataContext();
+  const { originChainId } = useDataContext();
   const { Chains } = getConstants();
+  const { owners, threshold, txData, userAddress, destinyChain } =
+    useDataContext();
 
   const [copied, setCopied] = useState(false);
   const [finishState, setFinishState] = useState<FinishState>({});
   const { relayerFee, transactionJson } = finishState;
+
+  const originChainName = getChainKey(originChainId);
 
   const handleCopy = async () => {
     setCopied(true);
@@ -38,37 +48,38 @@ export const FinishStep = ({ onClose, ...props }: ModalProps) => {
       setCopied(false);
     }, 2000);
 
-    const relayerFee = await getRelayerFee();
+    const relayerFee = await estimateRelayerFee(provider, originChainName);
+
     // temporary
     console.log(owners, threshold, txData, relayerFee);
   };
-
-  // temporary
-  const getRelayerFee = async () => {
-    const provider = new providers.JsonRpcProvider("https://eth.llamarpc.com");
-    const relayerFee = await estimateRelayerFee(provider, "mainnet");
-    return relayerFee;
-  };
-
   const getParams = (relayerFee: string) => {
-    // temporary fixed values
+    /* xCallParams:
+      0: destination domaninId
+      1: ZodiacConnextModule (temporary random address)
+      2: asset
+      3: delegate
+      4: amount
+      5: slippage
+      6: callData
+    */
     const xCallParams = [
-      Chains[destinyChainName].domainId.toString(), // destination domaninId
-      "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", // zodiacConnextModule or destinySafe address
-      "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", // asset
-      "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", // delegate
-      "0", // amount
-      "0", // slippage
-      txData?.calldata || "0x", // calldata
+      Chains[destinyChain].domainId.toString(),
+      "0x48268230fda49480579f8843c368e5f7138f4767",
+      Chains[originChainName].assets.TEST,
+      userAddress,
+      "0",
+      "0",
+      txData?.calldata || "0x",
     ];
 
     const encodedData = encodeXCall(xCallParams);
 
     const transactionJson = {
       value: relayerFee,
-      to: Chains[destinyChainName].connextContract, // Connext contract address
-      from: "0x690B9A9E9aa1C9dB991C7721a92d351Db4FaC990", // user address (temporary random address with ETH now)
-      data: encodedData, // encoded data (xcall)
+      to: Chains[originChainName].connextContract,
+      from: userAddress,
+      data: encodedData,
     };
 
     return { xCallParams, transactionJson };
@@ -105,8 +116,8 @@ export const FinishStep = ({ onClose, ...props }: ModalProps) => {
       />
       <Text>value:</Text>
       <SInput placeholder="param 2" value={"1.00"} disabled />
-      <Text>xCallData parameters:</Text>
       <STextArea
+        title="xCallData parameters"
         wrap="on"
         value={`xcall:
       ${JSON.stringify(transactionJson)}

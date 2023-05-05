@@ -79,6 +79,8 @@ export const FONT_SIZE_18 = () => "18px" as const;
 
 export const FONT_SIZE_16 = () => "16px" as const;
 
+export const FONT_SIZE_14 = () => "14px" as const;
+
 export const FONT_SIZE_12 = () => "12px" as const;
 
 export const MOBILE_MAX_WIDTH = 600;

@@ -14,7 +14,7 @@ export interface Constants {
       domainId: number;
       connextContract: string;
       gelatoPremiumFee?: number;
-      assets?: {
+      assets: {
         [key: string]: string;
       };
     };

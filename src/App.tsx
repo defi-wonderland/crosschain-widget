@@ -28,7 +28,7 @@ function App() {
       {isAddress(userAddress) && (
         <ZodiacConnextWidget
           originAddress={userAddress}
-          originChainId={55}
+          userChainId={5}
           text="Open Modal"
           modal={useModal}
         />

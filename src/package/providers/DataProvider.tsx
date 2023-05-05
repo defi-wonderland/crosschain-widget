@@ -4,12 +4,12 @@ import { TxData } from "~/types";
 
 type ContextType = {
   // Address control
-  address: string | null;
-  setAddress: (val: string) => void;
+  userAddress: string;
+  setUserAddress: (val: string) => void;
 
   // Origin Chain control
-  chainId: number | null;
-  setChainId: (val: number) => void;
+  originChainId: number;
+  setOriginChainId: (val: number) => void;
 
   // Destiny Chain control
   destinyChain: string;
@@ -20,11 +20,11 @@ type ContextType = {
   setOwners: (address: string[]) => void;
 
   // Safe threshold
-  threshold: string | null;
+  threshold: string | undefined;
   setThreshold: (val: string) => void;
 
   // Destiny Transaction data
-  txData: TxData | null;
+  txData: TxData | undefined;
   setTxData: (value: TxData) => void;
 
   // Origin Transaction data
@@ -34,7 +34,7 @@ type ContextType = {
 
 interface ModalProps {
   originAddress: string;
-  originChainId: number;
+  userChainId: number;
   children: React.ReactElement;
 }
 
@@ -43,30 +43,30 @@ const DataContext = createContext({} as ContextType);
 export const DataProvider = ({
   children,
   originAddress,
-  originChainId,
+  userChainId,
 }: ModalProps) => {
-  const [address, setAddress] = useState<string | null>(null);
-  const [chainId, setChainId] = useState<number | null>(null);
+  const [userAddress, setUserAddress] = useState<string>("");
+  const [originChainId, setOriginChainId] = useState<number>(1);
   const [destinyChain, setDestinyChain] = useState<string>("mainnet");
 
   const [owners, setOwners] = useState<string[]>([]);
-  const [threshold, setThreshold] = useState<string | null>(null);
-  const [txData, setTxData] = useState<TxData | null>(null);
+  const [threshold, setThreshold] = useState<string | undefined>();
+  const [txData, setTxData] = useState<TxData | undefined>();
 
   useEffect(() => {
-    setAddress(originAddress);
-    setChainId(originChainId);
-  }, [originAddress, originChainId]);
+    setUserAddress(originAddress);
+    setOriginChainId(userChainId);
+  }, [originAddress, userChainId]);
 
   return (
     <DataContext.Provider
       value={{
-        address,
-        setAddress,
-        chainId,
+        userAddress,
+        setUserAddress,
+        originChainId,
+        setOriginChainId,
         destinyChain,
         setDestinyChain,
-        setChainId,
         owners,
         setOwners,
         threshold,

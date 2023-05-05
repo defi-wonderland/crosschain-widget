@@ -1,22 +1,33 @@
 import { useEffect, useState } from "react";
 
 import { useDataContext, useNavigationContext } from "~/providers";
-import { BaseModal, Button, Text, Dropdown } from "~/components";
+import { BaseModal, Button, Text, Dropdown, SInput } from "~/components";
+import { fetchData, getSafeAddressUrl, getChainKey } from "~/utils";
 import { ModalProps, StepType } from "~/types";
-import { fetchData, getSafeAddressUrl } from "~/utils";
+import { getConstants } from "~/config";
 
 export const StartStep = ({ onClose, ...props }: ModalProps) => {
+  const { Chains } = getConstants();
   const { setType } = useNavigationContext();
-  const { address, chainId, setDestinyChain, destinyChain } = useDataContext();
+  const {
+    userAddress,
+    setDestinyChain,
+    destinyChain,
+    originChainId: chainId,
+  } = useDataContext();
 
   const [safeList, setSafeList] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const hasModule = true;
 
+  // find origin chain name
+  const chainKey = getChainKey(chainId!);
+  const originChainName = Chains[chainKey].name;
+
   const getSafe = async () => {
     setLoading(true);
     try {
-      const url = getSafeAddressUrl(destinyChain, address!);
+      const url = getSafeAddressUrl(destinyChain, userAddress);
       const jsonData = await fetchData(url);
       setSafeList(jsonData.safes);
     } catch (error) {
@@ -31,19 +42,21 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
 
   return (
     <BaseModal {...props} onClose={onClose} header="Cross chain action">
-      <Text>Sending as: {address}</Text>
-      <Text>Origin chain: {chainId}</Text>
+      <div>
+        <SInput title="From" disabled={true} value={originChainName} />
+      </div>
 
       <div>
-        <Text>Select destination chain:</Text>
-        <Dropdown
-          name="Chains"
-          onChange={(e) => setDestinyChain(e.target.value)}
-        >
-          <option value="mainnet">Ethereum</option>
-          <option value="optimism">Optimism</option>
-          <option value="arbitrum">Arbitrum</option>
-          <option value="goerli">Goerli</option>
+        <Dropdown title="To" onChange={(e) => setDestinyChain(e.target.value)}>
+          {Object.entries(Chains).map(([key, value], index) => (
+            <>
+              {value.name !== originChainName && (
+                <option key={value.id + index} value={key}>
+                  {value.name}
+                </option>
+              )}
+            </>
+          ))}
         </Dropdown>
       </div>
 
@@ -51,7 +64,7 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
         <Text>Select destination safe:</Text>
         {loading && <Text>Fetching safe...</Text>}
         {!loading && (
-          <Dropdown name="SafeAlias">
+          <Dropdown title="Select safe address">
             {safeList?.map((safeAddress) => (
               <option key={safeAddress} value={safeAddress}>
                 {safeAddress}
@@ -70,7 +83,7 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
           }
         }}
       >
-        Use existent Safe
+        Use existing
       </Button>
 
       <Button
@@ -78,7 +91,7 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
           setType(StepType.SAFE_MODULE_CREATION);
         }}
       >
-        Create a new Safe
+        Create new Safe
       </Button>
     </BaseModal>
   );

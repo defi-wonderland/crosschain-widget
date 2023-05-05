@@ -1,19 +1,19 @@
 import styled from "styled-components";
 import { PropTheme } from "~/types";
-import { FONT_SIZE_20 } from "./Variables";
+import { FONT_SIZE_16 } from "./Variables";
 
 const SButton = styled.button`
   border: none;
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.buttonBackground};
   color: inherit;
-  padding: 0.75rem;
+  padding: 14.5px;
   cursor: pointer;
   height: 56px;
   width: 100%;
   margin: 5px 0;
   opacity: 1;
-  font-size: ${FONT_SIZE_20};
+  font-size: ${FONT_SIZE_16};
 
   &:hover {
     opacity: 0.9;

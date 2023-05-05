@@ -54,20 +54,20 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
 
 export interface WidgetProps {
   originAddress: string;
-  originChainId: number;
+  userChainId: number;
   text?: string;
   modal?: boolean;
 }
 
 export const ZodiacConnextWidget: FC<WidgetProps> = ({
   originAddress,
-  originChainId,
+  userChainId,
   text,
   modal = true,
 }) => {
   return (
     <Themable>
-      <DataProvider originAddress={originAddress} originChainId={originChainId}>
+      <DataProvider originAddress={originAddress} userChainId={userChainId}>
         <NavigationProvider>
           <>
             <GlobalStyle />

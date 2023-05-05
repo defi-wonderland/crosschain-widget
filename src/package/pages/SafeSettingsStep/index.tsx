@@ -36,7 +36,6 @@ export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
   return (
     <BaseModal {...props} onClose={onClose} header="Safe Configuration">
       {/* Owners Section */}
-      <Text>Owner address:</Text>
       {owners.map((address) => (
         <div
           key={address}
@@ -51,6 +50,7 @@ export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
         </div>
       ))}
       <SInput
+        title="Owner address"
         placeholder="Input Owner Address"
         value={inputAddress}
         onChange={(e) => setInputAddress(e.target.value)}
@@ -67,7 +67,7 @@ export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
       <h1>Threshold</h1>
 
       <Text>Any transaction requires the confirmation of:</Text>
-      <Dropdown name="threshold" onChange={(e) => setThreshold(e.target.value)}>
+      <Dropdown title="#" onChange={(e) => setThreshold(e.target.value)}>
         {owners.map((value, index) => (
           <option key={index + 1} value={index + 1}>
             {index + 1}

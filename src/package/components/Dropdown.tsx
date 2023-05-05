@@ -1,19 +1,42 @@
 import styled from "styled-components";
 import { PropTheme } from "~/types";
+import { InputContainer, InputTitle } from "./Input";
+import { FONT_SIZE_16 } from "./Variables";
 
-export const Dropdown = styled.select`
+const SDropdown = styled.select`
   width: 100%;
   border: ${({ theme }: PropTheme) => theme.borderPrimary};
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
-  padding: 0.25rem 1rem;
-  font-size: 1.25rem;
+  background-color: ${({ theme }: PropTheme) => theme.background};
+  color: ${({ theme }: PropTheme) => theme.textSecondary};
+  padding: 12.5px 14px;
+  font-size: ${FONT_SIZE_16};
   cursor: pointer;
-  line-height: 1.5;
-  color: inherit;
-  margin: 5px 0;
+  font-weight: 400;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
 
   & option {
     background-color: ${({ theme }: PropTheme) => theme.background};
     color: ${({ theme }: PropTheme) => theme.textPrimary};
   }
 `;
+
+interface TAProps {
+  onChange?: React.ChangeEventHandler<HTMLSelectElement> | undefined;
+  title: string;
+  children?: any;
+  disabled?: boolean;
+}
+
+export const Dropdown = ({ onChange, title, children, disabled }: TAProps) => {
+  return (
+    <InputContainer>
+      <InputTitle>{title}</InputTitle>
+      <SDropdown onChange={onChange} disabled={disabled} className="decorated">
+        {children}
+      </SDropdown>
+    </InputContainer>
+  );
+};

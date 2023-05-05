@@ -2,6 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 
 import { StepType } from "~/types";
+import { FONT_SIZE_20 } from "./Variables";
 
 const SBaseModal = styled.div`
   padding: 20px;
@@ -40,7 +41,7 @@ const SBaseModal = styled.div`
 const ModalHeader = styled.div`
   color: ${(props) => props.theme.textPrimary};
   font-weight: bold;
-  font-size: 28px;
+  font-size: ${FONT_SIZE_20};
   text-align: start;
   margin: 0;
   padding: 0;

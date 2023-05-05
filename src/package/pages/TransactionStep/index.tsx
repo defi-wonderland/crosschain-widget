@@ -113,28 +113,27 @@ export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
   }, [encodedTx, value]);
 
   return (
-    <BaseModal {...props} onClose={onClose} header="Transaction Input Setup">
-      <Text>Enter Address</Text>
+    <BaseModal {...props} onClose={onClose} header="Transaction Builder">
       <SInput
+        title="Contract address"
         placeholder="target contract address"
         onChange={(e) => handleSetState({ contractAddress: e.target.value })}
       />
-      <Text>Enter ABI</Text>
       <STextArea
+        title="Input ABI"
         value={abiItem}
         onChange={(e) => handleSetState({ abiItem: e.target.value })}
         disabled={loading}
       />
       {abiItem && abiError && <Text style={{ color: "red" }}>Invalid ABI</Text>}
-      <br />
+
       {contractInterface?.functions && (
         <>
           <h1>Transaction Information</h1>
 
           {/* Selector */}
-          <Text>Contract Method Selector</Text>
           <Dropdown
-            name={"method"}
+            title="Contract method selector"
             onChange={(e) => {
               handleSetState({
                 paramsArray: [], // reset paramsArray before changing the method
@@ -150,7 +149,7 @@ export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
                 {(functionName[1].stateMutability === "payable" ||
                   functionName[1].stateMutability === "nonpayable") && (
                   <option
-                    key={functionName[1].name}
+                    key={functionName[1].name + functionName[1].type}
                     value={functionName[1].name}
                   >
                     {functionName[1].name}
@@ -162,27 +161,26 @@ export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
 
           {/* Parameters */}
           {method?.inputs.map((inputParam, index) => (
-            <>
-              <SInput
-                key={inputParam.name}
-                placeholder={`${inputParam.name || ""} (${inputParam.type})`}
-                onChange={(e) => {
-                  handleSetParam(e.target.value, index);
-                }}
-              />
-            </>
+            <SInput
+              key={inputParam.name}
+              title={inputParam.name}
+              placeholder={`${inputParam.type}`}
+              onChange={(e) => {
+                handleSetParam(e.target.value, index);
+              }}
+            />
           ))}
 
           {/* Value */}
           {method?.payable && (
-            <>
-              <Text>value: </Text>
-              <SInput
-                placeholder="value"
-                value={value}
-                onChange={(e) => handleSetState({ value: e.target.value })}
-              />
-            </>
+            <SInput
+              title="Value"
+              placeholder="value"
+              value={value}
+              onChange={(e) =>
+                setTxState({ ...txState, value: e.target.value })
+              }
+            />
           )}
         </>
       )}

@@ -3,19 +3,19 @@ import { Theme } from "~/types";
 export const darkTheme: Theme = {
   type: "dark",
   background: "#1D1C1C",
-  buttonBackground: "#6253C0",
-  textPrimary: "#ECECEC",
-  textSecondary: "#A5A5A5",
+  buttonBackground: "#7C22A8",
+  textPrimary: "#EBEBEB",
+  textSecondary: "#B7B7B7",
   textDisabled: "",
   divider: "",
-  border: "1px solid #e1e1e1",
-  borderPrimary: "1px solid #343434",
+  border: "1px solid #EBEBEB",
+  borderPrimary: "1px solid #B7B7B7",
   actionActive: "",
   actionHover: "",
   actionSelected: "",
   actionDisabled: "",
   actionDisabledBackground: "",
-  borderRadius: "4px",
+  borderRadius: "8px",
 };
 
 export const lightTheme: Theme = {

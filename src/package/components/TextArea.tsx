@@ -1,20 +1,26 @@
 import styled from "styled-components";
 
 import { PropTheme } from "~/types";
-import { FONT_SIZE_16 } from "./Variables";
+import { FONT_SIZE_14 } from "./Variables";
+import { InputContainer, InputTitle } from "./Input";
 
-export const STextArea = styled.textarea.attrs({ spellcheck: false })`
+const TextArea = styled.textarea.attrs({ spellcheck: false })`
+  width: 100%;
   border: ${({ theme }: PropTheme) => theme.borderPrimary};
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.background};
-  color: ${({ theme }: PropTheme) => theme.textPrimary};
-  padding: 8px 8px;
-  font-size: ${FONT_SIZE_16};
+  color: ${({ theme }: PropTheme) => theme.textSecondary};
+  padding: 15px 14px;
+  font-size: ${FONT_SIZE_14};
   cursor: pointer;
-  line-height: 1.1;
-  min-height: 200px;
+  margin: 5px 0;
+  font-weight: 400;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  min-height: 160px;
   width: 100%;
-  height: 200px;
+  height: 160px;
   resize: none;
   margin: 5px 0;
 
@@ -41,3 +47,34 @@ export const STextArea = styled.textarea.attrs({ spellcheck: false })`
     opacity: 0.4;
   }
 `;
+
+interface TAProps {
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement> | undefined;
+  placeholder?: string | undefined;
+  title: string;
+  value?: string;
+  disabled?: boolean;
+  wrap?: string;
+}
+
+export const STextArea = ({
+  onChange,
+  title,
+  placeholder,
+  value,
+  disabled,
+  wrap,
+}: TAProps) => {
+  return (
+    <InputContainer>
+      <InputTitle>{title}</InputTitle>
+      <TextArea
+        onChange={onChange}
+        placeholder={placeholder}
+        value={value}
+        disabled={disabled}
+        wrap={wrap}
+      />
+    </InputContainer>
+  );
+};
