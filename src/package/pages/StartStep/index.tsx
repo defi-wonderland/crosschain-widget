@@ -61,10 +61,9 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
       </div>
 
       <div style={{ width: "100%" }}>
-        <Text>Select destination safe:</Text>
         {loading && <Text>Fetching safe...</Text>}
         {!loading && (
-          <Dropdown title="Select safe address">
+          <Dropdown title="Input safe address">
             {safeList?.map((safeAddress) => (
               <option key={safeAddress} value={safeAddress}>
                 {safeAddress}

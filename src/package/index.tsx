@@ -7,6 +7,22 @@ import { NavigationProvider, DataProvider } from "~/providers";
 import { PropTheme } from "~/types";
 
 const GlobalStyle = createGlobalStyle<PropTheme>`
+
+  /* Rubik */
+  @font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/Rubik-Regular.ttf') format('truetype'); 
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  @font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/Rubik-Medium.ttf') format('truetype'); 
+    font-style: normal;
+    font-weight: 500;
+  }
+
   .modal h1,.modal span,.modal strong {
     padding: 0;
     margin: 0;
@@ -15,6 +31,9 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
 
   .modal * {
     box-sizing: border-box;
+    font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
   
   select {

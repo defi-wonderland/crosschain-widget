@@ -13,7 +13,6 @@ const TextArea = styled.textarea.attrs({ spellcheck: false })`
   padding: 15px 14px;
   font-size: ${FONT_SIZE_14};
   cursor: pointer;
-  margin: 5px 0;
   font-weight: 400;
   line-height: 19px;
   display: flex;
@@ -22,7 +21,6 @@ const TextArea = styled.textarea.attrs({ spellcheck: false })`
   width: 100%;
   height: 160px;
   resize: none;
-  margin: 5px 0;
 
   &::-webkit-scrollbar {
     width: 5px;

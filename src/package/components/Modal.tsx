@@ -5,6 +5,7 @@ import { StepType } from "~/types";
 import { FONT_SIZE_20 } from "./Variables";
 
 const SBaseModal = styled.div`
+  letter-spacing: 0.25px;
   padding: 20px;
   border-radius: 12px;
   overflow: hidden;
@@ -12,7 +13,7 @@ const SBaseModal = styled.div`
   position: relative;
   pointer-events: all;
   z-index: 10;
-  width: 652px;
+  width: 518px;
   max-height: 700px;
   display: flex;
   flex-direction: column;
@@ -27,9 +28,6 @@ const SBaseModal = styled.div`
   color: ${(props) => props.theme.textPrimary};
 
   scroll-behavior: unset;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -41,9 +39,10 @@ const SBaseModal = styled.div`
 const ModalHeader = styled.div`
   color: ${(props) => props.theme.textPrimary};
   font-weight: bold;
+  letter-spacing: 0.5px;
   font-size: ${FONT_SIZE_20};
   text-align: start;
-  margin: 0;
+  margin: 12px 0;
   padding: 0;
 `;
 

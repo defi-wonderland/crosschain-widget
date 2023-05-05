@@ -108,8 +108,8 @@ export const FinishStep = ({ onClose, ...props }: ModalProps) => {
       <Text>Destination sender: 0x000000000000000000000000000001</Text>
       <br />
       <h1>Transaction Information</h1>
-      <Text>to:</Text>
       <SInput
+        title="To"
         placeholder="param 1"
         value={"0x0000000000000000000000000000"}
         disabled

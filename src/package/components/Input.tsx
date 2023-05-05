@@ -25,6 +25,7 @@ export const InputContainer = styled.div`
   position: relative;
   width: 100%;
   margin: 12px 0;
+  z-index: 0;
 `;
 
 export const InputTitle = styled.p`
@@ -34,10 +35,11 @@ export const InputTitle = styled.p`
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.textPrimary};
   top: -6px;
-  left: 14px;
+  left: 12px;
   line-height: 1;
   margin: 0px;
   padding: 0 4px;
+  z-index: 1;
 `;
 
 interface InputProps {

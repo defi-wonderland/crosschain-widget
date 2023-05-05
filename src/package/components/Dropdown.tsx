@@ -34,7 +34,7 @@ export const Dropdown = ({ onChange, title, children, disabled }: TAProps) => {
   return (
     <InputContainer>
       <InputTitle>{title}</InputTitle>
-      <SDropdown onChange={onChange} disabled={disabled} className="decorated">
+      <SDropdown onChange={onChange} disabled={disabled}>
         {children}
       </SDropdown>
     </InputContainer>

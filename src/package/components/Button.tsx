@@ -14,6 +14,7 @@ const SButton = styled.button`
   margin: 5px 0;
   opacity: 1;
   font-size: ${FONT_SIZE_16};
+  letter-spacing: 0.25px;
 
   &:hover {
     opacity: 0.9;
