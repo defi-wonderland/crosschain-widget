@@ -6,7 +6,7 @@ import { fetchData, getSafeAddressUrl, getChainKey } from "~/utils";
 import { ModalProps, StepType } from "~/types";
 import { getConstants } from "~/config";
 
-export const StartStep = ({ onClose, ...props }: ModalProps) => {
+export const StartStep = ({ ...props }: ModalProps) => {
   const { Chains } = getConstants();
   const { setType } = useNavigationContext();
   const {
@@ -41,7 +41,7 @@ export const StartStep = ({ onClose, ...props }: ModalProps) => {
   }, [destinyChain]);
 
   return (
-    <BaseModal {...props} onClose={onClose} header="Cross chain action">
+    <BaseModal {...props} header="Cross chain action">
       <div>
         <SInput title="From" disabled={true} value={originChainName} />
       </div>

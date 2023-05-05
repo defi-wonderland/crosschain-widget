@@ -23,7 +23,7 @@ interface FinishState {
   xCallParams?: string[];
 }
 
-export const FinishStep = ({ onClose, ...props }: ModalProps) => {
+export const FinishStep = ({ ...props }: ModalProps) => {
   const provider = new providers.JsonRpcProvider(
     "https://rpc.ankr.com/eth_goerli"
   );
@@ -100,7 +100,11 @@ export const FinishStep = ({ onClose, ...props }: ModalProps) => {
   }, []);
 
   return (
-    <BaseModal {...props} onClose={onClose} header="xCallData Confirmation">
+    <BaseModal
+      {...props}
+      onBack={() => setType(StepType.TRANSACTION)}
+      header="xCallData Confirmation"
+    >
       <br />
       <Text>Origin chain: Ethereum</Text>
       <Text>Origin sender: 0x000000000000000000000000000001</Text>
@@ -134,13 +138,6 @@ destiny transaction:
         }}
       >
         Confirm
-      </Button>
-      <Button
-        onClick={async () => {
-          setType(StepType.TRANSACTION);
-        }}
-      >
-        Back
       </Button>
     </BaseModal>
   );

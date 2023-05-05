@@ -2,10 +2,14 @@ import { BaseModal, Button, Text } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useNavigationContext } from "~/providers";
 
-export const ModuleStep = ({ onClose, ...props }: ModalProps) => {
+export const ModuleStep = ({ ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
   return (
-    <BaseModal {...props} onClose={onClose} header="Safe Module Setup">
+    <BaseModal
+      {...props}
+      onBack={() => setType(StepType.START)}
+      header="Safe Module Setup"
+    >
       <Text>
         Before continuing, you will need to deploy and enable the Connext Module
         in your Safe.

@@ -5,7 +5,7 @@ import { useDataContext, useNavigationContext } from "~/providers";
 import { ModalProps, StepType } from "~/types";
 import { isAddress } from "~/utils";
 
-export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
+export const SafeSettingsStep = ({ ...props }: ModalProps) => {
   const { setOwners, setThreshold, owners } = useDataContext();
   const { setType } = useNavigationContext();
 
@@ -34,7 +34,11 @@ export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
   }, [inputAddress, isValid, owners]);
 
   return (
-    <BaseModal {...props} onClose={onClose} header="Safe Configuration">
+    <BaseModal
+      {...props}
+      onBack={() => setType(StepType.START)}
+      header="Safe Configuration"
+    >
       {/* Owners Section */}
       {owners.map((address) => (
         <div
@@ -84,15 +88,6 @@ export const SafeSettingsStep = ({ onClose, ...props }: ModalProps) => {
         disabled={!owners.length}
       >
         Continue
-      </Button>
-
-      {/* Back button */}
-      <Button
-        onClick={async () => {
-          setType(StepType.START);
-        }}
-      >
-        Back
       </Button>
     </BaseModal>
   );

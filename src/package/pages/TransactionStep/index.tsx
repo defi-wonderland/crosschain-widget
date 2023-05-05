@@ -23,7 +23,7 @@ interface TxState {
   value?: string;
 }
 
-export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
+export const TransactionStep = ({ ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
   const { destinyChain, txData, setTxData } = useDataContext();
   const [txState, setTxState] = useState<TxState>({});
@@ -113,7 +113,11 @@ export const TransactionStep = ({ onClose, ...props }: ModalProps) => {
   }, [encodedTx, value]);
 
   return (
-    <BaseModal {...props} onClose={onClose} header="Transaction Builder">
+    <BaseModal
+      {...props}
+      onBack={() => setType(StepType.START)}
+      header="Transaction Builder"
+    >
       <SInput
         title="Contract address"
         placeholder="target contract address"

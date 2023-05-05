@@ -5,8 +5,8 @@ import { StepType } from "~/types";
 import { FONT_SIZE_20 } from "./Variables";
 
 const SBaseModal = styled.div`
+  padding: 38px;
   letter-spacing: 0.25px;
-  padding: 20px;
   border-radius: 12px;
   overflow: hidden;
   overflow-y: auto;
@@ -47,38 +47,50 @@ const ModalHeader = styled.div`
 `;
 
 const CloseModal = styled.button`
-  padding: 1px;
-  position: absolute;
+  padding: 10px 20px 10px 0;
   right: 10px;
   top: 10px;
   cursor: pointer;
   transition: opacity 200ms ease-in-out;
   line-height: 1;
+  border: none;
+  background-color: transparent;
+  color: inherit;
 
   &:hover {
     opacity: 0.8;
   }
 `;
 
+const CloseIcon = styled.div`
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid white;
+`;
+
 export interface ModalProps {
   className?: string;
   header?: string;
   children?: any;
-  onClose?: (modal: StepType) => void;
+  onBack?: (modal: StepType) => void;
 }
 
 export const BaseModal: FC<ModalProps> = ({
   className,
   header,
-  onClose,
+  onBack,
   children,
   ...props
 }) => {
   let closeButton;
 
-  if (onClose) {
+  if (onBack) {
     closeButton = (
-      <CloseModal onClick={() => onClose(StepType.None)}>✖</CloseModal>
+      <CloseModal onClick={() => onBack(StepType.None)}>
+        <CloseIcon />
+      </CloseModal>
     );
   }
   return (

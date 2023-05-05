@@ -72,7 +72,7 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
             classNames="slideBottom"
           >
             <div ref={startStepRef}>
-              <StartStep onClose={setType} />
+              <StartStep />
             </div>
           </CSSTransition>
         )}
@@ -85,7 +85,7 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
             classNames="slideBottom"
           >
             <div ref={safeRef}>
-              <SafeSettingsStep onClose={setType} />
+              <SafeSettingsStep />
             </div>
           </CSSTransition>
         )}
@@ -98,7 +98,7 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
             classNames="slideBottom"
           >
             <div ref={txRef}>
-              <TransactionStep onClose={setType} />
+              <TransactionStep />
             </div>
           </CSSTransition>
         )}
@@ -111,7 +111,7 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
             classNames="slideBottom"
           >
             <div ref={confirmationRef}>
-              <FinishStep onClose={setType} />
+              <FinishStep />
             </div>
           </CSSTransition>
         )}
@@ -124,7 +124,7 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
             classNames="slideBottom"
           >
             <div ref={moduleRef}>
-              <ModuleStep onClose={setType} />
+              <ModuleStep />
             </div>
           </CSSTransition>
         )}

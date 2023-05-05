@@ -8,5 +8,5 @@ export enum StepType {
 }
 
 export interface ModalProps {
-  onClose: (closeModal: StepType) => void;
+  onClose?: (closeModal: StepType) => void;
 }
