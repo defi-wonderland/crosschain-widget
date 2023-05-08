@@ -7,7 +7,6 @@ const SButton = styled.button`
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.buttonBackground};
   color: inherit;
-  padding: 14.5px;
   cursor: pointer;
   height: 56px;
   width: 100%;
@@ -15,6 +14,9 @@ const SButton = styled.button`
   opacity: 1;
   font-size: ${FONT_SIZE_16};
   letter-spacing: 0.25px;
+  padding: 14px;
+  line-height: 19px;
+  height: 50px;
 
   &:hover {
     opacity: 0.9;

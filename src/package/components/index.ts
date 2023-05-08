@@ -6,4 +6,5 @@ export * from "./Modal";
 export * from "./Text";
 export * from "./TextArea";
 export * from "./Transitions/Transitions";
+export * from "./TokenIcon";
 export * from "./Variables";

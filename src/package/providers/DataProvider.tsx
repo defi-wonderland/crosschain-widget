@@ -54,7 +54,7 @@ export const DataProvider = ({
 }: ModalProps) => {
   const [userAddress, setUserAddress] = useState<string>("");
   const [originChainId, setOriginChainId] = useState<number>(1);
-  const [destinyChain, setDestinyChain] = useState<string>("mainnet");
+  const [destinyChain, setDestinyChain] = useState<string>("ethereum");
 
   const [owners, setOwners] = useState<string[]>([]);
   const [threshold, setThreshold] = useState<string | undefined>();

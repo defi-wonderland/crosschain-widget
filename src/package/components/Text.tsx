@@ -5,6 +5,10 @@ export const Text = styled.p`
   color: ${(props) => props.theme.textPrimary};
   text-align: start;
   font-size: ${FONT_SIZE_16};
-  line-height: 1.5;
-  margin: 5px 0;
+  line-height: 20px;
+  margin: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;

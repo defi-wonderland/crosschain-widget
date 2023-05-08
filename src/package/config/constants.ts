@@ -8,7 +8,7 @@ export const getConstants = (): Constants => {
     // See: https://docs.connext.network/resources/supported-chains#mainnet
     //      https://docs.gelato.network/developer-services/relay/payment-and-fees#gelatos-fees
     Chains: {
-      mainnet: {
+      ethereum: {
         name: "Ethereum",
         id: 1,
         domainId: 6648936,
