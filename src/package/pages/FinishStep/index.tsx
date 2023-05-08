@@ -29,7 +29,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   );
 
   const { setType } = useNavigationContext();
-  const { originChainId } = useDataContext();
+  const { originChainId, setTx } = useDataContext();
   const { Chains } = getConstants();
   const { owners, threshold, txData, userAddress, destinyChain } =
     useDataContext();
@@ -134,6 +134,7 @@ destiny transaction:
       {copied && <Text>Copied to clipboard!</Text>}
       <Button
         onClick={async () => {
+          setTx(JSON.stringify(transactionJson));
           setType(StepType.None);
         }}
       >

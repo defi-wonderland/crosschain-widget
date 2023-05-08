@@ -28,14 +28,14 @@ type ContextType = {
   setTxData: (value: TxData) => void;
 
   // Origin Transaction data
-  // xCallData: XCallData;
-  // setCallData: (XCallData) => void;
+  setTx: (tx: string) => void;
 };
 
 interface ModalProps {
   originAddress: string;
   userChainId: number;
   children: React.ReactElement;
+  setTx: (tx: string) => void;
 }
 
 const DataContext = createContext({} as ContextType);
@@ -44,6 +44,7 @@ export const DataProvider = ({
   children,
   originAddress,
   userChainId,
+  setTx,
 }: ModalProps) => {
   const [userAddress, setUserAddress] = useState<string>("");
   const [originChainId, setOriginChainId] = useState<number>(1);
@@ -73,6 +74,7 @@ export const DataProvider = ({
         setThreshold,
         txData,
         setTxData,
+        setTx,
       }}
     >
       {children}
