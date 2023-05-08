@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { createGlobalStyle } from "styled-components";
+import { providers } from "ethers";
 
 import { Transitions, Themable, FONT_SIZE_16 } from "~/components";
 import { WidgetButton } from "~/WidgetButton";
@@ -77,6 +78,7 @@ export interface WidgetProps {
   setTx: (tx: string) => void;
   text?: string;
   modal?: boolean;
+  provider?: providers.JsonRpcProvider;
 }
 
 export const ZodiacConnextWidget: FC<WidgetProps> = ({
@@ -85,6 +87,7 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
   text,
   modal = true,
   setTx,
+  provider,
 }) => {
   return (
     <Themable>
@@ -92,6 +95,7 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
         originAddress={originAddress}
         userChainId={userChainId}
         setTx={setTx}
+        provider={provider}
       >
         <NavigationProvider>
           <>

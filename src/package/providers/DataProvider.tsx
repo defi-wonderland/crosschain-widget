@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import { providers } from "ethers";
 
 import { TxData } from "~/types";
 
@@ -29,6 +30,9 @@ type ContextType = {
 
   // Origin Transaction data
   setTx: (tx: string) => void;
+
+  // Provider
+  provider?: providers.JsonRpcProvider;
 };
 
 interface ModalProps {
@@ -36,6 +40,7 @@ interface ModalProps {
   userChainId: number;
   children: React.ReactElement;
   setTx: (tx: string) => void;
+  provider?: providers.JsonRpcProvider;
 }
 
 const DataContext = createContext({} as ContextType);
@@ -45,6 +50,7 @@ export const DataProvider = ({
   originAddress,
   userChainId,
   setTx,
+  provider,
 }: ModalProps) => {
   const [userAddress, setUserAddress] = useState<string>("");
   const [originChainId, setOriginChainId] = useState<number>(1);
@@ -75,6 +81,7 @@ export const DataProvider = ({
         txData,
         setTxData,
         setTx,
+        provider,
       }}
     >
       {children}

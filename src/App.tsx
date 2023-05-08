@@ -1,24 +1,26 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+import { providers } from "ethers";
 
 import { ZodiacConnextWidget } from "./package";
 import { isAddress } from "~/utils";
-import { ethers } from "ethers";
 
 function App() {
   const [useModal, setUseModal] = useState(true);
   const [userAddress, setUserAddress] = useState("");
   const [userChainId, setUserChainId] = useState(1);
   const [tx, setTx] = useState("");
-  const [signer, setSigner] = useState<
-    ethers.providers.JsonRpcSigner | undefined
+  const [signer, setSigner] = useState<providers.JsonRpcSigner | undefined>();
+  const [provider, setProvider] = useState<
+    providers.JsonRpcProvider | undefined
   >();
 
   const handleConnect = async () => {
     if (window?.ethereum) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
       setSigner(provider.getSigner());
+      setProvider(provider);
     }
   };
 
@@ -34,7 +36,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Zodiac Develepment Test App</h1>
+      <h1>Zodiac-Connext Development Test App</h1>
       <button onClick={() => handleConnect()}>Connect</button>
       <button onClick={() => setUseModal(!useModal)}>
         Use modal: {useModal.toString()}
@@ -53,6 +55,7 @@ function App() {
           text="Open Modal"
           modal={useModal}
           setTx={setTx}
+          provider={provider}
         />
       )}
 

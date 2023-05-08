@@ -1,4 +1,5 @@
 export * from "./copyData";
+export * from "./encodeCalldata";
 export * from "./encodeXCall";
 export * from "./estimateRelayerFee";
 export * from "./getChainKey";
