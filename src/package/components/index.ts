@@ -5,6 +5,7 @@ export * from "./Input";
 export * from "./Modal";
 export * from "./Text";
 export * from "./TextArea";
+export * from "./Toggle";
 export * from "./Transitions/Transitions";
 export * from "./TokenIcon";
 export * from "./Variables";

@@ -18,7 +18,8 @@ export const getContractAbi = async (
   contractAddress: string
 ) => {
   try {
-    const url = getContractAbiUrl(chain, contractAddress);
+    const chainName = chain === "ethereum" ? "mainnet" : chain;
+    const url = getContractAbiUrl(chainName, contractAddress);
     const jsonData = await fetchData(url);
     return JSON.stringify(jsonData.contractAbi.abi);
   } catch (error) {

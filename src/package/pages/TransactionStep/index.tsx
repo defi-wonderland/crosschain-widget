@@ -8,10 +8,12 @@ import {
   SInput,
   Text,
   STextArea,
+  Toggle,
 } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useNavigationContext, useDataContext } from "~/providers";
 import { isAddress, encodeFunction, getContractAbi } from "~/utils";
+import { TransactionTitleContainer } from "./Transaction.styles";
 
 interface TxState {
   abiItem?: string;
@@ -21,6 +23,7 @@ interface TxState {
   paramsArray?: string[];
   encodedTx?: string;
   value?: string;
+  customData?: string;
 }
 
 export const TransactionStep = ({ ...props }: ModalProps) => {
@@ -30,6 +33,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
 
   const [abiError, setAbiError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showCustomData, setShowCustomData] = useState(false);
 
   const {
     abiItem,
@@ -39,6 +43,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
     paramsArray,
     encodedTx,
     value,
+    customData,
   } = txState;
 
   const handleSetState = (newValue: TxState) => {
@@ -51,6 +56,19 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
       newParamsArray[index] = value;
       handleSetState({ paramsArray: newParamsArray });
     }
+  };
+
+  const filterMethod = (contractInterface: Interface, method: string) => {
+    return Object.entries(contractInterface.functions).filter(
+      (key) => key[1].name === method
+    )[0][1];
+  };
+
+  const filterWritableMethods = (method: [string, FunctionFragment]) => {
+    return (
+      method[1].stateMutability === "payable" ||
+      method[1].stateMutability === "nonpayable"
+    );
   };
 
   useEffect(() => {
@@ -102,15 +120,19 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
   }, [method, paramsArray]);
 
   useEffect(() => {
-    if (method && encodedTx && contractAddress)
+    if ((contractAddress && customData) || (contractAddress && encodedTx)) {
+      const name = showCustomData ? "custom" : method?.name;
+      const calldata = encodedTx || customData;
+
       setTxData({
         ...txData,
         to: contractAddress,
         value: value || "0",
-        calldata: encodedTx,
-        name: method?.name,
+        calldata: calldata || "0x",
+        name: name || "",
       });
-  }, [encodedTx, value]);
+    }
+  }, [encodedTx, value, customData]);
 
   return (
     <BaseModal
@@ -133,66 +155,82 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
 
       {contractInterface?.functions && (
         <>
-          <h1>Transaction Information</h1>
-
+          <TransactionTitleContainer>
+            <h1>Transaction Information</h1>
+            <div>
+              <Toggle onClick={() => setShowCustomData(!showCustomData)} />
+              <Text>Custom Data</Text>
+            </div>
+          </TransactionTitleContainer>
           {/* Selector */}
-          <Dropdown
-            title="Contract method selector"
-            onChange={(e) => {
-              handleSetState({
-                paramsArray: [], // reset paramsArray before changing the method
-                method: Object.entries(contractInterface.functions).filter(
-                  (key) => key[1].name === e.target.value
-                )[0][1],
-              });
-            }}
-          >
-            {Object.entries(contractInterface.functions).map((functionName) => (
-              <>
-                {/* Show only writable functions */}
-                {(functionName[1].stateMutability === "payable" ||
-                  functionName[1].stateMutability === "nonpayable") && (
-                  <option
-                    key={functionName[1].name + functionName[1].type}
-                    value={functionName[1].name}
-                  >
-                    {functionName[1].name}
-                  </option>
-                )}
-              </>
-            ))}
-          </Dropdown>
+          {!showCustomData && (
+            <Dropdown
+              title="Contract method selector"
+              onChange={(e) => {
+                handleSetState({
+                  paramsArray: [], // reset paramsArray before changing the method
+                  method: filterMethod(contractInterface, e.target.value),
+                });
+              }}
+            >
+              {Object.entries(contractInterface.functions).map(
+                (functionName) => (
+                  <>
+                    {/* Show only writable functions */}
+                    {filterWritableMethods(functionName) && (
+                      <option
+                        key={functionName[1].name + functionName[1].type}
+                        value={functionName[1].name}
+                      >
+                        {functionName[1].name}
+                      </option>
+                    )}
+                  </>
+                )
+              )}
+            </Dropdown>
+          )}
 
           {/* Parameters */}
-          {method?.inputs.map((inputParam, index) => (
-            <SInput
-              key={inputParam.name}
-              title={inputParam.name}
-              placeholder={`${inputParam.type}`}
-              onChange={(e) => {
-                handleSetParam(e.target.value, index);
-              }}
-            />
-          ))}
+          {!showCustomData &&
+            method?.inputs.map((inputParam, index) => (
+              <SInput
+                key={inputParam.name}
+                title={inputParam.name}
+                placeholder={`${inputParam.type}`}
+                onChange={(e) => handleSetParam(e.target.value, index)}
+              />
+            ))}
 
           {/* Value */}
-          {method?.payable && (
-            <SInput
-              title="Value"
-              placeholder="value"
-              value={value}
+          {method?.payable ||
+            (showCustomData && (
+              <SInput
+                title="Value"
+                placeholder="value"
+                value={value}
+                onChange={(e) =>
+                  setTxState({ ...txState, value: e.target.value })
+                }
+              />
+            ))}
+
+          {/* Custom Data */}
+          {showCustomData && (
+            <STextArea
+              title="Data"
+              value={customData}
               onChange={(e) =>
-                setTxState({ ...txState, value: e.target.value })
+                setTxState({ ...txState, customData: e.target.value })
               }
+              placeholder="Hex encoded"
             />
           )}
         </>
       )}
       <Button
-        onClick={async () => {
-          setType(StepType.XCALLDATA_REVIEW);
-        }}
-        disabled={!encodedTx || !contractAddress}
+        onClick={async () => setType(StepType.XCALLDATA_REVIEW)}
+        disabled={!txData?.calldata}
       >
         Continue
       </Button>
