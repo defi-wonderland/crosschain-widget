@@ -17,12 +17,11 @@ const SBaseModal = styled.div`
   max-height: 700px;
   display: flex;
   flex-direction: column;
-  justify-items: center;
+  justify-items: start;
   align-items: start;
 
   box-sizing: border-box;
 
-  font-size: 18px;
   font-weight: 400;
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.textPrimary};

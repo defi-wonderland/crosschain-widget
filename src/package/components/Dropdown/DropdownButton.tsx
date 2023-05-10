@@ -49,11 +49,19 @@ export interface IDropdownButton {
   children: any;
   title?: string;
   icon?: boolean;
+  disabled?: boolean;
 }
-export const DropdownButton = ({ children, title, icon }: IDropdownButton) => {
+export const DropdownButton = ({
+  children,
+  title,
+  icon,
+  disabled,
+}: IDropdownButton) => {
   const { show, setShow } = useDropdownContext();
 
-  const handleClick = () => setShow(!show);
+  const handleClick = () => {
+    if (!disabled) setShow(!show);
+  };
 
   return (
     <SDropdownButton onClick={handleClick}>

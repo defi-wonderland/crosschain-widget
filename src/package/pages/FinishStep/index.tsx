@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 
-import { BaseModal, Button, SInput, STextArea, Text } from "~/components";
 import { useDataContext, useNavigationContext } from "~/providers";
+import { ChainSection } from "~/pages/StartStep/ChainSection";
+import { BaseModal, Button } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { getConstants } from "~/config";
+import { TxSummary } from "./TxSummary";
 import {
-  copyData,
   encodeReceiverCallData,
   estimateRelayerFee,
   encodeXCall,
@@ -14,7 +15,7 @@ import {
 
 interface FinishState {
   relayerFee?: string;
-  transactionJson?: {
+  transactionJson: {
     value: string;
     to: string;
     from: string;
@@ -24,24 +25,17 @@ interface FinishState {
 }
 
 export const FinishStep = ({ ...props }: ModalProps) => {
-  const { setType } = useNavigationContext();
-  const { originChainId, setTx, provider } = useDataContext();
   const { Chains } = getConstants();
-  const { txData, userAddress, destinyChain } = useDataContext();
+  const { setType } = useNavigationContext();
+  const { originChainId, setTx, provider, txData, userAddress, destinyChain } =
+    useDataContext();
 
-  const [copied, setCopied] = useState(false);
-  const [finishState, setFinishState] = useState<FinishState>({});
+  const [finishState, setFinishState] = useState<FinishState>({
+    transactionJson: { value: "", to: "", from: "", data: "" },
+  });
   const { relayerFee, transactionJson } = finishState;
 
   const originChainName = getChainKey(originChainId);
-  const handleCopy = async () => {
-    setCopied(true);
-    copyData(JSON.stringify(txData));
-
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
-  };
 
   const getParams = (relayerFee: string) => {
     let receiverCalldata = "0x";
@@ -52,8 +46,6 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         txData.calldata
       );
     }
-
-    console.log("receiver calldata:", receiverCalldata);
 
     /* xCallParams:
       0: destination domaninId
@@ -103,36 +95,29 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   return (
     <BaseModal
       {...props}
-      onBack={() => setType(StepType.TRANSACTION)}
-      header="xCallData Confirmation"
+      // onBack={() => setType(StepType.TRANSACTION)}
+      header="Transaction Confirmation"
     >
-      <br />
-      <Text>Origin chain: Ethereum</Text>
-      <Text>Origin sender: 0x000000000000000000000000000001</Text>
-      <Text>Destination chain: Optimism</Text>
-      <Text>Destination sender: 0x000000000000000000000000000001</Text>
-      <br />
-      <h1>Transaction Information</h1>
-      <SInput
-        title="To"
-        placeholder="param 1"
-        value={"0x0000000000000000000000000000"}
-        disabled
+      <ChainSection disabled />
+
+      <TxSummary
+        title="Origin Transaction"
+        data={JSON.stringify(transactionJson)}
+        origin={userAddress}
+        destiny={Chains[originChainName].connextContract}
+        value={transactionJson.value}
+        textTitle="xCall Data"
       />
-      <Text>value:</Text>
-      <SInput placeholder="param 2" value={"1.00"} disabled />
-      <STextArea
-        title="xCallData parameters"
-        wrap="on"
-        value={`xcall:
-      ${JSON.stringify(transactionJson)}
-      
-destiny transaction:
-      ${JSON.stringify(txData)}`}
-        disabled
+
+      <TxSummary
+        title="Destination Transaction"
+        data={JSON.stringify(txData)}
+        origin={"ZodiacModule Address or Safe Address"}
+        destiny={txData?.to || ""}
+        value={txData?.value || ""}
+        textTitle="Data"
       />
-      <Button onClick={() => handleCopy()}>Copy Data</Button>
-      {copied && <Text>Copied to clipboard!</Text>}
+
       <Button
         onClick={async () => {
           setTx(JSON.stringify(transactionJson));

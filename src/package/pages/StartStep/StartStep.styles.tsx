@@ -17,6 +17,7 @@ export const ChainContainer = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  margin-bottom: 12px;
 `;
 
 export const ArrowIcon = styled.div`

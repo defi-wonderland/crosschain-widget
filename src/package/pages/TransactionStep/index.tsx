@@ -128,7 +128,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
         ...txData,
         to: contractAddress,
         value: value || "0",
-        calldata: calldata || "0x",
+        calldata: calldata || "",
         name: name || "",
       });
     }

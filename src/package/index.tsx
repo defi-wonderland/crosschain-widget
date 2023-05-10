@@ -2,7 +2,12 @@ import { FC } from "react";
 import { createGlobalStyle } from "styled-components";
 import { providers } from "ethers";
 
-import { Transitions, Themable, FONT_SIZE_16 } from "~/components";
+import {
+  Transitions,
+  Themable,
+  FONT_SIZE_16,
+  FONT_SIZE_20,
+} from "~/components";
 import { WidgetButton } from "~/WidgetButton";
 import { NavigationProvider, DataProvider } from "~/providers";
 import { PropTheme } from "~/types";
@@ -24,10 +29,17 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
     font-weight: 500;
   }
 
-  .modal h1,.modal span,.modal strong {
+  .modal span,.modal strong {
     padding: 0;
     margin: 0;
     font-size: ${FONT_SIZE_16};
+  }
+
+  .modal h1 {
+    font-size: ${FONT_SIZE_20};
+    padding: 0;
+    margin: 0;
+    line-height: 1.125;
   }
 
   .modal * {

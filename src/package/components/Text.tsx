@@ -7,8 +7,4 @@ export const Text = styled.p`
   font-size: ${FONT_SIZE_16};
   line-height: 20px;
   margin: 0;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 `;
