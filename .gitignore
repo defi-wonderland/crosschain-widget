@@ -15,3 +15,5 @@ notes.txt
 .eslintcache
 
 /coverage
+
+*.tgz
