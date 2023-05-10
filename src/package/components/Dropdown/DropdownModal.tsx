@@ -14,7 +14,7 @@ const Modal = styled.section`
   white-space: nowrap;
   z-index: 100;
   max-height: 160px;
-  max-width: 184px;
+  width: 100%;
 
   overflow-y: scroll;
   overflow-x: hidden; /* Hide scrollbars */

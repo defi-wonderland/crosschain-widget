@@ -1,15 +1,26 @@
 import { useEffect, useState } from "react";
 
-import { BaseModal, Button, Text, SInput, Dropdown } from "~/components";
 import { useDataContext, useNavigationContext } from "~/providers";
+import { BaseModal, Button, Text, SInput } from "~/components";
+import Dropdown from "~/components/Dropdown/Dropdown";
 import { ModalProps, StepType } from "~/types";
 import { isAddress } from "~/utils";
+import {
+  AddOwnerButton,
+  DeleteButton,
+  OnwersList,
+  ThresoldContainer,
+  TrashIcon,
+  YourWalletMsg,
+} from "./SafeSettings.styles";
 
 export const SafeSettingsStep = ({ ...props }: ModalProps) => {
-  const { setOwners, setThreshold, owners } = useDataContext();
+  const ownersProps = Dropdown.useProps();
   const { setType } = useNavigationContext();
+  const { setOwners, setThreshold, owners, userAddress, threshold } =
+    useDataContext();
 
-  const [inputAddress, setInputAddress] = useState<string>("");
+  const [inputAddress, setInputAddress] = useState<string>(userAddress);
   const [isValid, setValid] = useState(true);
 
   const removeItem = (item: string) => {
@@ -22,6 +33,11 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
   const addOwner = () => {
     setOwners([...owners, inputAddress]);
     setInputAddress("");
+  };
+
+  const handleSelectThreshold = (index: number) => {
+    setThreshold((index + 1).toString());
+    ownersProps.setShow(false);
   };
 
   useEffect(() => {
@@ -41,50 +57,62 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
     >
       {/* Owners Section */}
       {owners.map((address) => (
-        <div
-          key={address}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
+        <OnwersList key={address}>
           <Text>{address}</Text>
-          <Button onClick={() => removeItem(address)}>✖</Button>
-        </div>
+          <DeleteButton onClick={() => removeItem(address)}>
+            <TrashIcon />
+          </DeleteButton>
+        </OnwersList>
       ))}
+
       <SInput
         title="Owner address"
         placeholder="Input Owner Address"
         value={inputAddress}
         onChange={(e) => setInputAddress(e.target.value)}
       />
+      {userAddress === inputAddress && (
+        <YourWalletMsg>Your connected wallet address</YourWalletMsg>
+      )}
       {!isValid && (
         <span style={{ color: "red" }}>Invalid Ethereum Address</span>
       )}
 
-      <Button onClick={() => addOwner()} disabled={!isValid || !inputAddress}>
-        + Add owner
-      </Button>
+      <AddOwnerButton
+        onClick={() => addOwner()}
+        disabled={!isValid || !inputAddress}
+      >
+        + Add a new owner
+      </AddOwnerButton>
 
       {/* Threshold section */}
       <h1>Threshold</h1>
 
       <Text>Any transaction requires the confirmation of:</Text>
-      <Dropdown title="#" onChange={(e) => setThreshold(e.target.value)}>
-        {owners.map((value, index) => (
-          <option key={index + 1} value={index + 1}>
-            {index + 1}
-          </option>
-        ))}
-      </Dropdown>
-      <Text>out of {owners.length} owner(s).</Text>
+      <ThresoldContainer>
+        <Dropdown {...ownersProps}>
+          <Dropdown.Button title="#" icon={true}>
+            <Text>{threshold || owners.length}</Text>
+          </Dropdown.Button>
+          {!!owners.length && (
+            <Dropdown.Modal>
+              {owners.map((value, index) => (
+                <Text
+                  key={index + 1}
+                  onClick={() => handleSelectThreshold(index)}
+                >
+                  {index + 1}
+                </Text>
+              ))}
+            </Dropdown.Modal>
+          )}
+        </Dropdown>
+        <Text>out of {owners.length} owner(s).</Text>
+      </ThresoldContainer>
 
       {/* Continue button */}
       <Button
-        onClick={async () => {
-          setType(StepType.TRANSACTION);
-        }}
+        onClick={() => setType(StepType.TRANSACTION)}
         disabled={!owners.length}
       >
         Continue

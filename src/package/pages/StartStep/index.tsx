@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
+import { ChainOption, SafeContainer, SText } from "./StartStep.styles";
 import { useDataContext, useNavigationContext } from "~/providers";
 import { BaseModal, Button, Text } from "~/components";
 import { fetchData, getSafeAddressUrl } from "~/utils";
-import { ModalProps, StepType } from "~/types";
 import Dropdown from "~/components/Dropdown/Dropdown";
-import { ChainOption, SafeContainer } from "./StartStep.styles";
+import { ModalProps, StepType } from "~/types";
 import { ChainSection } from "./ChainSection";
 
 export const StartStep = ({ ...props }: ModalProps) => {
@@ -77,7 +77,7 @@ export const StartStep = ({ ...props }: ModalProps) => {
         <Button onClick={handleUseExisting}>Use existing</Button>
       </SafeContainer>
 
-      <Text>Or</Text>
+      <SText>Or</SText>
       <Button onClick={() => setType(StepType.SAFE_MODULE_CREATION)}>
         Create new Safe
       </Button>

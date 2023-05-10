@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Text } from "~/components";
+
 export const ChainOption = styled.div`
   display: flex;
   flex-direction: row;
@@ -39,4 +41,8 @@ export const SafeContainer = styled.div`
   & section button {
     width: 248px;
   }
+`;
+
+export const SText = styled(Text)`
+  margin: 12px auto 7px;
 `;
