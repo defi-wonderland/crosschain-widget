@@ -22,14 +22,6 @@ export const ChainContainer = styled.div`
   margin-bottom: 12px;
 `;
 
-export const ArrowIcon = styled.div`
-  width: 0;
-  height: 0;
-  border-bottom: 6px solid transparent;
-  border-top: 6px solid transparent;
-  border-left: 6px solid white;
-`;
-
 export const SafeContainer = styled.div`
   display: flex;
   width: 100%;

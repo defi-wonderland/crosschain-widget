@@ -91,6 +91,7 @@ export interface WidgetProps {
   text?: string;
   modal?: boolean;
   provider?: providers.JsonRpcProvider;
+  lightTheme?: boolean;
 }
 
 export const ZodiacConnextWidget: FC<WidgetProps> = ({
@@ -100,14 +101,16 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
   modal = true,
   setTx,
   provider,
+  lightTheme,
 }) => {
   return (
-    <Themable>
+    <Themable lightTheme={lightTheme}>
       <DataProvider
         originAddress={originAddress}
         userChainId={userChainId}
         setTx={setTx}
         provider={provider}
+        lightTheme={lightTheme}
       >
         <NavigationProvider>
           <>

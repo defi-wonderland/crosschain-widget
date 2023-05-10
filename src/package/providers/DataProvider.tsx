@@ -4,6 +4,9 @@ import { providers } from "ethers";
 import { TxData } from "~/types";
 
 type ContextType = {
+  // Theme
+  lightTheme?: boolean;
+
   // Address control
   userAddress: string;
   setUserAddress: (val: string) => void;
@@ -41,6 +44,7 @@ interface ModalProps {
   children: React.ReactElement;
   setTx: (tx: string) => void;
   provider?: providers.JsonRpcProvider;
+  lightTheme?: boolean;
 }
 
 const DataContext = createContext({} as ContextType);
@@ -51,6 +55,7 @@ export const DataProvider = ({
   userChainId,
   setTx,
   provider,
+  lightTheme,
 }: ModalProps) => {
   const [userAddress, setUserAddress] = useState<string>("");
   const [originChainId, setOriginChainId] = useState<number>(1);
@@ -82,6 +87,7 @@ export const DataProvider = ({
         setTxData,
         setTx,
         provider,
+        lightTheme,
       }}
     >
       {children}

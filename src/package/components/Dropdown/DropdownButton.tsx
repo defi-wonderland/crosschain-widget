@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 import { PropTheme } from "~/types";
-import { InputTitle } from "~/components";
+import { ArrowDown, InputTitle } from "~/components";
 import { useDropdownContext } from "./Dropdown";
+import { useDataContext } from "~/providers";
 
 export const SDropdownButton = styled.button`
   border: ${({ theme }: PropTheme) => theme.borderPrimary};
@@ -37,14 +38,6 @@ export const TextContainer = styled.div`
   white-space: nowrap;
 `;
 
-const ArrowIcon = styled.div`
-  width: 0;
-  height: 0;
-  border-right: 6px solid transparent;
-  border-left: 6px solid transparent;
-  border-top: 6px solid white;
-`;
-
 export interface IDropdownButton {
   children: any;
   title?: string;
@@ -58,6 +51,7 @@ export const DropdownButton = ({
   disabled,
 }: IDropdownButton) => {
   const { show, setShow } = useDropdownContext();
+  const { lightTheme } = useDataContext();
 
   const handleClick = () => {
     if (!disabled) setShow(!show);
@@ -69,7 +63,7 @@ export const DropdownButton = ({
         <InputTitle>{title}</InputTitle>
         {children}
       </TextContainer>
-      {icon && <ArrowIcon />}
+      {icon && <ArrowDown lightTheme={lightTheme} />}
     </SDropdownButton>
   );
 };

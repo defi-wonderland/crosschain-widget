@@ -6,7 +6,7 @@ const SButton = styled.button`
   border: none;
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.buttonBackground};
-  color: inherit;
+  color: ${({ theme }: PropTheme) => theme.actionActive};
   cursor: pointer;
   height: 56px;
   width: 100%;

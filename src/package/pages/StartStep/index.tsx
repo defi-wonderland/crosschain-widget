@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 
 import { ChainOption, SafeContainer, SText } from "./StartStep.styles";
 import { useDataContext, useNavigationContext } from "~/providers";
-import { BaseModal, Button, Text } from "~/components";
+import { BaseModal, Button, ModalProps, Text } from "~/components";
 import { fetchData, getSafeAddressUrl } from "~/utils";
 import Dropdown from "~/components/Dropdown/Dropdown";
-import { ModalProps, StepType } from "~/types";
 import { ChainSection } from "./ChainSection";
+import { StepType } from "~/types";
 
 export const StartStep = ({ ...props }: ModalProps) => {
   const dropdownSafeProps = Dropdown.useProps();

@@ -17,8 +17,14 @@ import {
 export const SafeSettingsStep = ({ ...props }: ModalProps) => {
   const ownersProps = Dropdown.useProps();
   const { setType } = useNavigationContext();
-  const { setOwners, setThreshold, owners, userAddress, threshold } =
-    useDataContext();
+  const {
+    setOwners,
+    setThreshold,
+    owners,
+    userAddress,
+    threshold,
+    lightTheme,
+  } = useDataContext();
 
   const [inputAddress, setInputAddress] = useState<string>(userAddress);
   const [isValid, setValid] = useState(true);
@@ -60,7 +66,7 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
         <OnwersList key={address}>
           <Text>{address}</Text>
           <DeleteButton onClick={() => removeItem(address)}>
-            <TrashIcon />
+            <TrashIcon lightTheme={lightTheme} />
           </DeleteButton>
         </OnwersList>
       ))}
@@ -74,6 +80,8 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
       {userAddress === inputAddress && (
         <YourWalletMsg>Your connected wallet address</YourWalletMsg>
       )}
+
+      {/* temporary: */}
       {!isValid && (
         <span style={{ color: "red" }}>Invalid Ethereum Address</span>
       )}
@@ -85,7 +93,7 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
         + Add a new owner
       </AddOwnerButton>
 
-      {/* Threshold section */}
+      {/* Threshold Section */}
       <h1>Threshold</h1>
 
       <Text>Any transaction requires the confirmation of:</Text>

@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { StepType } from "~/types";
 import { FONT_SIZE_20 } from "./Variables";
+import { useDataContext } from "~/providers";
+import { ArrowLeft } from "./ArrowIcons";
 
 const SBaseModal = styled.div`
   padding: 38px;
@@ -25,6 +27,7 @@ const SBaseModal = styled.div`
   font-weight: 400;
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.textPrimary};
+  border: ${({ theme }) => theme.borderPrimary};
 
   scroll-behavior: unset;
 
@@ -61,14 +64,6 @@ const CloseModal = styled.button`
   }
 `;
 
-const CloseIcon = styled.div`
-  width: 0;
-  height: 0;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-right: 8px solid white;
-`;
-
 export interface ModalProps {
   className?: string;
   header?: string;
@@ -84,11 +79,12 @@ export const BaseModal: FC<ModalProps> = ({
   ...props
 }) => {
   let closeButton;
+  const { lightTheme } = useDataContext();
 
   if (onBack) {
     closeButton = (
       <CloseModal onClick={() => onBack(StepType.None)}>
-        <CloseIcon />
+        <ArrowLeft lightTheme={lightTheme} />
       </CloseModal>
     );
   }

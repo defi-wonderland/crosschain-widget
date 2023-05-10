@@ -14,8 +14,13 @@ export const getTheme = (theme?: ThemeName): Theme => {
   }
 };
 
-export const Themable = ({ children }: { children: React.ReactNode }) => {
-  const theme = getTheme("dark");
+interface ThemableProps {
+  lightTheme?: boolean;
+  children: React.ReactNode;
+}
+
+export const Themable = ({ children, lightTheme }: ThemableProps) => {
+  const theme = getTheme(lightTheme ? "light" : "dark");
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 

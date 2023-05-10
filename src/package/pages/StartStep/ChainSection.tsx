@@ -1,6 +1,6 @@
-import { ArrowIcon, ChainContainer, ChainOption } from "./StartStep.styles";
+import { ChainContainer, ChainOption } from "./StartStep.styles";
+import { TokenIcon, Text, ArrowRight } from "~/components";
 import Dropdown from "~/components/Dropdown/Dropdown";
-import { TokenIcon, Text } from "~/components";
 import { useDataContext } from "~/providers";
 import { getConstants } from "~/config";
 import { getChainKey } from "~/utils";
@@ -17,6 +17,7 @@ export const ChainSection = ({ disabled = false }: ChainSectionProps) => {
     setDestinyChain,
     destinyChain,
     originChainId: chainId,
+    lightTheme,
   } = useDataContext();
 
   const chainKey = getChainKey(chainId!);
@@ -32,7 +33,7 @@ export const ChainSection = ({ disabled = false }: ChainSectionProps) => {
         <Text>{Chains[chainKey].name}</Text>
       </Dropdown.Button>
 
-      <ArrowIcon />
+      <ArrowRight lightTheme={lightTheme} />
 
       <Dropdown {...dropdownChainProps}>
         <Dropdown.Button title="To" icon={!disabled} disabled={disabled}>

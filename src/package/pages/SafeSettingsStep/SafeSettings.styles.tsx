@@ -10,6 +10,10 @@ export const OnwersList = styled.div`
   width: 100%;
   justify-content: space-between;
   margin: 8px 0;
+
+  & p {
+    font-weight: 500;
+  }
 `;
 
 export const ThresoldContainer = styled.div`
@@ -70,9 +74,10 @@ export const YourWalletMsg = styled(Text)`
 export const TrashIcon = styled.img.attrs({
   src: trash,
   alt: "delete owner",
-})`
-  filter: invert(1);
+})<{ lightTheme?: boolean }>`
   width: 16px;
+  opacity: 0.87;
+  ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
 `;
 
 export const DeleteButton = styled.button`

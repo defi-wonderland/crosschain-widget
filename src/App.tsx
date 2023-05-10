@@ -7,6 +7,7 @@ import { isAddress } from "~/utils";
 
 function App() {
   const [useModal, setUseModal] = useState(true);
+  const [useLightTheme, setUseLightTheme] = useState(false);
   const [userAddress, setUserAddress] = useState("");
   const [userChainId, setUserChainId] = useState(1);
   const [tx, setTx] = useState("");
@@ -41,6 +42,9 @@ function App() {
       <button onClick={() => setUseModal(!useModal)}>
         Use modal: {useModal.toString()}
       </button>
+      <button onClick={() => setUseLightTheme(!useLightTheme)}>
+        Light theme: {useLightTheme.toString()}
+      </button>
 
       <br />
       <br />
@@ -56,6 +60,7 @@ function App() {
           modal={useModal}
           setTx={setTx}
           provider={provider}
+          lightTheme={useLightTheme}
         />
       )}
 
