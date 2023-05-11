@@ -76,14 +76,11 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
         placeholder="Input Owner Address"
         value={inputAddress}
         onChange={(e) => setInputAddress(e.target.value)}
+        error={!isValid}
+        errorMsg="Invalid Ethereum Address"
       />
       {userAddress === inputAddress && (
         <YourWalletMsg>Your connected wallet address</YourWalletMsg>
-      )}
-
-      {/* temporary: */}
-      {!isValid && (
-        <span style={{ color: "red" }}>Invalid Ethereum Address</span>
       )}
 
       <AddOwnerButton

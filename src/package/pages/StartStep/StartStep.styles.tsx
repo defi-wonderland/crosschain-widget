@@ -11,6 +11,11 @@ export const ChainOption = styled.div`
   padding: 12px;
   border-bottom: ${({ theme }) => theme.borderPrimary};
   cursor: pointer;
+  transition: transform 200ms;
+
+  &:hover {
+    transform: scale(1.01);
+  }
 `;
 
 export const ChainContainer = styled.div`

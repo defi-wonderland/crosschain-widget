@@ -55,7 +55,11 @@ export const StartStep = ({ ...props }: ModalProps) => {
 
       <SafeContainer>
         <Dropdown {...dropdownSafeProps}>
-          <Dropdown.Button title="Input safe address">
+          <Dropdown.Button
+            title="Input safe address"
+            error={!safeAddress}
+            errorMsg="Please enter a valid Safe address"
+          >
             {/* Temporary: Set an input when it doesn't find any safe. */}
             <Text>{safeAddress || "No safe here"}</Text>
           </Dropdown.Button>

@@ -1,13 +1,22 @@
 import styled from "styled-components";
 import { PropTheme } from "~/types";
 import { FONT_SIZE_16, FONT_SIZE_12 } from "./Variables";
+import { ErrorText } from "./Text";
 
-const Input = styled.input`
+export const InputContainer = styled.div`
+  position: relative;
+  width: 100%;
+  margin: 12px 0;
+  z-index: 0;
+`;
+
+const Input = styled.input<{ error?: boolean }>`
   width: 100%;
   border: ${({ theme }: PropTheme) => theme.borderPrimary};
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.background};
   color: ${({ theme }: PropTheme) => theme.textSecondary};
+  ${({ error }) => error && `border-color: #FF3F3F;`}
   padding: 12.5px 14px;
   font-size: ${FONT_SIZE_16};
   cursor: pointer;
@@ -19,21 +28,19 @@ const Input = styled.input`
   &:disabled {
     user-select: none;
   }
+
+  &:focus-visible {
+    outline: none;
+  }
 `;
 
-export const InputContainer = styled.div`
-  position: relative;
-  width: 100%;
-  margin: 12px 0;
-  z-index: 0;
-`;
-
-export const InputTitle = styled.p`
+export const InputTitle = styled.p<{ error?: boolean }>`
   position: absolute;
   text-align: start;
   font-size: ${FONT_SIZE_12};
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.textPrimary};
+  ${({ error }) => error && "color: #FF3F3F;"};
   top: -6px;
   left: 12px;
   line-height: 1;
@@ -48,6 +55,8 @@ interface InputProps {
   title?: string;
   value?: string;
   disabled?: boolean;
+  error?: boolean;
+  errorMsg?: string;
 }
 
 export const SInput = ({
@@ -56,16 +65,22 @@ export const SInput = ({
   placeholder,
   value,
   disabled,
+  error,
+  errorMsg,
 }: InputProps) => {
   return (
-    <InputContainer>
-      <InputTitle>{title}</InputTitle>
-      <Input
-        onChange={onChange}
-        placeholder={placeholder}
-        value={value}
-        disabled={disabled}
-      />
-    </InputContainer>
+    <>
+      <InputContainer>
+        <InputTitle error={error}>{title}</InputTitle>
+        <Input
+          onChange={onChange}
+          placeholder={placeholder}
+          value={value}
+          disabled={disabled}
+          error={error}
+        />
+      </InputContainer>
+      {error && <ErrorText>{errorMsg}</ErrorText>}
+    </>
   );
 };

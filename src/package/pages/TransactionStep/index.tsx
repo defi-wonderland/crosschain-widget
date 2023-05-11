@@ -4,7 +4,6 @@ import { Interface, FunctionFragment } from "ethers/lib/utils.js";
 import {
   BaseModal,
   Button,
-  Dropdown,
   SInput,
   Text,
   STextArea,
@@ -14,8 +13,9 @@ import { ModalProps, StepType } from "~/types";
 import { useNavigationContext, useDataContext } from "~/providers";
 import { isAddress, encodeFunction, getContractAbi } from "~/utils";
 import { TransactionTitleContainer } from "./Transaction.styles";
+import { TransactionInformation } from "./TransactionInformation";
 
-interface TxState {
+export interface TxState {
   abiItem?: string;
   method?: FunctionFragment;
   contractAddress?: string;
@@ -56,19 +56,6 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
       newParamsArray[index] = value;
       handleSetState({ paramsArray: newParamsArray });
     }
-  };
-
-  const filterMethod = (contractInterface: Interface, method: string) => {
-    return Object.entries(contractInterface.functions).filter(
-      (key) => key[1].name === method
-    )[0][1];
-  };
-
-  const filterWritableMethods = (method: [string, FunctionFragment]) => {
-    return (
-      method[1].stateMutability === "payable" ||
-      method[1].stateMutability === "nonpayable"
-    );
   };
 
   useEffect(() => {
@@ -144,14 +131,17 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
         title="Contract address"
         placeholder="target contract address"
         onChange={(e) => handleSetState({ contractAddress: e.target.value })}
+        error={!!contractAddress && !isAddress(contractAddress)}
+        errorMsg="Invalid contract address"
       />
       <STextArea
         title="Input ABI"
         value={abiItem}
         onChange={(e) => handleSetState({ abiItem: e.target.value })}
         disabled={loading}
+        error={!!abiItem && abiError}
+        errorMsg="Invalid ABI"
       />
-      {abiItem && abiError && <Text style={{ color: "red" }}>Invalid ABI</Text>}
 
       {contractInterface?.functions && (
         <>
@@ -162,33 +152,14 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
               <Text>Custom Data</Text>
             </div>
           </TransactionTitleContainer>
+
           {/* Selector */}
           {!showCustomData && (
-            <Dropdown
-              title="Contract method selector"
-              onChange={(e) => {
-                handleSetState({
-                  paramsArray: [], // reset paramsArray before changing the method
-                  method: filterMethod(contractInterface, e.target.value),
-                });
-              }}
-            >
-              {Object.entries(contractInterface.functions).map(
-                (functionName) => (
-                  <>
-                    {/* Show only writable functions */}
-                    {filterWritableMethods(functionName) && (
-                      <option
-                        key={functionName[1].name + functionName[1].type}
-                        value={functionName[1].name}
-                      >
-                        {functionName[1].name}
-                      </option>
-                    )}
-                  </>
-                )
-              )}
-            </Dropdown>
+            <TransactionInformation
+              contractInterface={contractInterface}
+              handleSetState={handleSetState}
+              method={method}
+            />
           )}
 
           {/* Parameters */}
@@ -203,17 +174,16 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
             ))}
 
           {/* Value */}
-          {method?.payable ||
-            (showCustomData && (
-              <SInput
-                title="Value"
-                placeholder="value"
-                value={value}
-                onChange={(e) =>
-                  setTxState({ ...txState, value: e.target.value })
-                }
-              />
-            ))}
+          {(method?.payable || showCustomData) && (
+            <SInput
+              title="Value"
+              placeholder="value"
+              value={value}
+              onChange={(e) =>
+                setTxState({ ...txState, value: e.target.value })
+              }
+            />
+          )}
 
           {/* Custom Data */}
           {showCustomData && (
@@ -229,7 +199,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
         </>
       )}
       <Button
-        onClick={async () => setType(StepType.XCALLDATA_REVIEW)}
+        onClick={() => setType(StepType.XCALLDATA_REVIEW)}
         disabled={!txData?.calldata}
       >
         Continue

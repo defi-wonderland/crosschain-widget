@@ -6,6 +6,7 @@ export const TransactionTitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-top: 12px;
 
   & div {
     display: flex;
