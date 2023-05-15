@@ -77,25 +77,23 @@ export const TransactionInformation = ({
         <Dropdown.Button title="Contract method selector" icon={true}>
           <Text>{method?.name}</Text>
         </Dropdown.Button>
-        {
-          <Dropdown.Modal>
-            {Object.entries(contractInterface.functions).map((functionName) => (
-              <>
-                {/* Show only writable functions */}
-                {filterWritableMethods(functionName) && (
-                  <Text
-                    key={functionName[1].name + functionName[1].type}
-                    onClick={() =>
-                      handleClick(functionName[1].name, functionName[0])
-                    }
-                  >
-                    {functionName[1].name}
-                  </Text>
-                )}
-              </>
-            ))}
-          </Dropdown.Modal>
-        }
+
+        <Dropdown.Modal>
+          {Object.entries(contractInterface.functions).map((functionName) => (
+            <div key={functionName[1].name}>
+              {/* Show only writable functions */}
+              {filterWritableMethods(functionName) && (
+                <Text
+                  onClick={() =>
+                    handleClick(functionName[1].name, functionName[0])
+                  }
+                >
+                  {functionName[1].name}
+                </Text>
+              )}
+            </div>
+          ))}
+        </Dropdown.Modal>
       </Dropdown>
     </TransactionTitleContainer>
   );

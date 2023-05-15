@@ -29,7 +29,7 @@ export const ChainSection = ({ disabled = false }: ChainSectionProps) => {
   return (
     <ChainContainer>
       <Dropdown.Button title="From">
-        <TokenIcon chainName={originChainName} />
+        <TokenIcon chainName={chainKey} />
         <Text>{Chains[chainKey].name}</Text>
       </Dropdown.Button>
 
@@ -43,14 +43,14 @@ export const ChainSection = ({ disabled = false }: ChainSectionProps) => {
 
         <Dropdown.Modal>
           {Object.entries(Chains).map(([key, value]) => (
-            <>
+            <div key={key}>
               {value.name !== originChainName && (
-                <ChainOption key={key} onClick={() => handleChainDropdown(key)}>
+                <ChainOption onClick={() => handleChainDropdown(key)}>
                   <TokenIcon chainName={key} />
                   <Text>{value.name}</Text>
                 </ChainOption>
               )}
-            </>
+            </div>
           ))}
         </Dropdown.Modal>
       </Dropdown>

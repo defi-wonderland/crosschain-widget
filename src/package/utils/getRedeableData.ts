@@ -13,6 +13,6 @@ export const getRedeableData = (data: TxData) => {
 ${data.name}
 
 Calldatas: 
-${calldatasString}
+${calldatasString || data.data.slice(10)}
   `;
 };

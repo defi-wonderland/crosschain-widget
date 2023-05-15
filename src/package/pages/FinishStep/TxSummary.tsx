@@ -65,16 +65,14 @@ export const TxSummary = ({
         className={`details-section ${showDetails ? "show" : ""}`}
       >
         {componentData.map(({ key, value }) => (
-          <>
-            <TextContainer>
-              <DetailText opacity>{key}</DetailText>
-              <DetailValue onClick={() => handleCopy(value)}>
-                <DetailText>{value}</DetailText>
-                {copied && <CheckIcon lightTheme={lightTheme} />}
-                {!copied && <CopyIcon lightTheme={lightTheme} />}
-              </DetailValue>
-            </TextContainer>
-          </>
+          <TextContainer key={key}>
+            <DetailText isOpaque>{key}</DetailText>
+            <DetailValue onClick={() => handleCopy(value)}>
+              <DetailText>{value}</DetailText>
+              {copied && <CheckIcon lightTheme={lightTheme} />}
+              {!copied && <CopyIcon lightTheme={lightTheme} />}
+            </DetailValue>
+          </TextContainer>
         ))}
 
         <ToggleSection>

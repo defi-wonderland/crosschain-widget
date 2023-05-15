@@ -56,10 +56,10 @@ export const TextContainer = styled.div`
   margin: 10px 0;
 `;
 
-export const DetailText = styled(Text)<{ opacity?: boolean }>`
+export const DetailText = styled(Text)<{ isOpaque?: boolean }>`
   font-size: 14px;
   min-width: 70px;
-  ${({ opacity }) => opacity && "opacity: 0.8;"}
+  ${({ isOpaque }) => isOpaque && "opacity: 0.8;"}
 `;
 
 export const ToggleSection = styled.div`

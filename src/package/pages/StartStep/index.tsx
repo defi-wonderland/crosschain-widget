@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ChainOption, SafeContainer, SText } from "./StartStep.styles";
 import { useDataContext, useNavigationContext } from "~/providers";
 import { BaseModal, Button, ModalProps, Text } from "~/components";
-import { fetchData, getSafeAddressUrl } from "~/utils";
+import { fetchData, getSafeAddressUrl, truncatedAddress } from "~/utils";
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { ChainSection } from "./ChainSection";
 import { StepType } from "~/types";
@@ -71,7 +71,7 @@ export const StartStep = ({ ...props }: ModalProps) => {
                   key={safeAddress}
                   onClick={() => handleSafeDropwdown(safeAddress)}
                 >
-                  <Text>{safeAddress}</Text>
+                  <Text>{truncatedAddress(safeAddress)}</Text>
                 </ChainOption>
               ))}
             </Dropdown.Modal>

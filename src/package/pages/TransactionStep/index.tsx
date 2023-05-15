@@ -112,10 +112,12 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
     if ((contractAddress && customData) || (contractAddress && encodedTx)) {
       const name = showCustomData ? customData?.slice(0, 10) : methodSignature;
       const data = encodedTx || customData;
-      const calldatas = getParams(
-        method as FunctionFragment,
-        paramsArray as string[]
-      );
+
+      // if custom data, we don't need to get the calldatas (params)
+      const calldatas = !customData
+        ? getParams(method as FunctionFragment, paramsArray || [])
+        : undefined;
+
       setTxData({
         ...txData,
         to: contractAddress,
@@ -135,7 +137,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
     >
       <SInput
         title="Contract address"
-        value={contractAddress}
+        value={contractAddress || ""}
         placeholder="target contract address"
         onChange={(e) => handleSetState({ contractAddress: e.target.value })}
         error={!!contractAddress && !isAddress(contractAddress)}
@@ -143,7 +145,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
       />
       <STextArea
         title="Input ABI"
-        value={abiItem}
+        value={abiItem || ""}
         onChange={(e) => handleSetState({ abiItem: e.target.value })}
         disabled={loading}
         error={!!abiItem && abiError}
@@ -185,7 +187,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
             <SInput
               title="Value"
               placeholder="value"
-              value={value}
+              value={value || ""}
               onChange={(e) =>
                 setTxState({ ...txState, value: e.target.value })
               }
