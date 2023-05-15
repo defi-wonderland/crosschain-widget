@@ -11,7 +11,7 @@ import {
 } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useNavigationContext, useDataContext } from "~/providers";
-import { isAddress, encodeFunction, getContractAbi } from "~/utils";
+import { isAddress, encodeFunction, getContractAbi, getParams } from "~/utils";
 import { TransactionTitleContainer } from "./Transaction.styles";
 import { TransactionInformation } from "./TransactionInformation";
 
@@ -24,6 +24,7 @@ export interface TxState {
   encodedTx?: string;
   value?: string;
   customData?: string;
+  methodSignature?: string;
 }
 
 export const TransactionStep = ({ ...props }: ModalProps) => {
@@ -44,6 +45,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
     encodedTx,
     value,
     customData,
+    methodSignature,
   } = txState;
 
   const handleSetState = (newValue: TxState) => {
@@ -108,15 +110,19 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
 
   useEffect(() => {
     if ((contractAddress && customData) || (contractAddress && encodedTx)) {
-      const name = showCustomData ? "custom" : method?.name;
-      const calldata = encodedTx || customData;
-
+      const name = showCustomData ? customData?.slice(0, 10) : methodSignature;
+      const data = encodedTx || customData;
+      const calldatas = getParams(
+        method as FunctionFragment,
+        paramsArray as string[]
+      );
       setTxData({
         ...txData,
         to: contractAddress,
         value: value || "0",
-        calldata: calldata || "",
+        data: data || "",
         name: name || "",
+        calldatas,
       });
     }
   }, [encodedTx, value, customData]);
@@ -129,6 +135,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
     >
       <SInput
         title="Contract address"
+        value={contractAddress}
         placeholder="target contract address"
         onChange={(e) => handleSetState({ contractAddress: e.target.value })}
         error={!!contractAddress && !isAddress(contractAddress)}
@@ -200,7 +207,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
       )}
       <Button
         onClick={() => setType(StepType.XCALLDATA_REVIEW)}
-        disabled={!txData?.calldata}
+        disabled={!txData?.data}
       >
         Continue
       </Button>

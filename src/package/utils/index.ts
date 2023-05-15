@@ -3,6 +3,8 @@ export * from "./encodeCalldata";
 export * from "./encodeXCall";
 export * from "./estimateRelayerFee";
 export * from "./getChainKey";
+export * from "./getParams";
+export * from "./getRedeableData";
 export * from "./fetchData";
 export * from "./isAddress";
 export * from "./transactions";

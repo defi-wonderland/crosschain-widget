@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-import { PropTheme } from "~/types";
-import { FONT_SIZE_14 } from "./Variables";
 import { InputContainer, InputTitle } from "./Input";
+import { PropTheme } from "~/types";
 import { ErrorText } from "./Text";
 
 const TextArea = styled.textarea.attrs({ spellcheck: false })<{
@@ -13,9 +12,9 @@ const TextArea = styled.textarea.attrs({ spellcheck: false })<{
   ${({ error }) => error && `border-color: #FF3F3F;`}
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.background};
-  color: ${({ theme }: PropTheme) => theme.textSecondary};
+  color: ${({ theme }: PropTheme) => theme.textPrimary};
   padding: 15px 14px;
-  font-size: ${FONT_SIZE_14};
+  font-size: 13px;
   cursor: pointer;
   font-weight: 400;
   line-height: 19px;
@@ -50,7 +49,7 @@ const TextArea = styled.textarea.attrs({ spellcheck: false })<{
   }
 
   &:disabled {
-    opacity: 0.4;
+    opacity: 1;
   }
 `;
 

@@ -1,9 +1,7 @@
 import { useState } from "react";
 
-import { STextArea, Toggle } from "~/components";
+import { STextArea, Toggle, ArrowDown, ArrowUp } from "~/components";
 import {
-  ArrowDown,
-  ArrowUp,
   CheckIcon,
   Container,
   CopyIcon,
@@ -14,11 +12,13 @@ import {
   TitleContainer,
   ToggleSection,
 } from "./TxSummary.styles";
-import { copyData } from "~/utils";
+import { copyData, getRedeableData } from "~/utils";
+import { useDataContext } from "~/providers";
+import { TxData } from "~/types";
 
 interface TxSummaryProps {
   title: string;
-  data: string;
+  txData: TxData;
   origin: string;
   destiny: string;
   value: string;
@@ -27,12 +27,13 @@ interface TxSummaryProps {
 
 export const TxSummary = ({
   title,
-  data,
+  txData,
   origin,
   destiny,
   value,
   textTitle,
 }: TxSummaryProps) => {
+  const { lightTheme } = useDataContext();
   const [showDecoded, setShowDecoded] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -56,8 +57,8 @@ export const TxSummary = ({
     <Container>
       <TitleContainer onClick={() => setShowDetails(!showDetails)}>
         <h1>{title}</h1>
-        {showDetails && <ArrowUp />}
-        {!showDetails && <ArrowDown />}
+        {showDetails && <ArrowUp lightTheme={lightTheme} />}
+        {!showDetails && <ArrowDown lightTheme={lightTheme} />}
       </TitleContainer>
 
       <DetailsSection
@@ -69,8 +70,8 @@ export const TxSummary = ({
               <DetailText opacity>{key}</DetailText>
               <DetailValue onClick={() => handleCopy(value)}>
                 <DetailText>{value}</DetailText>
-                {copied && <CheckIcon />}
-                {!copied && <CopyIcon />}
+                {copied && <CheckIcon lightTheme={lightTheme} />}
+                {!copied && <CopyIcon lightTheme={lightTheme} />}
               </DetailValue>
             </TextContainer>
           </>
@@ -82,7 +83,12 @@ export const TxSummary = ({
         </ToggleSection>
 
         {/* Temporary: we need add decoded format  */}
-        <STextArea title={textTitle} wrap="on" value={data} disabled />
+        <STextArea
+          title={textTitle}
+          wrap="on"
+          value={showDecoded ? getRedeableData(txData) : txData.data}
+          disabled
+        />
       </DetailsSection>
     </Container>
   );

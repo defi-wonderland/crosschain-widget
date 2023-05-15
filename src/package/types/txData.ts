@@ -1,8 +1,15 @@
 export interface TxData {
-  name: string;
   to: string;
   value: string;
-  calldata: string;
+  data: string;
+  name?: string;
+  calldatas?: Calldata[];
+  from?: string;
+}
+
+export interface Calldata {
+  type: string;
+  value: string;
 }
 
 // See: https://docs.connext.network/developers/reference/contracts/calls#xcall

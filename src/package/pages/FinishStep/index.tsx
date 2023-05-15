@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 import { useDataContext, useNavigationContext } from "~/providers";
 import { ChainSection } from "~/pages/StartStep/ChainSection";
+import { ModalProps, StepType, TxData } from "~/types";
 import { BaseModal, Button } from "~/components";
-import { ModalProps, StepType } from "~/types";
 import { getConstants } from "~/config";
 import { TxSummary } from "./TxSummary";
 import {
@@ -15,12 +15,7 @@ import {
 
 interface FinishState {
   relayerFee?: string;
-  transactionJson: {
-    value: string;
-    to: string;
-    from: string;
-    data: string;
-  };
+  xCallJson: TxData;
   xCallParams?: string[];
 }
 
@@ -31,9 +26,14 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     useDataContext();
 
   const [finishState, setFinishState] = useState<FinishState>({
-    transactionJson: { value: "", to: "", from: "", data: "" },
+    xCallJson: {
+      value: "",
+      to: "",
+      from: "",
+      data: "",
+    },
   });
-  const { relayerFee, transactionJson } = finishState;
+  const { relayerFee, xCallJson } = finishState;
 
   const originChainName = getChainKey(originChainId);
 
@@ -43,7 +43,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
       receiverCalldata = encodeReceiverCallData(
         txData.to,
         txData.value,
-        txData.calldata
+        txData.data
       );
     }
 
@@ -66,26 +66,37 @@ export const FinishStep = ({ ...props }: ModalProps) => {
       receiverCalldata || "0x",
     ];
 
-    const encodedData = encodeXCall(xCallParams);
+    const { encodedData, params, signature } = encodeXCall(xCallParams);
 
-    const transactionJson = {
+    const xCallJson: TxData = {
+      name: signature,
       value: relayerFee,
       to: Chains[originChainName].connextContract,
       from: userAddress,
       data: encodedData,
+      calldatas: params,
     };
 
-    return { xCallParams, transactionJson };
+    return { xCallParams, xCallJson };
+  };
+
+  const getTransactionJson = (data: TxData) => {
+    return JSON.stringify({
+      to: data.to,
+      from: data.from,
+      value: data.value,
+      data: data.data,
+    });
   };
 
   useEffect(() => {
     if (!relayerFee) {
       estimateRelayerFee(provider!, originChainName).then((rFee) => {
-        const { xCallParams, transactionJson } = getParams(rFee.toString());
+        const { xCallParams, xCallJson } = getParams(rFee.toString());
         setFinishState({
           ...finishState,
           relayerFee: rFee.toString(),
-          transactionJson,
+          xCallJson,
           xCallParams,
         });
       });
@@ -102,16 +113,16 @@ export const FinishStep = ({ ...props }: ModalProps) => {
 
       <TxSummary
         title="Origin Transaction"
-        data={JSON.stringify(transactionJson)}
+        txData={xCallJson}
         origin={userAddress}
         destiny={Chains[originChainName].connextContract}
-        value={transactionJson.value}
+        value={xCallJson.value}
         textTitle="xCall Data"
       />
 
       <TxSummary
         title="Destination Transaction"
-        data={JSON.stringify(txData)}
+        txData={txData!}
         origin={"ZodiacModule Address or Safe Address"}
         destiny={txData?.to || ""}
         value={txData?.value || ""}
@@ -120,7 +131,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
 
       <Button
         onClick={async () => {
-          setTx(JSON.stringify(transactionJson));
+          setTx(getTransactionJson(xCallJson));
           setType(StepType.None);
         }}
       >

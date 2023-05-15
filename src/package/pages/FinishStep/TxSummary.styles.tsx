@@ -32,22 +32,6 @@ export const Container = styled.div`
   }
 `;
 
-export const ArrowDown = styled.div`
-  width: 0;
-  height: 0;
-  border-right: 6px solid transparent;
-  border-left: 6px solid transparent;
-  border-top: 6px solid white;
-`;
-
-export const ArrowUp = styled.div`
-  width: 0;
-  height: 0;
-  border-right: 6px solid transparent;
-  border-left: 6px solid transparent;
-  border-bottom: 6px solid white;
-`;
-
 export const TitleContainer = styled.button`
   border: none;
   border-top: ${({ theme }: PropTheme) => theme.borderPrimary};
@@ -114,19 +98,19 @@ export const DetailValue = styled.div`
 export const CopyIcon = styled.img.attrs({
   src: copyIcon,
   alt: "copy",
-})`
+})<{ lightTheme?: boolean }>`
   height: 14px;
   margin: auto 0;
-  filter: invert(1);
+  ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
   opacity: 0;
 `;
 
 export const CheckIcon = styled.img.attrs({
   src: checkIcon,
   alt: "check",
-})`
+})<{ lightTheme?: boolean }>`
   height: 14px;
   margin: auto 0;
-  filter: invert(1);
+  ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
   opacity: 0;
 `;

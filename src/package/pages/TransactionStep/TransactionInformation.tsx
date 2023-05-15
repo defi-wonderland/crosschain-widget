@@ -62,11 +62,12 @@ export const TransactionInformation = ({
     );
   };
 
-  const handleClick = (methodName: string) => {
+  const handleClick = (methodName: string, signature: string) => {
     methodDropdownProps.setShow(false);
     handleSetState({
       paramsArray: [], // reset paramsArray before changing the method
       method: filterMethod(contractInterface, methodName),
+      methodSignature: signature,
     });
   };
 
@@ -84,7 +85,9 @@ export const TransactionInformation = ({
                 {filterWritableMethods(functionName) && (
                   <Text
                     key={functionName[1].name + functionName[1].type}
-                    onClick={() => handleClick(functionName[1].name)}
+                    onClick={() =>
+                      handleClick(functionName[1].name, functionName[0])
+                    }
                   >
                     {functionName[1].name}
                   </Text>
