@@ -1,53 +1,22 @@
 import { FunctionFragment, Interface } from "ethers/lib/utils";
-import styled from "styled-components";
 
+import { filterMethod, filterWritableMethods } from "~/utils";
+import { DropdownContainer } from "./Transaction.styles";
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { TxState } from "~/pages/TransactionStep";
-import { filterMethod, filterWritableMethods } from "~/utils";
 import { Text } from "~/components";
 
-export const TransactionTitleContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
-  margin: 12px 0 0px;
-
-  & section button,
-  & section {
-    width: 100%;
-  }
-
-  & section section {
-    margin-top: -10px;
-    max-height: 140px;
-  }
-
-  & section section p {
-    text-align: start;
-    margin: 8px 0;
-    cursor: pointer;
-    padding: 4px 12px;
-    transition: transform 200ms;
-
-    &:hover {
-      transform: scale(1.01);
-    }
-  }
-`;
-
-interface TransactionInformationProps {
+interface TransactionDropdownProps {
   contractInterface: Interface;
   method?: FunctionFragment;
   handleSetState: (newValue: TxState) => void;
 }
 
-export const TransactionInformation = ({
+export const TransactionDropdown = ({
   contractInterface,
   method,
   handleSetState,
-}: TransactionInformationProps) => {
+}: TransactionDropdownProps) => {
   const methodDropdownProps = Dropdown.useProps();
 
   const handleClick = (methodName: string, signature: string) => {
@@ -60,7 +29,7 @@ export const TransactionInformation = ({
   };
 
   return (
-    <TransactionTitleContainer>
+    <DropdownContainer>
       <Dropdown {...methodDropdownProps}>
         <Dropdown.Button title="Contract method selector" icon={true}>
           <Text>{method?.name}</Text>
@@ -83,6 +52,6 @@ export const TransactionInformation = ({
           ))}
         </Dropdown.Modal>
       </Dropdown>
-    </TransactionTitleContainer>
+    </DropdownContainer>
   );
 };
