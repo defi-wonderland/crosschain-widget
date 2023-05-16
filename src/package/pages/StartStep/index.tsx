@@ -28,6 +28,7 @@ export const StartStep = ({ ...props }: ModalProps) => {
     } catch (error) {
       console.log("error getting safes");
       setSafe("");
+      setSafeList([]);
     }
     setLoading(false);
   };
@@ -61,7 +62,9 @@ export const StartStep = ({ ...props }: ModalProps) => {
             errorMsg="Please enter a valid Safe address"
           >
             {/* Temporary: Set an input when it doesn't find any safe. */}
-            <Text>{safeAddress || "No safe here"}</Text>
+            <Text>
+              {safeAddress ? truncatedAddress(safeAddress) : "No safe here"}
+            </Text>
           </Dropdown.Button>
 
           {!!safeList.length && (
@@ -78,7 +81,9 @@ export const StartStep = ({ ...props }: ModalProps) => {
           )}
         </Dropdown>
 
-        <Button onClick={handleUseExisting}>Use existing</Button>
+        <Button disabled={!safeList.length} onClick={handleUseExisting}>
+          Use existing
+        </Button>
       </SafeContainer>
 
       <SText>Or</SText>

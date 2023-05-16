@@ -57,6 +57,7 @@ interface InputProps {
   disabled?: boolean;
   error?: boolean;
   errorMsg?: string;
+  type?: string;
 }
 
 export const SInput = ({
@@ -67,6 +68,7 @@ export const SInput = ({
   disabled,
   error,
   errorMsg,
+  type,
 }: InputProps) => {
   return (
     <>
@@ -78,6 +80,7 @@ export const SInput = ({
           value={value}
           disabled={disabled}
           error={error}
+          type={type}
         />
       </InputContainer>
       {error && <ErrorText>{errorMsg}</ErrorText>}

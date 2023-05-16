@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { TxState } from "~/pages/TransactionStep";
+import { filterMethod, filterWritableMethods } from "~/utils";
 import { Text } from "~/components";
 
 export const TransactionTitleContainer = styled.div`
@@ -48,19 +49,6 @@ export const TransactionInformation = ({
   handleSetState,
 }: TransactionInformationProps) => {
   const methodDropdownProps = Dropdown.useProps();
-
-  const filterMethod = (contractInterface: Interface, method: string) => {
-    return Object.entries(contractInterface.functions).filter(
-      (key) => key[1].name === method
-    )[0][1];
-  };
-
-  const filterWritableMethods = (method: [string, FunctionFragment]) => {
-    return (
-      method[1].stateMutability === "payable" ||
-      method[1].stateMutability === "nonpayable"
-    );
-  };
 
   const handleClick = (methodName: string, signature: string) => {
     methodDropdownProps.setShow(false);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Interface, FunctionFragment } from "ethers/lib/utils.js";
+import { utils } from "ethers";
 
 import {
   BaseModal,
@@ -11,7 +12,13 @@ import {
 } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useNavigationContext, useDataContext } from "~/providers";
-import { isAddress, encodeFunction, getContractAbi, getParams } from "~/utils";
+import {
+  isAddress,
+  encodeFunction,
+  getContractAbi,
+  getParams,
+  getFirstWritableMethod,
+} from "~/utils";
 import { TransactionTitleContainer } from "./Transaction.styles";
 import { TransactionInformation } from "./TransactionInformation";
 
@@ -53,11 +60,9 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
   };
 
   const handleSetParam = (value: string, index: number) => {
-    if (paramsArray) {
-      const newParamsArray = [...paramsArray];
-      newParamsArray[index] = value;
-      handleSetState({ paramsArray: newParamsArray });
-    }
+    const newParamsArray = [...(paramsArray || [])];
+    newParamsArray[index] = value;
+    handleSetState({ paramsArray: newParamsArray });
   };
 
   useEffect(() => {
@@ -66,12 +71,10 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
         const iContract = new Interface(abiItem);
         handleSetState({
           contractInterface: iContract,
+          // set as default methodSignature the first writable method
+          methodSignature: getFirstWritableMethod(iContract.functions)[0],
           // set as default method the first writable method
-          method: Object.entries(iContract.functions).filter(
-            (key) =>
-              key[1].stateMutability === "payable" ||
-              key[1].stateMutability === "nonpayable"
-          )[0][1],
+          method: getFirstWritableMethod(iContract.functions)[1],
         });
 
         setAbiError(false);
@@ -188,6 +191,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
               title="Value"
               placeholder="value"
               value={value || ""}
+              type="number"
               onChange={(e) =>
                 setTxState({ ...txState, value: e.target.value })
               }
@@ -203,6 +207,8 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
                 setTxState({ ...txState, customData: e.target.value })
               }
               placeholder="Hex encoded"
+              error={!!customData?.length && !utils.isBytesLike(customData)}
+              errorMsg="Invalid hex data"
             />
           )}
         </>

@@ -24,7 +24,11 @@ const SButton = styled.button`
   }
 
   &:disabled {
-    opacity: 0.4;
+    background-color: ${({ theme }: PropTheme) =>
+      theme.actionDisabledBackground};
+    color: ${({ theme }: PropTheme) => theme.actionDisabled};
+    border: ${({ theme }: PropTheme) => theme.borderPrimary};
+    cursor: default;
   }
 `;
 

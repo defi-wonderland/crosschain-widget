@@ -6,6 +6,7 @@ export * from "./getChainKey";
 export * from "./getParams";
 export * from "./getRedeableData";
 export * from "./fetchData";
+export * from "./filterWritableMethods";
 export * from "./isAddress";
 export * from "./transactions";
 export * from "./truncateAddress";

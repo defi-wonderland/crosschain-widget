@@ -13,8 +13,8 @@ export const darkTheme: Theme = {
   actionActive: "#EBEBEB",
   actionHover: "",
   actionSelected: "",
-  actionDisabled: "",
-  actionDisabledBackground: "",
+  actionDisabled: "#444444",
+  actionDisabledBackground: "#2B2B2D",
   borderRadius: "8px",
 };
 
@@ -31,7 +31,7 @@ export const lightTheme: Theme = {
   actionActive: "#EBEBEB",
   actionHover: "",
   actionSelected: "",
-  actionDisabled: "",
-  actionDisabledBackground: "",
+  actionDisabled: "#777777",
+  actionDisabledBackground: "#EBEBEB",
   borderRadius: "8px",
 };

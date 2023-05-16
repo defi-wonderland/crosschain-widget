@@ -59,7 +59,8 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     const xCallParams = [
       Chains[destinyChain].domainId.toString(),
       "0xC55b9BE4B5959afeb1938e2A1498F69124042294",
-      Chains[originChainName].assets.TEST,
+      Chains[originChainName].assets.TEST ||
+        Chains[originChainName].assets.WETH,
       userAddress,
       "0",
       "0",

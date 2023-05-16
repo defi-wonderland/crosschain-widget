@@ -5,8 +5,14 @@ import { getParams } from "./getParams";
 
 export const encodeXCall = (params: string[]) => {
   const contract = new Interface(XCALL_ABI);
-  const encodedData = contract.encodeFunctionData("xcall", params);
   const method = Object.entries(contract.functions);
+  let encodedData = "0x";
+
+  try {
+    encodedData = contract.encodeFunctionData("xcall", params);
+  } catch (error) {
+    console.log("error encoding xcall function");
+  }
 
   return {
     encodedData,
