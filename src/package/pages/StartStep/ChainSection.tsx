@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { ChainContainer, ChainOption } from "./StartStep.styles";
 import { TokenIcon, Text, ArrowRight } from "~/components";
 import Dropdown from "~/components/Dropdown/Dropdown";
@@ -21,11 +23,19 @@ export const ChainSection = ({ disabled = false }: ChainSectionProps) => {
   } = useDataContext();
 
   const chainKey = getChainKey(chainId!);
-  const originChainName = Chains[chainKey].name;
   const handleChainDropdown = (key: string) => {
     setDestinyChain(key);
     dropdownChainProps.setShow(false);
   };
+
+  useEffect(() => {
+    // if originChain is ethereum, set destinyChain to the next chain
+    // in the list
+    if (chainKey === "ethereum") {
+      setDestinyChain("polygon");
+    }
+  }, [chainKey]);
+
   return (
     <ChainContainer>
       <Dropdown.Button title="From">
@@ -44,7 +54,7 @@ export const ChainSection = ({ disabled = false }: ChainSectionProps) => {
         <Dropdown.Modal>
           {Object.entries(Chains).map(([key, value]) => (
             <div key={key}>
-              {value.name !== originChainName && (
+              {key !== chainKey && (
                 <ChainOption onClick={() => handleChainDropdown(key)}>
                   <TokenIcon chainName={key} />
                   <Text>{value.name}</Text>

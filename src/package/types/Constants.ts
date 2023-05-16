@@ -9,6 +9,7 @@ export interface Constants {
   CONNEXT_BUMP: number;
   Chains: {
     [key: string]: {
+      safeIdentifier?: string;
       name: string;
       id: number;
       domainId: number;

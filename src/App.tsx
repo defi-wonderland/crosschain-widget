@@ -7,7 +7,7 @@ import { isAddress } from "~/utils";
 
 function App() {
   const [useModal, setUseModal] = useState(true);
-  const [useLightTheme, setUseLightTheme] = useState(false);
+  const [useLightTheme, setUseLightTheme] = useState(true);
   const [userAddress, setUserAddress] = useState("");
   const [userChainId, setUserChainId] = useState(1);
   const [tx, setTx] = useState("");

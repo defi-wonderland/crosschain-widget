@@ -11,6 +11,10 @@ type ContextType = {
   userAddress: string;
   setUserAddress: (val: string) => void;
 
+  // Safe control
+  safeAddress: string;
+  setSafeAddress: (val: string) => void;
+
   // Origin Chain control
   originChainId: number;
   setOriginChainId: (val: number) => void;
@@ -58,6 +62,7 @@ export const DataProvider = ({
   lightTheme,
 }: ModalProps) => {
   const [userAddress, setUserAddress] = useState<string>("");
+  const [safeAddress, setSafeAddress] = useState<string>("");
   const [originChainId, setOriginChainId] = useState<number>(1);
   const [destinyChain, setDestinyChain] = useState<string>("ethereum");
 
@@ -75,6 +80,8 @@ export const DataProvider = ({
       value={{
         userAddress,
         setUserAddress,
+        safeAddress,
+        setSafeAddress,
         originChainId,
         setOriginChainId,
         destinyChain,

@@ -11,12 +11,12 @@ import { StepType } from "~/types";
 export const StartStep = ({ ...props }: ModalProps) => {
   const dropdownSafeProps = Dropdown.useProps();
   const { setType } = useNavigationContext();
-  const { userAddress, destinyChain } = useDataContext();
+  const { userAddress, destinyChain, setSafeAddress, safeAddress } =
+    useDataContext();
 
   const [safeList, setSafeList] = useState<string[]>([]);
-  const [safeAddress, setSafe] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const hasModule = true;
+  const hasModule = false;
 
   const getSafe = async () => {
     setLoading(true);
@@ -24,17 +24,17 @@ export const StartStep = ({ ...props }: ModalProps) => {
       const url = getSafeAddressUrl(destinyChain, userAddress);
       const jsonData = await fetchData(url);
       setSafeList(jsonData.safes);
-      setSafe(jsonData.safes[0]);
+      setSafeAddress(jsonData.safes[0]);
     } catch (error) {
       console.log("error getting safes");
-      setSafe("");
+      setSafeAddress("");
       setSafeList([]);
     }
     setLoading(false);
   };
 
   const handleSafeDropwdown = (safeAddress: string) => {
-    setSafe(safeAddress);
+    setSafeAddress(safeAddress);
     dropdownSafeProps.setShow(false);
   };
 

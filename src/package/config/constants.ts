@@ -11,6 +11,7 @@ export const getConstants = (): Constants => {
       ethereum: {
         name: "Ethereum",
         id: 1,
+        safeIdentifier: "eth",
         domainId: 6648936,
         connextContract: "0x8898B472C54c31894e3B9bb83cEA802a5d0e63C6",
         gelatoPremiumFee: 0.2,
@@ -25,6 +26,7 @@ export const getConstants = (): Constants => {
         name: "Polygon",
         id: 137,
         domainId: 1886350457,
+        safeIdentifier: "matic",
         connextContract: "0x11984dc4465481512eb5b777E44061C158CF2259",
         gelatoPremiumFee: 0.7,
         assets: {
@@ -42,6 +44,7 @@ export const getConstants = (): Constants => {
         name: "Optimism",
         id: 10,
         domainId: 1869640809,
+        safeIdentifier: "oeth",
         connextContract: "0x8f7492DE823025b4CfaAB1D34c58963F2af5DEDA",
         gelatoPremiumFee: 0.5,
         assets: {
@@ -59,6 +62,7 @@ export const getConstants = (): Constants => {
         name: "Arbitrum One",
         id: 42161,
         domainId: 1634886255,
+        safeIdentifier: "arb1",
         connextContract: "0xEE9deC2712cCE65174B561151701Bf54b99C24C8",
         gelatoPremiumFee: 0.5,
         assets: {
@@ -75,6 +79,7 @@ export const getConstants = (): Constants => {
       gnosisChain: {
         name: "Gnosis Chain",
         id: 100,
+        safeIdentifier: "gno",
         domainId: 6778479,
         connextContract: "0x5bB83e95f63217CDa6aE3D181BA580Ef377D2109",
         gelatoPremiumFee: 1,
@@ -93,6 +98,7 @@ export const getConstants = (): Constants => {
         name: "BNB Chain",
         id: 56,
         domainId: 6450786,
+        safeIdentifier: "bnb",
         connextContract: "0xCd401c10afa37d641d2F594852DA94C700e4F2CE",
         gelatoPremiumFee: 0.3,
         assets: {
@@ -112,71 +118,72 @@ export const getConstants = (): Constants => {
         name: "Goerli",
         id: 5,
         domainId: 1735353714,
+        safeIdentifier: "gor",
         connextContract: "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
         assets: {
           TEST: "0x7ea6eA49B0b0Ae9c5db7907d139D9Cd3439862a1",
           WETH: "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
         },
       },
-      optimismGoerli: {
-        name: "Optimism-Goerli",
-        id: 420,
-        domainId: 1735356532,
-        connextContract: "0x5Ea1bb242326044699C3d81341c5f535d5Af1504",
-        assets: {
-          TEST: "0x68Db1c8d85C09d546097C65ec7DCBFF4D6497CbF",
-          nextWETH: "0x39B061B7e41DE8B721f9aEcEB6b3f17ECB7ba63E",
-          WETH: "0x74c6FD7D2Bc6a8F0Ebd7D78321A95471b8C2B806",
-        },
-      },
-      mumbai: {
-        name: "Mumbai",
-        id: 80001,
-        domainId: 9991,
-        connextContract: "0x2334937846Ab2A3FCE747b32587e1A1A2f6EEC5a",
-        assets: {
-          TEST: "0xeDb95D8037f769B72AAab41deeC92903A98C9E16",
-          nextWETH: "0x1E5341E4b7ed5D0680d9066aac0396F0b1bD1E69",
-          WETH: "0xFD2AB41e083c75085807c4A65C0A14FDD93d55A9",
-        },
-      },
-      arbitrumGoerli: {
-        name: "Arbitrum-Goerli",
-        id: 421613,
-        domainId: 1734439522,
-        connextContract: "0x2075c9E31f973bb53CAE5BAC36a8eeB4B082ADC2",
-        assets: {
-          TEST: "0xDC805eAaaBd6F68904cA706C221c72F8a8a68F9f",
-          WETH: "0x1346786E6A5e07b90184a1Ba58E55444b99DC4A2",
-        },
-      },
-      zkSyncEraTestnet: {
-        name: "zkSync Era Testnet",
-        id: 280,
-        domainId: 2053862260,
-        connextContract: "0xB0694fEcEdd88e5590A563aDb5f194d2dE30F0b6",
-        assets: {
-          TEST: "0x7c1412e456ad60b8ee458c4eb3a9852c3e389353",
-        },
-      },
-      lineaTestnet: {
-        name: "Linea Testnet",
-        id: 59140,
-        domainId: 1668247156,
-        connextContract: "0xfdb6B853C1945Dbffe78A3091BeBB9A928234fA3",
-        assets: {
-          TEST: "0xB706319D37b945727E71ae0d4353699d19112576",
-        },
-      },
-      polygonZkEvmTestnet: {
-        name: "Polygon zkEVM Testnet",
-        id: 1442,
-        domainId: 1887071092,
-        connextContract: "0x20b4789065DE09c71848b9A4FcAABB2c10006FA2",
-        assets: {
-          TEST: "0x5f921E4DE609472632CEFc72a3846eCcfbed4ed8",
-        },
-      },
+      // optimismGoerli: {
+      //   name: "Optimism-Goerli",
+      //   id: 420,
+      //   domainId: 1735356532,
+      //   connextContract: "0x5Ea1bb242326044699C3d81341c5f535d5Af1504",
+      //   assets: {
+      //     TEST: "0x68Db1c8d85C09d546097C65ec7DCBFF4D6497CbF",
+      //     nextWETH: "0x39B061B7e41DE8B721f9aEcEB6b3f17ECB7ba63E",
+      //     WETH: "0x74c6FD7D2Bc6a8F0Ebd7D78321A95471b8C2B806",
+      //   },
+      // },
+      // mumbai: {
+      //   name: "Mumbai",
+      //   id: 80001,
+      //   domainId: 9991,
+      //   connextContract: "0x2334937846Ab2A3FCE747b32587e1A1A2f6EEC5a",
+      //   assets: {
+      //     TEST: "0xeDb95D8037f769B72AAab41deeC92903A98C9E16",
+      //     nextWETH: "0x1E5341E4b7ed5D0680d9066aac0396F0b1bD1E69",
+      //     WETH: "0xFD2AB41e083c75085807c4A65C0A14FDD93d55A9",
+      //   },
+      // },
+      // arbitrumGoerli: {
+      //   name: "Arbitrum-Goerli",
+      //   id: 421613,
+      //   domainId: 1734439522,
+      //   connextContract: "0x2075c9E31f973bb53CAE5BAC36a8eeB4B082ADC2",
+      //   assets: {
+      //     TEST: "0xDC805eAaaBd6F68904cA706C221c72F8a8a68F9f",
+      //     WETH: "0x1346786E6A5e07b90184a1Ba58E55444b99DC4A2",
+      //   },
+      // },
+      // zkSyncEraTestnet: {
+      //   name: "zkSync Era Testnet",
+      //   id: 280,
+      //   domainId: 2053862260,
+      //   connextContract: "0xB0694fEcEdd88e5590A563aDb5f194d2dE30F0b6",
+      //   assets: {
+      //     TEST: "0x7c1412e456ad60b8ee458c4eb3a9852c3e389353",
+      //   },
+      // },
+      // lineaTestnet: {
+      //   name: "Linea Testnet",
+      //   id: 59140,
+      //   domainId: 1668247156,
+      //   connextContract: "0xfdb6B853C1945Dbffe78A3091BeBB9A928234fA3",
+      //   assets: {
+      //     TEST: "0xB706319D37b945727E71ae0d4353699d19112576",
+      //   },
+      // },
+      // polygonZkEvmTestnet: {
+      //   name: "Polygon zkEVM Testnet",
+      //   id: 1442,
+      //   domainId: 1887071092,
+      //   connextContract: "0x20b4789065DE09c71848b9A4FcAABB2c10006FA2",
+      //   assets: {
+      //     TEST: "0x5f921E4DE609472632CEFc72a3846eCcfbed4ed8",
+      //   },
+      // },
     },
   };
 };
