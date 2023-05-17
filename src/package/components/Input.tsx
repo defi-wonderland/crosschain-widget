@@ -3,6 +3,13 @@ import { PropTheme } from "~/types";
 import { FONT_SIZE_16, FONT_SIZE_12 } from "./Variables";
 import { ErrorText } from "./Text";
 
+export const Container = styled.div`
+  display: flex;
+  position: relative;
+  margin-bottom: 10px;
+  width: 100%;
+`;
+
 export const InputContainer = styled.div`
   position: relative;
   width: 100%;
@@ -15,7 +22,7 @@ const Input = styled.input<{ error?: boolean }>`
   border: ${({ theme }: PropTheme) => theme.borderPrimary};
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.background};
-  color: ${({ theme }: PropTheme) => theme.textSecondary};
+  color: ${({ theme }: PropTheme) => theme.textPrimary};
   ${({ error }) => error && `border-color: #FF3F3F;`}
   padding: 12.5px 14px;
   font-size: ${FONT_SIZE_16};
@@ -39,7 +46,7 @@ export const InputTitle = styled.p<{ error?: boolean }>`
   text-align: start;
   font-size: ${FONT_SIZE_12};
   background-color: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.textSecondary};
   ${({ error }) => error && "color: #FF3F3F;"};
   top: -6px;
   left: 12px;
@@ -71,7 +78,7 @@ export const SInput = ({
   type,
 }: InputProps) => {
   return (
-    <>
+    <Container>
       <InputContainer>
         <InputTitle error={error}>{title}</InputTitle>
         <Input
@@ -84,6 +91,6 @@ export const SInput = ({
         />
       </InputContainer>
       {error && <ErrorText>{errorMsg}</ErrorText>}
-    </>
+    </Container>
   );
 };

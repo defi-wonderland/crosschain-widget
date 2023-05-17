@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { InputContainer, InputTitle } from "./Input";
+import { Container, InputContainer, InputTitle } from "./Input";
 import { PropTheme } from "~/types";
 import { ErrorText } from "./Text";
 
@@ -14,7 +14,7 @@ const TextArea = styled.textarea.attrs({ spellcheck: false })<{
   background-color: ${({ theme }: PropTheme) => theme.background};
   color: ${({ theme }: PropTheme) => theme.textPrimary};
   padding: 15px 14px;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
   font-weight: 400;
   line-height: 19px;
@@ -24,6 +24,10 @@ const TextArea = styled.textarea.attrs({ spellcheck: false })<{
   width: 100%;
   height: 160px;
   resize: none;
+
+  &:disabled {
+    color: ${({ theme }: PropTheme) => theme.textSecondary};
+  }
 
   &:focus-visible {
     outline: none;
@@ -75,7 +79,7 @@ export const STextArea = ({
   errorMsg,
 }: TAProps) => {
   return (
-    <>
+    <Container>
       <InputContainer>
         <InputTitle error={error}>{title}</InputTitle>
         <TextArea
@@ -88,6 +92,6 @@ export const STextArea = ({
         />
       </InputContainer>
       {error && <ErrorText>{errorMsg}</ErrorText>}
-    </>
+    </Container>
   );
 };

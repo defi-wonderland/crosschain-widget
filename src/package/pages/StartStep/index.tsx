@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { ChainOption, SafeContainer, SText } from "./StartStep.styles";
+import {
+  SText,
+  SafeContainer,
+  ChainOption as SafeOption,
+} from "./StartStep.styles";
 import { useDataContext, useNavigationContext } from "~/providers";
 import { BaseModal, Button, ModalProps, Text } from "~/components";
 import { fetchData, getSafeAddressUrl, truncatedAddress } from "~/utils";
@@ -70,12 +74,12 @@ export const StartStep = ({ ...props }: ModalProps) => {
           {!!safeList.length && (
             <Dropdown.Modal>
               {safeList?.map((safeAddress) => (
-                <ChainOption
+                <SafeOption
                   key={safeAddress}
                   onClick={() => handleSafeDropwdown(safeAddress)}
                 >
                   <Text>{truncatedAddress(safeAddress)}</Text>
-                </ChainOption>
+                </SafeOption>
               ))}
             </Dropdown.Modal>
           )}

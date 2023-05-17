@@ -9,11 +9,16 @@ export const OnwersList = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  margin: 8px 0;
+  margin: 12px 0;
 
   & p {
     font-weight: 500;
   }
+`;
+
+export const OwnersContainer = styled.div`
+  position: relative;
+  width: 100%;
 `;
 
 export const ThresoldContainer = styled.div`
@@ -62,12 +67,19 @@ export const AddOwnerButton = styled.button`
     opacity: 0.4;
     transition: opacity 200ms;
   }
+
+  &:hover {
+    transform: scale(1.01);
+    transition: transform 400ms;
+  }
 `;
 
 export const YourWalletMsg = styled(Text)`
+  position: absolute;
+  left: 0;
   font-size: ${FONT_SIZE_12};
   opacity: 0.6;
-  margin-top: -10px;
+  margin-top: -20px;
   margin-left: 14px;
 `;
 
@@ -87,6 +99,7 @@ export const DeleteButton = styled.button`
   color: inherit;
   padding: 0;
   cursor: pointer;
+  opacity: 0.7;
 
   &:hover {
     transform: scale(1.1);

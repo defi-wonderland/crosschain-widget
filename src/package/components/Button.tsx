@@ -17,10 +17,11 @@ const SButton = styled.button`
   padding: 14px;
   line-height: 19px;
   height: 50px;
+  transition: color 400ms, background-color 400ms;
 
   &:hover {
-    opacity: 0.9;
-    transition: opacity 200ms;
+    transform: scale(1.01);
+    transition: transform 400ms;
   }
 
   &:disabled {

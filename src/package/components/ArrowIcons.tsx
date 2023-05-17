@@ -5,7 +5,8 @@ export const ArrowDown = styled.div<{ lightTheme?: boolean }>`
   height: 0;
   border-right: 6px solid transparent;
   border-left: 6px solid transparent;
-  border-top: 6px solid ${({ lightTheme }) => (lightTheme ? "black" : "white")};
+  border-top: 6px solid
+    ${({ lightTheme }) => (lightTheme ? "#777777" : "#ebebeb")};
 `;
 
 export const ArrowUp = styled.div<{ lightTheme?: boolean }>`
@@ -14,7 +15,7 @@ export const ArrowUp = styled.div<{ lightTheme?: boolean }>`
   border-right: 6px solid transparent;
   border-left: 6px solid transparent;
   border-bottom: 6px solid
-    ${({ lightTheme }) => (lightTheme ? "black" : "white")};
+    ${({ lightTheme }) => (lightTheme ? "#777777" : "#ebebeb")};
 `;
 
 export const ArrowRight = styled.div<{ lightTheme?: boolean }>`
@@ -22,7 +23,8 @@ export const ArrowRight = styled.div<{ lightTheme?: boolean }>`
   height: 0;
   border-bottom: 6px solid transparent;
   border-top: 6px solid transparent;
-  border-left: 6px solid ${({ lightTheme }) => (lightTheme ? "black" : "white")};
+  border-left: 6px solid
+    ${({ lightTheme }) => (lightTheme ? "#777777" : "#ebebeb")};
 `;
 
 export const ArrowLeft = styled.div<{ lightTheme?: boolean }>`
@@ -31,5 +33,5 @@ export const ArrowLeft = styled.div<{ lightTheme?: boolean }>`
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-right: 8px solid
-    ${({ lightTheme }) => (lightTheme ? "black" : "white")};
+    ${({ lightTheme }) => (lightTheme ? "#777777" : "#ebebeb")};
 `;

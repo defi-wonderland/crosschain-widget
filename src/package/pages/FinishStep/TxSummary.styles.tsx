@@ -53,7 +53,7 @@ export const TextContainer = styled.div`
   width: 100%;
   justify-content: start;
   align-items: center;
-  margin: 10px 0;
+  margin-bottom: 10px;
 `;
 
 export const DetailText = styled(Text)<{ isOpaque?: boolean }>`
@@ -76,7 +76,7 @@ export const ToggleSection = styled.div`
 
 export const DetailsSection = styled.div`
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: -10px;
 `;
 
 export const DetailValue = styled.div`
@@ -86,7 +86,7 @@ export const DetailValue = styled.div`
   cursor: pointer;
 
   &:hover img {
-    opacity: 0.8;
+    opacity: 0.6;
     transition: opacity 0.2s ease-in-out;
   }
 

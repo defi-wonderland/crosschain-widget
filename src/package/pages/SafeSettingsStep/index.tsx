@@ -9,6 +9,7 @@ import {
   AddOwnerButton,
   DeleteButton,
   OnwersList,
+  OwnersContainer,
   ThresoldContainer,
   TrashIcon,
   YourWalletMsg,
@@ -61,27 +62,29 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
       onBack={() => setType(StepType.START)}
       header="Safe Configuration"
     >
-      {/* Owners Section */}
-      {owners.map((address) => (
-        <OnwersList key={address}>
-          <Text>{address}</Text>
-          <DeleteButton onClick={() => removeItem(address)}>
-            <TrashIcon lightTheme={lightTheme} />
-          </DeleteButton>
-        </OnwersList>
-      ))}
+      <OwnersContainer>
+        {/* Owners Section */}
+        {owners.map((address) => (
+          <OnwersList key={address}>
+            <Text>{address}</Text>
+            <DeleteButton onClick={() => removeItem(address)}>
+              <TrashIcon lightTheme={lightTheme} />
+            </DeleteButton>
+          </OnwersList>
+        ))}
 
-      <SInput
-        title="Owner address"
-        placeholder="Input Owner Address"
-        value={inputAddress}
-        onChange={(e) => setInputAddress(e.target.value)}
-        error={!isValid}
-        errorMsg="Invalid Ethereum Address"
-      />
-      {userAddress === inputAddress && (
-        <YourWalletMsg>Your connected wallet address</YourWalletMsg>
-      )}
+        <SInput
+          title="Owner address"
+          placeholder="Input Owner Address"
+          value={inputAddress}
+          onChange={(e) => setInputAddress(e.target.value)}
+          error={!isValid}
+          errorMsg="Invalid Ethereum Address"
+        />
+        {userAddress === inputAddress && isValid && (
+          <YourWalletMsg>Your connected wallet address</YourWalletMsg>
+        )}
+      </OwnersContainer>
 
       <AddOwnerButton
         onClick={() => addOwner()}

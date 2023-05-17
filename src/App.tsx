@@ -35,6 +35,11 @@ function App() {
     });
   }, [signer]);
 
+  // autoconnect on load
+  useEffect(() => {
+    handleConnect();
+  }, []);
+
   return (
     <div className="App">
       <h1>Zodiac-Connext Development Test App</h1>

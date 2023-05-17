@@ -44,12 +44,12 @@ const ModalHeader = styled.div`
   letter-spacing: 0.5px;
   font-size: ${FONT_SIZE_20};
   text-align: start;
-  margin: 12px 0;
+  margin-bottom: 12px;
   padding: 0;
 `;
 
 const CloseModal = styled.button`
-  padding: 10px 20px 10px 0;
+  padding: 0 20px 20px 0;
   right: 10px;
   top: 10px;
   cursor: pointer;
