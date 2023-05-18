@@ -3,6 +3,7 @@ export * from "./theme";
 export * from "./Button";
 export * from "./Input";
 export * from "./Modal";
+export * from "./PoweredByConnext";
 export * from "./Spinner";
 export * from "./Text";
 export * from "./TextArea";

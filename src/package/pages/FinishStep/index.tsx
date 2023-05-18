@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 import { useDataContext, useNavigationContext } from "~/providers";
+import { BaseModal, Button, PoweredByConnext } from "~/components";
 import { ChainSection } from "~/pages/StartStep/ChainSection";
 import { ModalProps, StepType, TxData } from "~/types";
-import { BaseModal, Button } from "~/components";
 import { getConstants } from "~/config";
 import { TxSummary } from "./TxSummary";
 import {
@@ -22,8 +22,15 @@ interface FinishState {
 export const FinishStep = ({ ...props }: ModalProps) => {
   const { Chains } = getConstants();
   const { setType } = useNavigationContext();
-  const { originChainId, setTx, provider, txData, userAddress, destinyChain } =
-    useDataContext();
+  const {
+    originChainId,
+    setTx,
+    provider,
+    txData,
+    userAddress,
+    destinyChain,
+    lightTheme,
+  } = useDataContext();
 
   const [finishState, setFinishState] = useState<FinishState>({
     xCallJson: {
@@ -138,6 +145,8 @@ export const FinishStep = ({ ...props }: ModalProps) => {
       >
         Confirm
       </Button>
+
+      <PoweredByConnext lightTheme={lightTheme} />
     </BaseModal>
   );
 };
