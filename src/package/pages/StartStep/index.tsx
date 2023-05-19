@@ -14,6 +14,7 @@ export const StartStep = ({ ...props }: ModalProps) => {
 
   const [safeList, setSafeList] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const getSafe = async () => {
     setLoading(true);
@@ -36,17 +37,22 @@ export const StartStep = ({ ...props }: ModalProps) => {
 
   return (
     <BaseModal {...props} header="Cross chain action">
-      <ChainSection />
+      <ChainSection setError={setError} error={error} />
 
       <SafeSection
         loading={loading}
         setSafeList={setSafeList}
         safeList={safeList}
+        setError={setError}
+        error={error}
       />
 
       <SText>Or</SText>
 
-      <Button onClick={() => setType(StepType.SAFE_MODULE_CREATION)}>
+      <Button
+        disabled={error}
+        onClick={() => setType(StepType.SAFE_MODULE_CREATION)}
+      >
         Create new Safe
       </Button>
     </BaseModal>

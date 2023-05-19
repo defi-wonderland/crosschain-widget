@@ -9,9 +9,15 @@ import { getChainKey } from "~/utils";
 
 interface ChainSectionProps {
   disabled?: boolean;
+  error?: boolean;
+  setError?: (error: boolean) => void;
 }
 
-export const ChainSection = ({ disabled = false }: ChainSectionProps) => {
+export const ChainSection = ({
+  disabled = false,
+  error,
+  setError,
+}: ChainSectionProps) => {
   const dropdownChainProps = Dropdown.useProps();
   const { Chains } = getConstants();
 
@@ -28,23 +34,36 @@ export const ChainSection = ({ disabled = false }: ChainSectionProps) => {
     dropdownChainProps.setShow(false);
   };
 
+  /* 
+    If the originChain is ethereum, we want to set the destinyChain to
+    the next chain in the list
+  */
   useEffect(() => {
-    // if originChain is ethereum, set destinyChain to the next chain
-    // in the list
     if (chainKey === "ethereum") {
       setDestinyChain("polygon");
     }
   }, [chainKey]);
 
+  /* 
+    If the originChain is not supported, we want to show an error
+  */
+  useEffect(() => {
+    if (setError) {
+      chainKey ? setError(false) : setError(true);
+    }
+  }, [chainKey]);
+
   return (
     <ChainContainer>
-      <Dropdown.Button title="From">
-        <TokenIcon chainName={chainKey} />
-        <Text>{Chains[chainKey].name}</Text>
+      {/* Origin chain dropdown */}
+      <Dropdown.Button title="From" error={error}>
+        {!!chainKey && <TokenIcon chainName={chainKey} />}
+        <Text>{Chains[chainKey]?.name || "Usupported Chain"}</Text>
       </Dropdown.Button>
 
       <ArrowRight lightTheme={lightTheme} />
 
+      {/* Destination chain dropdown */}
       <Dropdown {...dropdownChainProps}>
         <Dropdown.Button title="To" icon={!disabled} disabled={disabled}>
           <TokenIcon chainName={destinyChain} />

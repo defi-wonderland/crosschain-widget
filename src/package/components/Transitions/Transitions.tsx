@@ -8,9 +8,9 @@ import {
   TransactionStep,
   SafeSettingsStep,
 } from "~/pages";
-import { useNavigationContext } from "~/providers";
-import { StepType } from "~/types";
+import { useDataContext, useNavigationContext } from "~/providers";
 import { StyledBackdrop, StyledModals } from "./Transitions.styled";
+import { StepType } from "~/types";
 
 interface BackdropProps {
   setType?: (val: StepType | null) => void;
@@ -28,6 +28,7 @@ export const Backdrop = ({ setType }: BackdropProps) => {
 
 export const Transitions = ({ modal }: { modal?: boolean }) => {
   const modalTimeout = 200;
+  const { originChainId } = useDataContext();
   const { setType, type } = useNavigationContext();
   const [activeModal, setActiveModal] = useState<StepType | null>(null);
   const backdropRef = useRef(null);
@@ -46,6 +47,14 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
   useEffect(() => {
     setActiveModal(type);
   }, [type]);
+
+  /* 
+    If the user changes the originChainId, we want to reset the modal
+    to avoid any errors
+  */
+  useEffect(() => {
+    setActiveModal(StepType.START);
+  }, [originChainId]);
 
   return (
     <StyledBackdrop>

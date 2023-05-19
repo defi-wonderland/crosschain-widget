@@ -16,9 +16,11 @@ interface SafeSectionProps {
   loading: boolean;
   safeList: string[];
   setSafeList: (safeList: string[]) => void;
+  error?: boolean;
+  setError?: (error: boolean) => void;
 }
 
-export const SafeSection = ({ loading, safeList }: SafeSectionProps) => {
+export const SafeSection = ({ loading, safeList, error }: SafeSectionProps) => {
   const { setSafeAddress, safeAddress, lightTheme, destinyChain } =
     useDataContext();
   const { setType } = useNavigationContext();
@@ -27,7 +29,7 @@ export const SafeSection = ({ loading, safeList }: SafeSectionProps) => {
 
   const [showCustomAddress, setShowCustomAddress] = useState(false);
   const [customAddress, setCustomAddress] = useState("");
-  const [error, setError] = useState(false);
+  const [safeError, setSafeError] = useState(false);
 
   const handleDropwdown = (safeAddress: string) => {
     setSafeAddress(safeAddress);
@@ -40,13 +42,13 @@ export const SafeSection = ({ loading, safeList }: SafeSectionProps) => {
   };
 
   const handleCustomAddress = (value: string) => {
-    setError(true);
+    setSafeError(true);
     setCustomAddress(value);
     dropdownSafeProps.setShow(false);
 
     if (isAddress(value)) {
       setSafeAddress(value);
-      setError(false);
+      setSafeError(false);
     }
   };
 
@@ -69,7 +71,7 @@ export const SafeSection = ({ loading, safeList }: SafeSectionProps) => {
         <Dropdown {...dropdownSafeProps}>
           <Dropdown.Button
             title="Input safe address"
-            error={error}
+            error={safeError}
             errorMsg="Please enter a valid Safe address"
             icon={true}
           >
@@ -105,7 +107,7 @@ export const SafeSection = ({ loading, safeList }: SafeSectionProps) => {
         </Dropdown>
 
         <Button
-          disabled={error || !safeAddress || loading}
+          disabled={safeError || !safeAddress || loading || error}
           onClick={handleUseExisting}
         >
           Use existing

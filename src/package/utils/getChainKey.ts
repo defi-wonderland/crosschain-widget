@@ -1,12 +1,15 @@
 import { getConstants } from "~/config";
 
 export const getChainKey = (chainId: number): string => {
-  const { Chains } = getConstants();
-  const decostructedChains = Object.entries(Chains);
+  try {
+    const { Chains } = getConstants();
+    const decostructedChains = Object.entries(Chains);
+    const chainName = decostructedChains.filter(
+      ([, value]) => value.id === chainId
+    );
 
-  const chainName = decostructedChains.filter(
-    ([key, value]) => value.id === chainId
-  );
-
-  return chainName[0][0];
+    return chainName[0][0];
+  } catch (error) {
+    return "";
+  }
 };
