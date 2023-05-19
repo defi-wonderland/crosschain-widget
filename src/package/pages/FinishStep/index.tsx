@@ -20,6 +20,8 @@ interface FinishState {
 }
 
 export const FinishStep = ({ ...props }: ModalProps) => {
+  const [showDestination, setShowDestination] = useState(false);
+  const [showOrigin, setShowOrigin] = useState(false);
   const { Chains } = getConstants();
   const { setType } = useNavigationContext();
   const {
@@ -116,6 +118,8 @@ export const FinishStep = ({ ...props }: ModalProps) => {
       {...props}
       // onBack={() => setType(StepType.TRANSACTION)}
       header="Transaction Confirmation"
+      initialHeight={420}
+      finalHeight={showDestination || showOrigin ? 700 : undefined}
     >
       <ChainSection disabled />
 
@@ -126,6 +130,8 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         destiny={Chains[originChainName].connextContract}
         value={xCallJson.value}
         textTitle="xCall Data"
+        showDetails={showOrigin}
+        setShowDetails={setShowOrigin}
       />
 
       <TxSummary
@@ -135,6 +141,8 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         destiny={txData?.to || ""}
         value={txData?.value || ""}
         textTitle="Data"
+        showDetails={showDestination}
+        setShowDetails={setShowDestination}
       />
 
       <Button

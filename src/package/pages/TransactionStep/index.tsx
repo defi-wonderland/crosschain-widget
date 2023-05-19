@@ -80,11 +80,12 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
       {...props}
       onBack={() => setType(StepType.START)}
       header="Transaction Builder"
+      initialHeight={460}
+      finalHeight={abiItem ? 700 : undefined}
     >
       <SInput
         title="Contract address"
         value={contractAddress || ""}
-        placeholder="target contract address"
         onChange={(e) => handleSetState({ contractAddress: e.target.value })}
         error={!!contractAddress && !isAddress(contractAddress)}
         errorMsg="Invalid contract address"

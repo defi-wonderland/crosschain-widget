@@ -6,7 +6,7 @@ import { FONT_SIZE_20 } from "./Variables";
 import { useDataContext } from "~/providers";
 import { ArrowLeft } from "./ArrowIcons";
 
-const SBaseModal = styled.div`
+const SBaseModal = styled.div<ModalProps>`
   padding: 38px;
   letter-spacing: 0.25px;
   border-radius: 12px;
@@ -36,6 +36,10 @@ const SBaseModal = styled.div`
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  transition: height 400ms ease;
+  ${({ initialHeight }) => initialHeight && `height: ${initialHeight}px;`}
+  ${({ finalHeight }) => finalHeight && `height: ${finalHeight}px;`}
 `;
 
 const ModalHeader = styled.div`
@@ -69,6 +73,8 @@ export interface ModalProps {
   header?: string;
   children?: any;
   onBack?: (modal: StepType) => void;
+  initialHeight?: number;
+  finalHeight?: number;
 }
 
 export const BaseModal: FC<ModalProps> = ({

@@ -23,6 +23,8 @@ interface TxSummaryProps {
   destiny: string;
   value: string;
   textTitle: string;
+  showDetails: boolean;
+  setShowDetails: (value: boolean) => void;
 }
 
 export const TxSummary = ({
@@ -32,10 +34,11 @@ export const TxSummary = ({
   destiny,
   value,
   textTitle,
+  showDetails,
+  setShowDetails,
 }: TxSummaryProps) => {
   const { lightTheme } = useDataContext();
   const [showDecoded, setShowDecoded] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const componentData = [
