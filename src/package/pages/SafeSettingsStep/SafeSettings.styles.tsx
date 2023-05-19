@@ -9,10 +9,15 @@ export const OnwersList = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  margin: 12px 0;
+  margin-bottom: -10px;
+  gap: 8px;
 
-  & p {
-    font-weight: 500;
+  & input {
+    margin-bottom: 0;
+    font-size: 15.5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 `;
 
@@ -100,6 +105,7 @@ export const DeleteButton = styled.button`
   padding: 0;
   cursor: pointer;
   opacity: 0.7;
+  margin-bottom: 10px;
 
   &:hover {
     transform: scale(1.1);

@@ -66,7 +66,7 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
         {/* Owners Section */}
         {owners.map((address) => (
           <OnwersList key={address}>
-            <Text>{address}</Text>
+            <SInput title="Owner address" value={address} disabled />
             <DeleteButton onClick={() => removeItem(address)}>
               <TrashIcon lightTheme={lightTheme} />
             </DeleteButton>
