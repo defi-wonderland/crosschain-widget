@@ -20,20 +20,27 @@ function App() {
     if (window?.ethereum) {
       const provider = new providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
-      setSigner(provider.getSigner());
+
+      const signer = provider.getSigner();
+      const address = (await signer.getAddress()) || "";
+      const chainId = (await signer.getChainId()) || 1;
+      setSigner(signer);
       setProvider(provider);
+      setUserChainId(chainId);
+      setUserAddress(address);
     }
   };
 
-  useEffect(() => {
-    signer?.getAddress().then((address) => {
-      setUserAddress(address);
-    });
+  const detectChainChange = async () => {
+    window.ethereum.on("chainChanged", handleConnect);
+  };
 
-    signer?.getChainId().then((chainId) => {
-      setUserChainId(chainId);
-    });
-  }, [signer]);
+  useEffect(() => {
+    detectChainChange();
+    return () => {
+      window.ethereum.removeListener("chainChanged", handleConnect);
+    };
+  }, []);
 
   // autoconnect on load
   useEffect(() => {
@@ -52,6 +59,7 @@ function App() {
       </button>
 
       <br />
+      <p>Connected to chainId: {userChainId}</p>
       <br />
       <input placeholder="user address" value={userAddress} disabled={true} />
       {!isAddress(userAddress) && <p>invalid address</p>}
