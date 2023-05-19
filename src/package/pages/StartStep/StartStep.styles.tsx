@@ -1,6 +1,16 @@
 import styled from "styled-components";
 
-import { Text } from "~/components";
+import { FONT_SIZE_16, Text } from "~/components";
+import writeIcon from "~/assets/add_address.svg";
+import { PropTheme } from "~/types";
+
+/* ------------------ StartStep styles ------------------ */
+
+export const SText = styled(Text)`
+  margin: 12px auto 7px;
+`;
+
+/* ------------------ ChainSection styles ------------------ */
 
 export const ChainOption = styled.div`
   display: flex;
@@ -27,6 +37,8 @@ export const ChainContainer = styled.div`
   margin-bottom: 12px;
 `;
 
+/* ------------------ SafeSection styles ------------------ */
+
 export const SafeContainer = styled.div`
   display: flex;
   width: 100%;
@@ -38,8 +50,47 @@ export const SafeContainer = styled.div`
   & section button {
     width: 248px;
   }
+  & section section {
+    max-height: 130px;
+  }
 `;
 
-export const SText = styled(Text)`
-  margin: 12px auto 7px;
+export const SafeOption = styled(ChainOption)`
+  border-bottom: none;
+
+  & p {
+    font-weight: normal;
+  }
+`;
+
+export const WriteIcon = styled.img.attrs({
+  src: writeIcon,
+  alt: "",
+})<{ lightTheme?: boolean }>`
+  width: 16px;
+  opacity: 0.87;
+  ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
+`;
+
+export const CustomInput = styled.input`
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: ${({ theme }: PropTheme) => theme.background};
+  color: ${({ theme }: PropTheme) => theme.textPrimary};
+  font-size: ${FONT_SIZE_16};
+  cursor: pointer;
+  font-weight: 400;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+
+  &:disabled {
+    user-select: none;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
 `;

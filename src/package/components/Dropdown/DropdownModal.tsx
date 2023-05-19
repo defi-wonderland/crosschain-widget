@@ -16,13 +16,18 @@ const Modal = styled.section`
   max-height: 160px;
   width: 100%;
 
-  overflow-y: scroll;
+  overflow-y: overlay;
   overflow-x: hidden; /* Hide scrollbars */
-  ::-webkit-scrollbar {
-    display: none;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
   }
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }: PropTheme) => theme.actionDisabled};
+    border-radius: 4px;
+  }
 `;
 
 export interface IDropdownModal {

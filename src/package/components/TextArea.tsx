@@ -33,23 +33,17 @@ const TextArea = styled.textarea.attrs({ spellcheck: false })<{
     outline: none;
   }
 
+  overflow-y: overlay;
+  overflow-x: hidden; /* Hide scrollbars */
+
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
     background: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #373737;
+    background: ${({ theme }: PropTheme) => theme.actionDisabled};
     border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #b3b3b3;
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-  }
-
-  &::-webkit-scrollbar-thumb:active {
-    background-color: #999999;
   }
 
   &:disabled {
