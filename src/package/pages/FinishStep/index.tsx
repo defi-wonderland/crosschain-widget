@@ -32,6 +32,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     userAddress,
     destinyChain,
     lightTheme,
+    modal: isModal,
   } = useDataContext();
 
   const [finishState, setFinishState] = useState<FinishState>({
@@ -99,6 +100,11 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     });
   };
 
+  const handleConfirm = () => {
+    setTx(getTransactionJson(xCallJson));
+    setType(isModal ? StepType.None : StepType.START);
+  };
+
   useEffect(() => {
     if (!relayerFee) {
       estimateRelayerFee(provider!, originChainName).then((rFee) => {
@@ -145,14 +151,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         setShowDetails={setShowDestination}
       />
 
-      <Button
-        onClick={async () => {
-          setTx(getTransactionJson(xCallJson));
-          setType(StepType.None);
-        }}
-      >
-        Confirm
-      </Button>
+      <Button onClick={handleConfirm}>Confirm</Button>
 
       <PoweredByConnext lightTheme={lightTheme} />
     </BaseModal>

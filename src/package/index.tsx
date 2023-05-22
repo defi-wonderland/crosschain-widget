@@ -111,6 +111,7 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
         setTx={setTx}
         provider={provider}
         lightTheme={lightTheme}
+        modal={modal}
       >
         <NavigationProvider>
           <>

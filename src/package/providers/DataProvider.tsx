@@ -40,6 +40,9 @@ type ContextType = {
 
   // Provider
   provider?: providers.JsonRpcProvider;
+
+  // Modal
+  modal?: boolean;
 };
 
 interface ModalProps {
@@ -49,6 +52,7 @@ interface ModalProps {
   setTx: (tx: string) => void;
   provider?: providers.JsonRpcProvider;
   lightTheme?: boolean;
+  modal?: boolean;
 }
 
 const DataContext = createContext({} as ContextType);
@@ -60,6 +64,7 @@ export const DataProvider = ({
   setTx,
   provider,
   lightTheme,
+  modal,
 }: ModalProps) => {
   const [userAddress, setUserAddress] = useState<string>("");
   const [safeAddress, setSafeAddress] = useState<string>("");
@@ -95,6 +100,7 @@ export const DataProvider = ({
         setTx,
         provider,
         lightTheme,
+        modal,
       }}
     >
       {children}
