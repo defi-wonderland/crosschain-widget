@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { PropTheme } from "~/types";
-import { ArrowDown, ErrorText, InputTitle } from "~/components";
+import { ArrowDown, Box, ErrorText, InputTitle } from "~/components";
 import { useDropdownContext } from "./Dropdown";
 import { useDataContext } from "~/providers";
 
@@ -27,7 +27,7 @@ export const SDropdownButton = styled.button<{ error?: boolean }>`
   }
 `;
 
-export const TextContainer = styled.div`
+export const TextContainer = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;

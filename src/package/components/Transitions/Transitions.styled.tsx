@@ -1,6 +1,8 @@
 import { TransitionGroup } from "react-transition-group";
 import styled from "styled-components";
 
+import { Box } from "../Box";
+
 export const StyledModals = styled(TransitionGroup)<{ modal?: string }>`
   ${({ modal }) =>
     modal === "true" &&
@@ -35,13 +37,16 @@ export const StyledModals = styled(TransitionGroup)<{ modal?: string }>`
   }
 `;
 
-export const StyledBackdrop = styled.div`
+export const StyledBackdrop = styled(Box)`
   @media (min-width: 960px) {
     .backdrop {
       backdrop-filter: blur(3px);
     }
 
     .backdrop {
+      background-color: inherit;
+      border-radius: inherit;
+      color: inherit;
       position: absolute;
       top: 0;
       left: 0;

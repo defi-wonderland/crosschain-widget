@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { FONT_SIZE_16, Text } from "~/components";
+import { Box, FONT_SIZE_16, Text } from "~/components";
 import writeIcon from "~/assets/add_address.svg";
 import { PropTheme } from "~/types";
 
@@ -12,7 +12,7 @@ export const SText = styled(Text)`
 
 /* ------------------ ChainSection styles ------------------ */
 
-export const ChainOption = styled.div`
+export const ChainOption = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -28,7 +28,7 @@ export const ChainOption = styled.div`
   }
 `;
 
-export const ChainContainer = styled.div`
+export const ChainContainer = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -39,7 +39,7 @@ export const ChainContainer = styled.div`
 
 /* ------------------ SafeSection styles ------------------ */
 
-export const SafeContainer = styled.div`
+export const SafeContainer = styled(Box)`
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -70,6 +70,9 @@ export const WriteIcon = styled.img.attrs({
   width: 16px;
   opacity: 0.87;
   ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
+  background-color: inherit;
+  color: inherit;
+  border-radius: inherit;
 `;
 
 export const CustomInput = styled.input`
@@ -85,6 +88,7 @@ export const CustomInput = styled.input`
   line-height: 19px;
   display: flex;
   align-items: center;
+  border-radius: 0;
 
   &:disabled {
     user-select: none;

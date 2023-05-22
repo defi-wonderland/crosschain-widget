@@ -4,7 +4,7 @@ import { filterMethod, filterWritableMethods } from "~/utils";
 import { DropdownContainer } from "./Transaction.styles";
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { TxState } from "~/pages/TransactionStep";
-import { Text } from "~/components";
+import { Box, Text } from "~/components";
 
 interface TransactionDropdownProps {
   contractInterface: Interface;
@@ -37,7 +37,7 @@ export const TransactionDropdown = ({
 
         <Dropdown.Modal>
           {Object.entries(contractInterface.functions).map((functionName) => (
-            <div key={functionName[1].name}>
+            <Box key={functionName[1].name}>
               {/* Show only writable functions */}
               {filterWritableMethods(functionName) && (
                 <Text
@@ -48,7 +48,7 @@ export const TransactionDropdown = ({
                   {functionName[1].name}
                 </Text>
               )}
-            </div>
+            </Box>
           ))}
         </Dropdown.Modal>
       </Dropdown>

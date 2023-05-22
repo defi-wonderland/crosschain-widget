@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { ChainContainer, ChainOption } from "./StartStep.styles";
-import { TokenIcon, Text, ArrowRight } from "~/components";
+import { TokenIcon, Text, ArrowRight, Box } from "~/components";
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { useDataContext } from "~/providers";
 import { getConstants } from "~/config";
@@ -72,14 +72,14 @@ export const ChainSection = ({
 
         <Dropdown.Modal>
           {Object.entries(Chains).map(([key, value]) => (
-            <div key={key}>
+            <Box key={key}>
               {key !== chainKey && (
                 <ChainOption onClick={() => handleChainDropdown(key)}>
                   <TokenIcon chainName={key} />
                   <Text>{value.name}</Text>
                 </ChainOption>
               )}
-            </div>
+            </Box>
           ))}
         </Dropdown.Modal>
       </Dropdown>

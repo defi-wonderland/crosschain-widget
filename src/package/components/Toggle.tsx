@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const ToggleContainer = styled.div`
+import { Box } from "./Box";
+
+const ToggleContainer = styled(Box)`
   /* The switch - the box around the slider */
   .switch {
     position: relative;

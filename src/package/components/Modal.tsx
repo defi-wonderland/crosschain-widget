@@ -5,8 +5,9 @@ import { StepType } from "~/types";
 import { FONT_SIZE_20 } from "./Variables";
 import { useDataContext } from "~/providers";
 import { ArrowLeft } from "./ArrowIcons";
+import { Box } from "./Box";
 
-const SBaseModal = styled.div<ModalProps>`
+const SBaseModal = styled(Box)<ModalProps>`
   padding: 38px;
   letter-spacing: 0.25px;
   border-radius: 12px;
@@ -42,8 +43,10 @@ const SBaseModal = styled.div<ModalProps>`
   ${({ finalHeight }) => finalHeight && `height: ${finalHeight}px;`}
 `;
 
-const ModalHeader = styled.div`
+const ModalHeader = styled(Box)`
   color: ${(props) => props.theme.textPrimary};
+  background-color: inherit;
+  border-radius: inherit;
   font-weight: bold;
   letter-spacing: 0.5px;
   font-size: ${FONT_SIZE_20};

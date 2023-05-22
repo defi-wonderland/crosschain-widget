@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const ArrowDown = styled.div<{ lightTheme?: boolean }>`
+import { Box } from "./Box";
+
+export const ArrowDown = styled(Box)<{ lightTheme?: boolean }>`
   width: 0;
   height: 0;
   border-right: 6px solid transparent;
@@ -9,7 +11,7 @@ export const ArrowDown = styled.div<{ lightTheme?: boolean }>`
     ${({ lightTheme }) => (lightTheme ? "#777777" : "#ebebeb")};
 `;
 
-export const ArrowUp = styled.div<{ lightTheme?: boolean }>`
+export const ArrowUp = styled(Box)<{ lightTheme?: boolean }>`
   width: 0;
   height: 0;
   border-right: 6px solid transparent;
@@ -18,7 +20,7 @@ export const ArrowUp = styled.div<{ lightTheme?: boolean }>`
     ${({ lightTheme }) => (lightTheme ? "#777777" : "#ebebeb")};
 `;
 
-export const ArrowRight = styled.div<{ lightTheme?: boolean }>`
+export const ArrowRight = styled(Box)<{ lightTheme?: boolean }>`
   width: 0;
   height: 0;
   border-bottom: 6px solid transparent;
@@ -27,7 +29,7 @@ export const ArrowRight = styled.div<{ lightTheme?: boolean }>`
     ${({ lightTheme }) => (lightTheme ? "#777777" : "#ebebeb")};
 `;
 
-export const ArrowLeft = styled.div<{ lightTheme?: boolean }>`
+export const ArrowLeft = styled(Box)<{ lightTheme?: boolean }>`
   width: 0;
   height: 0;
   border-top: 8px solid transparent;

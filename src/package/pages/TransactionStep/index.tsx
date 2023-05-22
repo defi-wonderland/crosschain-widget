@@ -9,6 +9,7 @@ import {
   STextArea,
   Toggle,
   PoweredByConnext,
+  Box,
 } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { useNavigationContext, useDataContext } from "~/providers";
@@ -104,10 +105,10 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
         <>
           <TransactionTitleContainer>
             <h1>Transaction Information</h1>
-            <div>
+            <Box>
               <Toggle onClick={() => setShowCustomData(!showCustomData)} />
               <Text>Custom Data</Text>
-            </div>
+            </Box>
           </TransactionTitleContainer>
 
           {/* Method Selector */}

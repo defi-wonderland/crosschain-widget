@@ -11,6 +11,7 @@ import {
 import { useDataContext, useNavigationContext } from "~/providers";
 import { StyledBackdrop, StyledModals } from "./Transitions.styled";
 import { StepType } from "~/types";
+import { Box } from "../Box";
 
 interface BackdropProps {
   setType?: (val: StepType | null) => void;
@@ -19,10 +20,10 @@ interface BackdropProps {
 export const Backdrop = ({ setType }: BackdropProps) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-    <div
+    <Box
       className="backdrop"
       onClick={() => setType && setType(StepType.None)}
-    ></div>
+    ></Box>
   );
 };
 
@@ -66,7 +67,7 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
           timeout={modalTimeout}
           classNames="opacity"
         >
-          <div ref={backdropRef}>{backdrop}</div>
+          <Box ref={backdropRef}>{backdrop}</Box>
         </CSSTransition>
       )}
 
@@ -80,9 +81,9 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
             timeout={modalTimeout}
             classNames="slideBottom"
           >
-            <div ref={startStepRef}>
+            <Box ref={startStepRef}>
               <StartStep />
-            </div>
+            </Box>
           </CSSTransition>
         )}
 
@@ -93,9 +94,9 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
             timeout={modalTimeout}
             classNames="slideBottom"
           >
-            <div ref={safeRef}>
+            <Box ref={safeRef}>
               <SafeSettingsStep />
-            </div>
+            </Box>
           </CSSTransition>
         )}
 
@@ -106,9 +107,9 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
             timeout={modalTimeout}
             classNames="slideBottom"
           >
-            <div ref={txRef}>
+            <Box ref={txRef}>
               <TransactionStep />
-            </div>
+            </Box>
           </CSSTransition>
         )}
 
@@ -119,9 +120,9 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
             timeout={modalTimeout}
             classNames="slideBottom"
           >
-            <div ref={confirmationRef}>
+            <Box ref={confirmationRef}>
               <FinishStep />
-            </div>
+            </Box>
           </CSSTransition>
         )}
 
@@ -132,9 +133,9 @@ export const Transitions = ({ modal }: { modal?: boolean }) => {
             timeout={modalTimeout}
             classNames="slideBottom"
           >
-            <div ref={moduleRef}>
+            <Box ref={moduleRef}>
               <ModuleStep />
-            </div>
+            </Box>
           </CSSTransition>
         )}
       </StyledModals>

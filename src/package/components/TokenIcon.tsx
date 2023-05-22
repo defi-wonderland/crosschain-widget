@@ -10,6 +10,9 @@ const Image = styled.img`
   height: 22px;
   width: 22px;
   border-radius: 100%;
+  background-color: inherit;
+  color: inherit;
+  border-radius: inherit;
 `;
 
 export const TokenIcon = ({ chainName }: TokenIconProps) => {

@@ -37,6 +37,9 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
 
   .modal h1 {
     font-size: ${FONT_SIZE_20};
+    color: inherit;
+    background-color: inherit;
+    border-radius: inherit;
     padding: 0;
     margin: 0;
     line-height: 1.125;
@@ -46,7 +49,7 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
     box-sizing: border-box;
     font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";    
   }
   
   select {

@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 import LightLogo from "~/assets/connext_light.png";
 import DarkLogo from "~/assets/connext_dark.png";
+import { Box } from "./Box";
 
-const STextContainer = styled.div`
+const STextContainer = styled(Box)`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -20,6 +21,9 @@ const SText = styled(Text)`
 const ConnextLogo = styled.img`
   font-weight: bold;
   height: 22px;
+  background-color: inherit;
+  color: inherit;
+  border-radius: inherit;
 `;
 
 interface PoweredByConnextProps {

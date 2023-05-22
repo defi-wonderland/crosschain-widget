@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import { Text, FONT_SIZE_16, FONT_SIZE_12 } from "~/components";
+import { Text, FONT_SIZE_16, FONT_SIZE_12, Box } from "~/components";
 import trash from "~/assets/bin.svg";
 
-export const OnwersList = styled.div`
+export const OnwersList = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -21,12 +21,12 @@ export const OnwersList = styled.div`
   }
 `;
 
-export const OwnersContainer = styled.div`
+export const OwnersContainer = styled(Box)`
   position: relative;
   width: 100%;
 `;
 
-export const ThresoldContainer = styled.div`
+export const ThresoldContainer = styled(Box)`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -92,13 +92,18 @@ export const TrashIcon = styled.img.attrs({
   src: trash,
   alt: "delete owner",
 })<{ lightTheme?: boolean }>`
+  background-color: inherit;
+  border-radius: unset;
+  color: inherit;
   width: 16px;
   opacity: 0.87;
   ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
 `;
 
 export const DeleteButton = styled.button`
-  border-radius: none;
+  color: inherit;
+  background-color: inherit;
+  border-radius: unset;
   border: none;
   background-color: inherit;
   color: inherit;

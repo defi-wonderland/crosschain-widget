@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { PropTheme } from "~/types";
+import { Box } from "./Box";
 
-const SLoader = styled.div`
+const SLoader = styled(Box)`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -46,7 +47,7 @@ const SLoader = styled.div`
 export const Spinner = () => {
   return (
     <SLoader>
-      <div className="spinner"></div>
+      <Box className="spinner"></Box>
     </SLoader>
   );
 };

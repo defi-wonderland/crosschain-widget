@@ -2,15 +2,16 @@ import styled from "styled-components";
 import { PropTheme } from "~/types";
 import { FONT_SIZE_16, FONT_SIZE_12 } from "./Variables";
 import { ErrorText } from "./Text";
+import { Box } from "./Box";
 
-export const Container = styled.div`
+export const Container = styled(Box)`
   display: flex;
   position: relative;
   margin-bottom: 10px;
   width: 100%;
 `;
 
-export const InputContainer = styled.div`
+export const InputContainer = styled(Box)`
   position: relative;
   width: 100%;
   margin: 12px 0;

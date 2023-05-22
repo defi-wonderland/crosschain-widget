@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const TransactionTitleContainer = styled.div`
+import { Box } from "~/components";
+
+export const TransactionTitleContainer = styled(Box)`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -17,7 +19,7 @@ export const TransactionTitleContainer = styled.div`
   }
 `;
 
-export const DropdownContainer = styled.div`
+export const DropdownContainer = styled(Box)`
   width: 100%;
   display: flex;
   flex-direction: row;
