@@ -1,12 +1,44 @@
 import React from "react";
+import { afterEach, vi } from "vitest";
+import { ethers } from "ethers";
 
 // testing
 import { cleanup, render } from "@testing-library/react";
-import { afterEach } from "vitest";
+
+import { DataProvider, NavigationProvider } from "~/providers";
+
+const gasPrice = 100;
+
+const mockResult = {
+  toNumber: vi.fn(() => gasPrice),
+};
+
+vi.mock("ethers", () => ({
+  ethers: {
+    providers: {
+      JsonRpcProvider: vi.fn().mockImplementation(() => ({
+        getGasPrice: vi.fn().mockResolvedValue(mockResult),
+      })),
+    },
+  },
+}));
 
 const AllTheProviders = ({ children }: { children: React.ReactElement }) => {
   // wrap provider(s) here if needed
-  return <div>{children}</div>;
+  return (
+    <NavigationProvider>
+      <DataProvider
+        originAddress={""}
+        userChainId={0}
+        setTx={function (tx: string): void {
+          throw new Error("Function not implemented.");
+        }}
+        provider={new ethers.providers.JsonRpcProvider()}
+      >
+        {children}
+      </DataProvider>
+    </NavigationProvider>
+  );
 };
 
 const customRender = (ui: React.ReactElement, options = {}) =>

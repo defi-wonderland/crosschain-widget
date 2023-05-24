@@ -133,7 +133,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         title="Origin Transaction"
         txData={xCallJson}
         origin={userAddress}
-        destiny={Chains[originChainName].connextContract}
+        destiny={Chains[originChainName]?.connextContract}
         value={xCallJson.value}
         textTitle="xCall Data"
         showDetails={showOrigin}

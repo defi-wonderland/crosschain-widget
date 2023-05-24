@@ -91,6 +91,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
         onChange={(e) => handleSetState({ contractAddress: e.target.value })}
         error={!!contractAddress && !isAddress(contractAddress)}
         errorMsg="Invalid contract address"
+        dataTestId="Contract address"
       />
       <STextArea
         title="Input ABI"
@@ -99,6 +100,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
         disabled={loading}
         error={!!abiItem && abiError}
         errorMsg="Invalid ABI"
+        dataTestId="Input ABI"
       />
 
       {contractInterface?.functions && (

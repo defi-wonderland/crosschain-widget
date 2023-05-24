@@ -87,7 +87,7 @@ export const TxSummary = ({
         <STextArea
           title={textTitle}
           wrap="on"
-          value={showDecoded ? getRedeableData(txData) : txData.data}
+          value={showDecoded ? getRedeableData(txData) : txData?.data}
           disabled
         />
       </DetailsSection>

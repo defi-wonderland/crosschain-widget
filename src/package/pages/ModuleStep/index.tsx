@@ -31,7 +31,7 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
             <Text>
               1. Go to:{" "}
               <ExternalLink
-                href={`https://app.safe.global/apps/open?safe=${Chains[destinyChain].safeIdentifier}:${safeAddress}&appUrl=https%3A%2F%2Fzodiac.gnosisguild.org%2F`}
+                href={`https://app.safe.global/apps/open?safe=${Chains[destinyChain]?.safeIdentifier}:${safeAddress}&appUrl=https%3A%2F%2Fzodiac.gnosisguild.org%2F`}
               >
                 Zodiac Application
               </ExternalLink>

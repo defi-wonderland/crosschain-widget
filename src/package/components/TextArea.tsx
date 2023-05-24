@@ -60,6 +60,7 @@ interface TAProps {
   wrap?: string;
   error?: boolean;
   errorMsg?: string;
+  dataTestId?: string;
 }
 
 export const STextArea = ({
@@ -71,6 +72,7 @@ export const STextArea = ({
   wrap,
   error,
   errorMsg,
+  dataTestId,
 }: TAProps) => {
   return (
     <Container>
@@ -83,6 +85,7 @@ export const STextArea = ({
           disabled={disabled}
           wrap={wrap}
           error={error}
+          data-testid={dataTestId}
         />
       </InputContainer>
       {error && <ErrorText>{errorMsg}</ErrorText>}

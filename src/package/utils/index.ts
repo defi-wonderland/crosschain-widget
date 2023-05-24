@@ -1,5 +1,6 @@
 export * from "./copyData";
-export * from "./encodeCalldata";
+export * from "./encodeReceiverCalldata";
+export * from "./encodeFunction";
 export * from "./encodeXCall";
 export * from "./estimateRelayerFee";
 export * from "./getChainKey";
@@ -8,6 +9,5 @@ export * from "./getRedeableData";
 export * from "./fetchData";
 export * from "./filterWritableMethods";
 export * from "./isAddress";
-export * from "./transactions";
 export * from "./truncateAddress";
 export * from "./withComponents";
