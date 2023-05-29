@@ -1,7 +1,14 @@
 import { useState } from "react";
 
-import { ExternalLink, IntructionsContainer } from "./ModuleStep.styles";
+import {
+  ExternalLink,
+  IntructionsContainer,
+  IntructionsText,
+  TextToCopy,
+} from "./ModuleStep.styles";
+import { CheckIcon, CopyIcon } from "~/pages/FinishStep/TxSummary.styles";
 import { useDataContext, useNavigationContext } from "~/providers";
+import { copyData, getChainKey, truncatedAddress } from "~/utils";
 import { BaseModal, Button, Text } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { LoadingStep } from "./LoadingStep";
@@ -10,8 +17,23 @@ import { getConstants } from "~/config";
 export const ModuleStep = ({ ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
   const { Chains } = getConstants();
-  const { safeAddress, destinyChain } = useDataContext();
+  const { safeAddress, destinyChain, originChainId, userAddress, lightTheme } =
+    useDataContext();
+
   const [loadinScreen, setLoadingScreen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const chainKey = getChainKey(originChainId!);
+  const originDomainId = Chains[chainKey].domainId.toString();
+
+  const handleCopy = async (content: string) => {
+    setCopied(true);
+    copyData(content);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 600);
+  };
 
   return (
     <BaseModal
@@ -40,8 +62,22 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
             <Text>
               2. Select &quot;Connext Module&quot; and follow the instructions
             </Text>
-            <Text>3. In origin chain add: 0x00000000000000000</Text>
-            <Text>4. In origin address add: 0x00000000000000000</Text>
+            <IntructionsText>
+              <Text>3. In origin address, add:</Text>
+              <TextToCopy onClick={() => handleCopy(userAddress)}>
+                {truncatedAddress(userAddress)}
+              </TextToCopy>
+              {copied && <CheckIcon lightTheme={lightTheme} />}
+              {!copied && <CopyIcon lightTheme={lightTheme} />}
+            </IntructionsText>
+            <IntructionsText>
+              <Text>4. In origin chain, add:</Text>
+              <TextToCopy onClick={() => handleCopy(originDomainId)}>
+                {originDomainId}
+              </TextToCopy>
+              {copied && <CheckIcon lightTheme={lightTheme} />}
+              {!copied && <CopyIcon lightTheme={lightTheme} />}
+            </IntructionsText>
           </IntructionsContainer>
           <Button onClick={() => setLoadingScreen(true)}>Verify setup</Button>
         </>

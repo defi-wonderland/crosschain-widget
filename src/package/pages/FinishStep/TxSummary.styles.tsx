@@ -103,7 +103,7 @@ export const CopyIcon = styled.img.attrs({
   ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
   opacity: 0;
   border-radius: 0;
-  background-color: inherit;
+  background-color: transparent;
 `;
 
 export const CheckIcon = styled.img.attrs({
@@ -115,5 +115,5 @@ export const CheckIcon = styled.img.attrs({
   ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
   opacity: 0;
   border-radius: 0;
-  background-color: inherit;
+  background-color: transparent;
 `;

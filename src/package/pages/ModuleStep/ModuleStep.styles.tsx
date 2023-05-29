@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Box } from "~/components";
+import { Box, Text } from "~/components";
 import { PropTheme } from "~/types";
 
 /* ------------------ ModuleStep styles ------------------ */
@@ -22,6 +22,22 @@ export const ExternalLink = styled.a.attrs({
   color: ${({ theme }: PropTheme) => theme.buttonBackground};
   text-decoration: none;
   font-weight: bold;
+`;
+
+export const IntructionsText = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+
+  &:hover img {
+    opacity: 0.6;
+    transition: opacity 0.2s ease-in-out;
+  }
+`;
+
+export const TextToCopy = styled(Text)`
+  text-decoration: underline;
+  cursor: pointer;
 `;
 
 /* ------------------ LoadingStep styles ------------------ */
