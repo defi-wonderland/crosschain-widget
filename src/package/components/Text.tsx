@@ -23,4 +23,5 @@ export const ErrorText = styled.p`
   font-size: ${FONT_SIZE_12};
   line-height: 20px;
   margin: -12px 0 0 12px;
+  letter-spacing: -0.2px;
 `;

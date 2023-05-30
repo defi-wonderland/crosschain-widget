@@ -85,7 +85,7 @@ export const DetailValue = styled(Box)`
   cursor: pointer;
 
   &:hover img {
-    opacity: 0.6;
+    opacity: 0.8;
     transition: opacity 0.2s ease-in-out;
   }
 

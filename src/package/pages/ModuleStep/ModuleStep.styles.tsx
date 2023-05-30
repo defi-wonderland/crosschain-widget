@@ -9,7 +9,7 @@ export const IntructionsContainer = styled(Box)`
   flex-direction: column;
   margin: 24px 0;
   display: flex;
-  gap: 4px;
+  gap: 5px;
 `;
 
 export const ExternalLink = styled.a.attrs({
@@ -22,6 +22,7 @@ export const ExternalLink = styled.a.attrs({
   color: ${({ theme }: PropTheme) => theme.buttonBackground};
   text-decoration: none;
   font-weight: bold;
+  margin-left: 4px;
 `;
 
 export const IntructionsText = styled(Box)`
@@ -35,9 +36,35 @@ export const IntructionsText = styled(Box)`
   }
 `;
 
+export const ExternalLinkContainer = styled(Box)`
+  display: flex;
+  flex-direction: row;
+
+  & p {
+    display: flex;
+  }
+`;
+
 export const TextToCopy = styled(Text)`
   text-decoration: underline;
   cursor: pointer;
+`;
+
+export const InfoMsg = styled(Box)`
+  width: auto;
+  background: ${({ theme }: PropTheme) => theme.actionActive};
+  border: ${({ theme }: PropTheme) => theme.border};
+  border-radius: 4px;
+  margin-left: 8px;
+
+  & p {
+    color: #202021;
+    font-size: 11px;
+    font-style: italic;
+    padding: 3px 8px;
+    margin: 0;
+    line-height: 13px;
+  }
 `;
 
 /* ------------------ LoadingStep styles ------------------ */

@@ -29,6 +29,12 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
     font-weight: 500;
   }
 
+  @font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/Rubik-Italic.ttf') format('truetype'); 
+    font-style: italic;
+  }
+
   .modal span,.modal strong {
     padding: 0;
     margin: 0;

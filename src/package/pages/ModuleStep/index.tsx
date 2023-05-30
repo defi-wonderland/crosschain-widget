@@ -1,8 +1,10 @@
 import { useState } from "react";
 
 import {
+  InfoMsg,
   ExternalLink,
   IntructionsContainer,
+  ExternalLinkContainer,
   IntructionsText,
   TextToCopy,
 } from "./ModuleStep.styles";
@@ -50,14 +52,19 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
             Module in your Safe.
           </Text>
           <IntructionsContainer>
-            <Text>
-              1. Go to:{" "}
-              <ExternalLink
-                href={`https://app.safe.global/apps/open?safe=${Chains[destinyChain]?.safeIdentifier}:${safeAddress}&appUrl=https%3A%2F%2Fzodiac.gnosisguild.org%2F`}
-              >
-                Zodiac Application
-              </ExternalLink>
-            </Text>
+            <ExternalLinkContainer>
+              <Text>
+                1. Go to:{" "}
+                <ExternalLink
+                  href={`https://app.safe.global/apps/open?safe=${Chains[destinyChain]?.safeIdentifier}:${safeAddress}&appUrl=https%3A%2F%2Fzodiac.gnosisguild.org%2F`}
+                >
+                  Zodiac Application
+                </ExternalLink>
+              </Text>
+              <InfoMsg>
+                <p>This link redirects to an external site</p>
+              </InfoMsg>
+            </ExternalLinkContainer>
 
             <Text>
               2. Select &quot;Connext Module&quot; and follow the instructions
