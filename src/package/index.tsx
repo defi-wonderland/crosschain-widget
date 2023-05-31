@@ -125,8 +125,8 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
         <NavigationProvider>
           <>
             <GlobalStyle />
-            <WidgetButton text={text} modal={modal} />
-            <Transitions modal={modal} />
+            <WidgetButton text={text} />
+            <Transitions />
           </>
         </NavigationProvider>
       </DataProvider>

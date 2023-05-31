@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { useNavigationContext } from "./providers";
+import { useDataContext, useNavigationContext } from "./providers";
 import { StepType } from "./types";
 
 interface WidgetButtonProps {
   text?: string;
-  modal?: boolean;
 }
 
-export const WidgetButton = ({ text, modal }: WidgetButtonProps) => {
+export const WidgetButton = ({ text }: WidgetButtonProps) => {
   const { setType } = useNavigationContext();
+  const { modal } = useDataContext();
 
   useEffect(() => {
     setType(StepType.None);

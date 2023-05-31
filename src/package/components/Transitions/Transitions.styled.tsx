@@ -41,9 +41,6 @@ export const StyledBackdrop = styled(Box)`
   @media (min-width: 960px) {
     .backdrop {
       backdrop-filter: blur(3px);
-    }
-
-    .backdrop {
       background-color: inherit;
       border-radius: inherit;
       color: inherit;
