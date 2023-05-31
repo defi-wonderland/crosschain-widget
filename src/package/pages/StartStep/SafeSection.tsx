@@ -61,8 +61,10 @@ export const SafeSection = ({ loading, safeList, error }: SafeSectionProps) => {
   };
 
   useEffect(() => {
+    // Reset all values when changing chain
     setShowCustomAddress(false);
     setCustomAddress("");
+    setSafeError(false);
   }, [destinyChain]);
 
   return (
