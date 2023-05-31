@@ -67,6 +67,10 @@ export const InfoMsg = styled(Box)`
   }
 `;
 
+export const SText = styled(Text)`
+  font-size: 15px;
+`;
+
 /* ------------------ LoadingStep styles ------------------ */
 
 export const LoadingContainer = styled(Box)`
