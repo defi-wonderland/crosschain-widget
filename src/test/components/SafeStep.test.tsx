@@ -1,12 +1,14 @@
 import { WethAddress } from "../__mocks__/abi";
-import { render, screen, fireEvent } from "../test-utils";
+import { render, screen, fireEvent, act } from "../test-utils";
 import { SafeSettingsStep } from "~/pages";
 
 describe("SafeSettingsStep", () => {
-  it("renders SafeSettingsStep component with initial state and props", () => {
+  it("renders SafeSettingsStep component with initial state and props", async () => {
     const props = {};
 
-    render(<SafeSettingsStep {...props} />);
+    await act(async () => {
+      render(<SafeSettingsStep {...props} />);
+    });
 
     expect(screen.getByText("Safe Configuration")).toBeInTheDocument();
     expect(screen.getByText("Owner address")).toBeInTheDocument();

@@ -1,12 +1,14 @@
-import { render, screen, fireEvent } from "../test-utils";
+import { render, screen, fireEvent, act } from "../test-utils";
 
 import { TransactionStep } from "~/pages";
 
 describe("TransactionStep", () => {
-  it("renders TransactionStep component with initial state and props", () => {
+  it("renders TransactionStep component with initial state and props", async () => {
     const props = {};
 
-    render(<TransactionStep {...props} />);
+    await act(async () => {
+      render(<TransactionStep {...props} />);
+    });
 
     expect(screen.getByText("Transaction Builder")).toBeInTheDocument();
     expect(screen.getByTestId("Contract address")).toBeInTheDocument();
@@ -24,10 +26,12 @@ describe("TransactionStep", () => {
     expect(screen.getByTestId("Input ABI")).toHaveValue("someAbi");
   });
 
-  it("should handle invalid inputs", () => {
+  it("should handle invalid inputs", async () => {
     const props = {};
 
-    render(<TransactionStep {...props} />);
+    await act(async () => {
+      render(<TransactionStep {...props} />);
+    });
 
     expect(screen.getByText("Transaction Builder")).toBeInTheDocument();
     expect(screen.getByTestId("Contract address")).toBeInTheDocument();

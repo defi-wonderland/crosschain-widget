@@ -1,4 +1,5 @@
 import { Interface } from "ethers/lib/utils";
+import { vi } from "vitest";
 
 import {
   WethAbi,
@@ -37,6 +38,16 @@ describe("encodeFunction", () => {
   describe("getContractAbi", () => {
     it("should return the contract ABI", async () => {
       const chain = "mainnet";
+
+      vi.mock("~/utils/getContractAbi", () => ({
+        getContractAbi: vi.fn((chain, contractAddress) => {
+          if (chain === "mainnet" && contractAddress === WethAddress) {
+            return WethAbiFromSafe;
+          } else {
+            return "";
+          }
+        }),
+      }));
 
       const result = await getContractAbi(chain, WethAddress);
 

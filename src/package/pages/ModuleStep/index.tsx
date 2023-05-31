@@ -26,7 +26,7 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
   const [copied, setCopied] = useState(false);
 
   const chainKey = getChainKey(originChainId!);
-  const originDomainId = Chains[chainKey].domainId.toString();
+  const originDomainId = Chains[chainKey]?.domainId.toString();
 
   const handleCopy = async (content: string) => {
     setCopied(true);

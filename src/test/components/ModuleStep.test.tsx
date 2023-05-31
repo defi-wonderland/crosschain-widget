@@ -1,19 +1,25 @@
-import { render, screen, fireEvent } from "../test-utils";
+import { render, screen, fireEvent, act } from "../test-utils";
 
 import { ModuleStep } from "~/pages";
 
 describe("ModuleStep", () => {
-  it("renders ModuleStep component correctly", () => {
+  it("renders ModuleStep component correctly", async () => {
     const props = {};
-    render(<ModuleStep {...props} />);
+
+    await act(async () => {
+      render(<ModuleStep {...props} />);
+    });
 
     expect(screen.getByText("Safe module setup")).toBeInTheDocument();
     expect(screen.getByText("Verify setup")).toBeInTheDocument();
   });
 
-  it("clicking on 'Verify setup' redirects to loading screen", () => {
+  it("clicking on 'Verify setup' redirects to loading screen", async () => {
     const props = {};
-    render(<ModuleStep {...props} />);
+
+    await act(async () => {
+      render(<ModuleStep {...props} />);
+    });
 
     fireEvent.click(screen.getByText("Verify setup"));
     expect(screen.getByText("Verifying your setup...")).toBeInTheDocument();

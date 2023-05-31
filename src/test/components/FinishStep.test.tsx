@@ -3,7 +3,7 @@ import { render, screen, act } from "../test-utils";
 import { FinishStep } from "~/pages";
 
 describe("FinishStep", () => {
-  test("renders FinishStep component with initial state and props", async () => {
+  it("renders FinishStep component with initial state and props", async () => {
     const props = {};
 
     await act(async () => {
