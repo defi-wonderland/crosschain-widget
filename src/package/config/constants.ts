@@ -17,6 +17,7 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         gelatoPremiumFee: 0.2,
+        publicRpcProvider: "https://eth.llamarpc.com",
         assets: {
           USDC: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
           WETH: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -33,6 +34,7 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         gelatoPremiumFee: 0.7,
+        publicRpcProvider: "https://polygon.llamarpc.com",
         assets: {
           nextUSDC: "0xF96C6d2537e1af1a9503852eB2A4AF264272a5B6",
           USDC: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
@@ -53,6 +55,7 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
         gelatoPremiumFee: 0.5,
+        publicRpcProvider: "https://mainnet.optimism.io",
         assets: {
           nextUSDC: "0x67E51f46e8e14D4E4cab9dF48c59ad8F512486DD",
           USDC: "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
@@ -73,6 +76,7 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         gelatoPremiumFee: 0.5,
+        publicRpcProvider: "https://arb1.arbitrum.io/rpc",
         assets: {
           nextUSDC: "0x8c556cF37faa0eeDAC7aE665f1Bb0FbD4b2eae36",
           USDC: "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
@@ -93,6 +97,7 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         gelatoPremiumFee: 1,
+        publicRpcProvider: "https://rpc.gnosischain.com",
         assets: {
           nextUSDC: "0x44CF74238d840a5fEBB0eAa089D05b763B73faB8",
           USDC: "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83",
@@ -113,6 +118,7 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         gelatoPremiumFee: 0.3,
+        publicRpcProvider: "https://bsc.publicnode.com",
         assets: {
           nextUSDC: "0x5e7D83dA751F4C9694b13aF351B30aC108f32C38",
           USDC: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
@@ -132,8 +138,9 @@ export const getConstants = (): Constants => {
         domainId: 1735353714,
         safeIdentifier: "gor",
         connextContract: "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
-        ZCMFactory: "0x620ef5E9cc94FBBD882f07D2000e28BeCEaA2C91",
+        ZCMFactory: "0x0C173261C925d5B560B40acDC21e5226760cCbf1",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        publicRpcProvider: "https://ethereum-goerli.publicnode.com",
         assets: {
           TEST: "0x7ea6eA49B0b0Ae9c5db7907d139D9Cd3439862a1",
           WETH: "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",

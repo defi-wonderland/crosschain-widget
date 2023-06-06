@@ -6,30 +6,41 @@ import {
   WriteIcon,
   CustomInput,
 } from "./StartStep.styles";
+import { isAddress, truncatedAddress, getIsModuleEnabled } from "~/utils";
 import { useDataContext, useNavigationContext } from "~/providers";
-import { isAddress, truncatedAddress } from "~/utils";
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { Button, Text } from "~/components";
 import { StepType } from "~/types";
 
 interface SafeSectionProps {
   loading: boolean;
+  setLoading: (loading: boolean) => void;
   safeList: string[];
   setSafeList: (safeList: string[]) => void;
   error?: boolean;
   setError?: (error: boolean) => void;
 }
 
-export const SafeSection = ({ loading, safeList, error }: SafeSectionProps) => {
-  const { setSafeAddress, safeAddress, lightTheme, destinyChain } =
-    useDataContext();
+export const SafeSection = ({
+  loading,
+  setLoading,
+  safeList,
+  error,
+}: SafeSectionProps) => {
+  const {
+    setSafeAddress,
+    safeAddress,
+    lightTheme,
+    destinyChain,
+    destinyProvider,
+  } = useDataContext();
   const { setType } = useNavigationContext();
   const dropdownSafeProps = Dropdown.useProps();
-  const hasModule = false;
 
   const [showCustomAddress, setShowCustomAddress] = useState(false);
   const [customAddress, setCustomAddress] = useState("");
   const [safeError, setSafeError] = useState(false);
+  const [hasModule, setHasModule] = useState(false);
 
   const handleDropwdown = (safeAddress: string) => {
     setSafeAddress(safeAddress);
@@ -52,12 +63,23 @@ export const SafeSection = ({ loading, safeList, error }: SafeSectionProps) => {
     }
   };
 
-  const handleUseExisting = () => {
+  const handleUseExisting = async () => {
     if (hasModule) {
       setType(StepType.TRANSACTION);
     } else {
       setType(StepType.MODULE_SETUP);
     }
+  };
+
+  const checkHasModule = async () => {
+    setLoading(true);
+    const hasModule = await getIsModuleEnabled(
+      safeAddress,
+      "0xC55b9BE4B5959afeb1938e2A1498F69124042294", // TODO: Change to fetched module address
+      destinyProvider
+    );
+    setHasModule(hasModule);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -66,6 +88,10 @@ export const SafeSection = ({ loading, safeList, error }: SafeSectionProps) => {
     setCustomAddress("");
     setSafeError(false);
   }, [destinyChain]);
+
+  useEffect(() => {
+    checkHasModule();
+  }, [safeAddress]);
 
   return (
     <>

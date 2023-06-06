@@ -13,15 +13,19 @@ const mockResult = {
   toNumber: vi.fn(() => gasPrice),
 };
 
-vi.mock("ethers", () => ({
-  ethers: {
-    providers: {
-      JsonRpcProvider: vi.fn().mockImplementation(() => ({
-        getGasPrice: vi.fn().mockResolvedValue(mockResult),
-      })),
+vi.mock("ethers", async () => {
+  const actual: any = await vi.importActual("ethers");
+  return {
+    ...actual,
+    ethers: {
+      providers: {
+        JsonRpcProvider: vi.fn().mockImplementation(() => ({
+          getGasPrice: vi.fn().mockResolvedValue(mockResult),
+        })),
+      },
     },
-  },
-}));
+  };
+});
 
 const AllTheProviders = ({ children }: { children: React.ReactElement }) => {
   // wrap provider(s) here if needed

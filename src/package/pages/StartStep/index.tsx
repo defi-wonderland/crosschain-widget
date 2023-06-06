@@ -19,16 +19,10 @@ export const StartStep = ({ ...props }: ModalProps) => {
 
   const getSafe = async () => {
     setLoading(true);
-    try {
-      const url = getSafeAddressUrl(destinyChain, userAddress);
-      const jsonData = await fetchData(url);
-      setSafeList(jsonData.safes);
-      setSafeAddress(jsonData.safes[0]);
-    } catch (error) {
-      console.log("error getting safes");
-      setSafeAddress("");
-      setSafeList([]);
-    }
+    const url = getSafeAddressUrl(destinyChain, userAddress);
+    const jsonData = await fetchData(url);
+    setSafeList(jsonData.safes);
+    setSafeAddress(jsonData.safes[0]);
     setLoading(false);
   };
 
@@ -43,6 +37,7 @@ export const StartStep = ({ ...props }: ModalProps) => {
 
       <SafeSection
         loading={loading}
+        setLoading={setLoading}
         setSafeList={setSafeList}
         safeList={safeList}
         setError={setError}

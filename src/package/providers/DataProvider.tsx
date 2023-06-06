@@ -1,6 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { providers } from "ethers";
 
+import { getDestinationProvider } from "~/utils";
 import { TxData } from "~/types";
 
 type ContextType = {
@@ -47,27 +48,34 @@ type ContextType = {
 
   // Modal
   modal?: boolean;
+
+  // Destination Provider
+  destinyProvider: providers.JsonRpcProvider;
 };
 
 interface ModalProps {
-  originAddress: string;
-  userChainId: number;
+  provider?: providers.JsonRpcProvider;
   children: React.ReactElement;
   setTx: (tx: string) => void;
-  provider?: providers.JsonRpcProvider;
+  originAddress: string;
   lightTheme?: boolean;
+  userChainId: number;
+  alchemyKey?: string;
+  infuraKey?: string;
   modal?: boolean;
 }
 
 const DataContext = createContext({} as ContextType);
 
 export const DataProvider = ({
-  children,
-  originAddress,
-  userChainId,
-  setTx,
   provider,
+  children,
+  setTx,
+  originAddress,
   lightTheme,
+  userChainId,
+  alchemyKey,
+  infuraKey,
   modal,
 }: ModalProps) => {
   const [userAddress, setUserAddress] = useState<string>("");
@@ -79,11 +87,21 @@ export const DataProvider = ({
   const [owners, setOwners] = useState<string[]>([]);
   const [threshold, setThreshold] = useState(1);
   const [txData, setTxData] = useState<TxData | undefined>();
+  const [destinyProvider, setDestinyProvider] =
+    useState<providers.JsonRpcProvider>(
+      getDestinationProvider(destinyChain, alchemyKey, infuraKey)
+    );
 
   useEffect(() => {
     setUserAddress(originAddress);
     setOriginChainId(userChainId);
   }, [originAddress, userChainId]);
+
+  useEffect(() => {
+    setDestinyProvider(
+      getDestinationProvider(destinyChain, alchemyKey, infuraKey)
+    );
+  }, [destinyChain]);
 
   return (
     <DataContext.Provider
@@ -108,6 +126,7 @@ export const DataProvider = ({
         provider,
         lightTheme,
         modal,
+        destinyProvider,
       }}
     >
       {children}

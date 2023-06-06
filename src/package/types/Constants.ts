@@ -20,6 +20,7 @@ export interface Constants {
       assets: {
         [key: string]: string;
       };
+      publicRpcProvider: string;
     };
   };
 }
