@@ -14,6 +14,8 @@ export interface Constants {
       id: number;
       domainId: number;
       connextContract: string;
+      ZCMFactory: string; // Zodiac Connext Module Factory
+      safeMasterCopy: string;
       gelatoPremiumFee?: number;
       assets: {
         [key: string]: string;

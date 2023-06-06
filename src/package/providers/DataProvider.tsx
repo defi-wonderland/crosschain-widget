@@ -28,12 +28,16 @@ type ContextType = {
   setOwners: (address: string[]) => void;
 
   // Safe threshold
-  threshold: string | undefined;
-  setThreshold: (val: string) => void;
+  threshold: number;
+  setThreshold: (val: number) => void;
 
   // Destiny Transaction data
   txData: TxData | undefined;
   setTxData: (value: TxData) => void;
+
+  // Create Safe sentinel
+  createSafe: boolean;
+  setCreateSafe: (val: boolean) => void;
 
   // Origin Transaction data
   setTx: (tx: string) => void;
@@ -70,9 +74,10 @@ export const DataProvider = ({
   const [safeAddress, setSafeAddress] = useState<string>("");
   const [originChainId, setOriginChainId] = useState<number>(1);
   const [destinyChain, setDestinyChain] = useState<string>("ethereum");
+  const [createSafe, setCreateSafe] = useState<boolean>(false);
 
   const [owners, setOwners] = useState<string[]>([]);
-  const [threshold, setThreshold] = useState<string | undefined>();
+  const [threshold, setThreshold] = useState(1);
   const [txData, setTxData] = useState<TxData | undefined>();
 
   useEffect(() => {
@@ -98,6 +103,8 @@ export const DataProvider = ({
         txData,
         setTxData,
         setTx,
+        createSafe,
+        setCreateSafe,
         provider,
         lightTheme,
         modal,

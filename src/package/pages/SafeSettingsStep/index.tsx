@@ -25,6 +25,7 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
     userAddress,
     threshold,
     lightTheme,
+    setCreateSafe,
   } = useDataContext();
 
   const [inputAddress, setInputAddress] = useState<string>(userAddress);
@@ -43,11 +44,13 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
   };
 
   const handleSelectThreshold = (index: number) => {
-    setThreshold((index + 1).toString());
+    setThreshold(index + 1);
     ownersProps.setShow(false);
   };
 
   useEffect(() => {
+    setCreateSafe(true);
+
     if (inputAddress) {
       const isRepited = owners.find((address) => address === inputAddress);
       setValid(isAddress(inputAddress) && !isRepited);

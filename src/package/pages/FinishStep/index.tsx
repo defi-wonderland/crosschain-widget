@@ -11,6 +11,9 @@ import {
   estimateRelayerFee,
   encodeXCall,
   getChainKey,
+  encodeInitializer,
+  encodeCreateSafe,
+  getSaltNonce,
 } from "~/utils";
 
 interface FinishState {
@@ -33,6 +36,9 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     destinyChain,
     lightTheme,
     modal: isModal,
+    createSafe,
+    owners,
+    threshold,
   } = useDataContext();
 
   const [finishState, setFinishState] = useState<FinishState>({
@@ -48,33 +54,32 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   const originChainName = getChainKey(originChainId);
 
   const getParams = (relayerFee: string) => {
-    let receiverCalldata = "0x";
-    if (txData) {
-      receiverCalldata = encodeReceiverCallData(
-        txData.to,
-        txData.value,
-        txData.data
-      );
-    }
+    // temporary ZCM
+    const ZCM = "0xC55b9BE4B5959afeb1938e2A1498F69124042294";
+    const to = createSafe ? Chains[destinyChain].ZCMFactory : ZCM;
+    const asset =
+      Chains[originChainName].assets.WETH ||
+      Chains[originChainName].assets.TEST;
+    const calldata = getReceiverCallData();
 
     /* xCallParams:
       0: destination domaninId
-      1: ZodiacConnextModule (temporary random address)
+      1: to (ZodiacConnextModule | ZodiacConnextModuleFactory) (temporary random address)
       2: asset
       3: delegate
       4: amount
       5: slippage
       6: callData
     */
+
     const xCallParams = [
       Chains[destinyChain].domainId.toString(),
-      "0xC55b9BE4B5959afeb1938e2A1498F69124042294",
-      Chains[originChainName].assets.TEST ||
-        Chains[originChainName].assets.WETH,
+      to,
+      asset,
       userAddress,
       "0",
       "0",
-      receiverCalldata || "0x",
+      calldata,
     ];
 
     const { encodedData, params, signature } = encodeXCall(xCallParams);
@@ -89,6 +94,40 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     };
 
     return { xCallParams, xCallJson };
+  };
+
+  const getReceiverCallData = () => {
+    let receiverCalldata = "0x";
+    if (txData) {
+      receiverCalldata = encodeReceiverCallData(
+        txData.to,
+        txData.value,
+        txData.data
+      );
+    }
+
+    if (createSafe) {
+      const initializerData = encodeInitializer({
+        owners,
+        threshold,
+        connextFactory: Chains[destinyChain].ZCMFactory,
+      });
+
+      const createSafeData = encodeCreateSafe({
+        userAddress: userAddress,
+        originDomainId: Chains[originChainName].domainId,
+        initializer: initializerData,
+        destinationConnext: Chains[destinyChain].connextContract,
+        saltNonce1: getSaltNonce(),
+        saltNonce2: getSaltNonce(),
+        destinationSafeMasterCopy: Chains[destinyChain].safeMasterCopy,
+        safeTransactionData: receiverCalldata,
+      });
+
+      return createSafeData;
+    } else {
+      return receiverCalldata;
+    }
   };
 
   const getTransactionJson = (data: TxData) => {

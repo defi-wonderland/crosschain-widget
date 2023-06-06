@@ -38,6 +38,7 @@ describe("ZodiacConnextWidget", () => {
           originAddress={originAddress}
           userChainId={userChainId}
           setTx={mockSetTx}
+          modal={false}
         />
       );
     });
@@ -56,6 +57,7 @@ describe("ZodiacConnextWidget", () => {
           originAddress={originAddress}
           userChainId={invalidChainId}
           setTx={mockSetTx}
+          modal={false}
         />
       );
     });

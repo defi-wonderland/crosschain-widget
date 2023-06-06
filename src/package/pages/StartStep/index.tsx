@@ -10,7 +10,8 @@ import { StepType } from "~/types";
 
 export const StartStep = ({ ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
-  const { userAddress, destinyChain, setSafeAddress } = useDataContext();
+  const { userAddress, destinyChain, setSafeAddress, setCreateSafe } =
+    useDataContext();
 
   const [safeList, setSafeList] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -32,6 +33,7 @@ export const StartStep = ({ ...props }: ModalProps) => {
   };
 
   useEffect(() => {
+    setCreateSafe(false);
     getSafe();
   }, [destinyChain]);
 

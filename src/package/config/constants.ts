@@ -14,6 +14,8 @@ export const getConstants = (): Constants => {
         safeIdentifier: "eth",
         domainId: 6648936,
         connextContract: "0x8898B472C54c31894e3B9bb83cEA802a5d0e63C6",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         gelatoPremiumFee: 0.2,
         assets: {
           USDC: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
@@ -28,6 +30,8 @@ export const getConstants = (): Constants => {
         domainId: 1886350457,
         safeIdentifier: "matic",
         connextContract: "0x11984dc4465481512eb5b777E44061C158CF2259",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         gelatoPremiumFee: 0.7,
         assets: {
           nextUSDC: "0xF96C6d2537e1af1a9503852eB2A4AF264272a5B6",
@@ -46,6 +50,8 @@ export const getConstants = (): Constants => {
         domainId: 1869640809,
         safeIdentifier: "oeth",
         connextContract: "0x8f7492DE823025b4CfaAB1D34c58963F2af5DEDA",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
         gelatoPremiumFee: 0.5,
         assets: {
           nextUSDC: "0x67E51f46e8e14D4E4cab9dF48c59ad8F512486DD",
@@ -64,6 +70,8 @@ export const getConstants = (): Constants => {
         domainId: 1634886255,
         safeIdentifier: "arb1",
         connextContract: "0xEE9deC2712cCE65174B561151701Bf54b99C24C8",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         gelatoPremiumFee: 0.5,
         assets: {
           nextUSDC: "0x8c556cF37faa0eeDAC7aE665f1Bb0FbD4b2eae36",
@@ -82,6 +90,8 @@ export const getConstants = (): Constants => {
         safeIdentifier: "gno",
         domainId: 6778479,
         connextContract: "0x5bB83e95f63217CDa6aE3D181BA580Ef377D2109",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         gelatoPremiumFee: 1,
         assets: {
           nextUSDC: "0x44CF74238d840a5fEBB0eAa089D05b763B73faB8",
@@ -100,6 +110,8 @@ export const getConstants = (): Constants => {
         domainId: 6450786,
         safeIdentifier: "bnb",
         connextContract: "0xCd401c10afa37d641d2F594852DA94C700e4F2CE",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         gelatoPremiumFee: 0.3,
         assets: {
           nextUSDC: "0x5e7D83dA751F4C9694b13aF351B30aC108f32C38",
@@ -120,6 +132,8 @@ export const getConstants = (): Constants => {
         domainId: 1735353714,
         safeIdentifier: "gor",
         connextContract: "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
+        ZCMFactory: "0x620ef5E9cc94FBBD882f07D2000e28BeCEaA2C91",
+        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         assets: {
           TEST: "0x7ea6eA49B0b0Ae9c5db7907d139D9Cd3439862a1",
           WETH: "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
