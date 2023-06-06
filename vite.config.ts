@@ -19,7 +19,6 @@ export default defineConfig(() => ({
     lib: {
       entry: resolve("src", "package/index.tsx"),
       name: "CrossChainWidget",
-      formats: ["es", "cjs"],
       fileName: (format) => `CrossChainWidget.${format}.js`,
     },
     rollupOptions: {

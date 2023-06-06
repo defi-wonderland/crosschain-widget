@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "license": "AGPL-3.0-only",
-  "main": "./dist/CrossChainWidget.cjs.js",
+  "main": "./dist/CrossChainWidget.umd.js",
   "module": "./dist/CrossChainWidget.es.js",
   "types": "./dist/index.d.ts",
   "repository": "git@github.com:defi-wonderland/crosschain-widget-private.git",

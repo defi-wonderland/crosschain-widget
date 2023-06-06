@@ -11,6 +11,7 @@ export const getIsModuleEnabled = async (
     const contract = new Contract(safeAddress, IS_MODULE_ENABLED_ABI, provider);
     return await contract.isModuleEnabled(moduleAddress);
   } catch (error) {
+    console.log("error calling isModuleEnabled", error);
     return false;
   }
 };
