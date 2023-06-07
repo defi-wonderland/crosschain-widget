@@ -80,6 +80,8 @@ The following props are available for the `ZodiacConnextWidget` component:
 | provider (optional)   | An instance of the `providers.JsonRpcProvider` from [ethers.js](https://docs.ethers.org/v5/api/providers/) | `providers.JsonRpcProvider` | `undefined`            |
 | modal (optional)      | Flag to enable or disable modal behavior for the widget                                                    | `boolean`                   | `true`                 |
 | lightTheme (optional) | Flag to enable a light theme for the widget                                                                | `boolean`                   | `false`                |
+| alchemyKey (optional) | [Alchemy](https://www.alchemy.com/) API Key                                                                | `string`                    | `undefined`            |
+| infuraKey (optional)  | [Infura](https://www.infura.io/) API Key                                                                   | `string`                    | `undefined`            |
 
 ## Live example
 

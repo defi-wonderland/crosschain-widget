@@ -24,8 +24,8 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
   originAddress,
   lightTheme,
   userChainId,
-  alchemyKey = "",
-  infuraKey = "",
+  alchemyKey,
+  infuraKey,
   modal = true,
   text,
 }) => {

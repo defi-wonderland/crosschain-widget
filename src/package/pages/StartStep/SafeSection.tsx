@@ -90,7 +90,7 @@ export const SafeSection = ({
   }, [destinyChain]);
 
   useEffect(() => {
-    checkHasModule();
+    if (safeAddress) checkHasModule();
   }, [safeAddress]);
 
   return (
