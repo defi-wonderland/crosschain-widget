@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { Button, BaseModal, PoweredByConnext } from "~/components";
 import { useDataContext, useNavigationContext } from "~/providers";
-import { BaseModal, Button, PoweredByConnext } from "~/components";
 import { ChainSection } from "~/pages/StartStep/ChainSection";
 import { ModalProps, StepType, TxData } from "~/types";
 import { getConstants } from "~/config";
@@ -25,6 +25,8 @@ interface FinishState {
 export const FinishStep = ({ ...props }: ModalProps) => {
   const [showDestination, setShowDestination] = useState(false);
   const [showOrigin, setShowOrigin] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const { Chains } = getConstants();
   const { setType } = useNavigationContext();
   const {
@@ -146,15 +148,22 @@ export const FinishStep = ({ ...props }: ModalProps) => {
 
   useEffect(() => {
     if (!relayerFee) {
-      estimateRelayerFee(provider!, originChainName).then((rFee) => {
-        const { xCallParams, xCallJson } = getParams(rFee.toString());
-        setFinishState({
-          ...finishState,
-          relayerFee: rFee.toString(),
-          xCallJson,
-          xCallParams,
+      estimateRelayerFee(provider!, originChainName)
+        .then((rFee) => {
+          const { xCallParams, xCallJson } = getParams(rFee.toString());
+          setFinishState({
+            ...finishState,
+            relayerFee: rFee.toString(),
+            xCallJson,
+            xCallParams,
+          });
+          setLoading(false);
+        })
+        .catch((e) => {
+          console.log("Error: ", e);
+          setLoading(false);
+          setError(true);
         });
-      });
     }
   }, []);
 
@@ -190,7 +199,10 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         setShowDetails={setShowDestination}
       />
 
-      <Button onClick={handleConfirm}>Confirm</Button>
+      <Button loading={loading} disabled={loading} onClick={handleConfirm}>
+        {!error && "Confirm"}
+        {error && "Something went wrong"}
+      </Button>
 
       <PoweredByConnext lightTheme={lightTheme} />
     </BaseModal>

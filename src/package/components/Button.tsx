@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { PropTheme } from "~/types";
 import { FONT_SIZE_16 } from "./Variables";
+import { BasicSpinner } from "./BasicSpinner";
 
 const SButton = styled.button`
   border: none;
@@ -37,12 +38,19 @@ interface ButtonProps {
   children: any;
   onClick?: () => void;
   disabled?: boolean;
+  loading?: boolean;
 }
 
-export const Button = ({ children, onClick, disabled }: ButtonProps) => {
+export const Button = ({
+  children,
+  onClick,
+  disabled,
+  loading,
+}: ButtonProps) => {
   return (
     <SButton onClick={onClick} disabled={disabled}>
-      {children}
+      {loading && <BasicSpinner />}
+      {!loading && children}
     </SButton>
   );
 };

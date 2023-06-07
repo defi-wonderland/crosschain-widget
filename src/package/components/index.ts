@@ -1,4 +1,5 @@
 export * from "./ArrowIcons";
+export * from "./BasicSpinner";
 export * from "./Box";
 export * from "./theme";
 export * from "./Button";

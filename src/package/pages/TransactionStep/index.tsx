@@ -134,6 +134,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
       <Button
         onClick={() => setType(StepType.XCALLDATA_REVIEW)}
         disabled={!txData?.data}
+        loading={loading}
       >
         Continue
       </Button>

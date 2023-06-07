@@ -136,6 +136,7 @@ export const SafeSection = ({
 
         <Button
           disabled={safeError || !safeAddress || loading || error}
+          loading={loading}
           onClick={handleUseExisting}
         >
           Use existing
