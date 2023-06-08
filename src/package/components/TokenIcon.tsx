@@ -16,6 +16,13 @@ const Image = styled.img`
 `;
 
 export const TokenIcon = ({ chainName }: TokenIconProps) => {
+  switch (chainName) {
+    case "bnbChain":
+      chainName = "binance";
+      break;
+    // add custom chain name here
+  }
+
   return (
     <Image
       alt={chainName}

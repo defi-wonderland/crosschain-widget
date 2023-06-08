@@ -8,7 +8,7 @@ const Modal = styled.section`
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.background};
   color: ${({ theme }: PropTheme) => theme.textSecondary};
-  font-weight: 600;
+  font-weight: normal;
   position: absolute;
   text-align: center;
   white-space: nowrap;

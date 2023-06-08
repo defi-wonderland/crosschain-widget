@@ -20,6 +20,7 @@ export const ChainOption = styled(Box)`
   gap: 10px;
   padding: 12px;
   border-bottom: ${({ theme }) => theme.borderPrimary};
+  border-radius: 0;
   cursor: pointer;
   transition: transform 200ms;
 
