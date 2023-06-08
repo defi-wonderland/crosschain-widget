@@ -6,7 +6,12 @@ import {
   WriteIcon,
   CustomInput,
 } from "./StartStep.styles";
-import { isAddress, truncatedAddress, getIsModuleEnabled } from "~/utils";
+import {
+  isAddress,
+  truncatedAddress,
+  getIsModuleEnabled,
+  getModuleFromSafe,
+} from "~/utils";
 import { useDataContext, useNavigationContext } from "~/providers";
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { Button, Text } from "~/components";
@@ -33,6 +38,7 @@ export const SafeSection = ({
     lightTheme,
     destinyChain,
     destinyProvider,
+    setConnextModule,
   } = useDataContext();
   const { setType } = useNavigationContext();
   const dropdownSafeProps = Dropdown.useProps();
@@ -73,12 +79,16 @@ export const SafeSection = ({
 
   const checkHasModule = async () => {
     setLoading(true);
-    const hasModule = await getIsModuleEnabled(
+    const moduleAddress = await getModuleFromSafe(safeAddress, destinyProvider);
+
+    const isModuleEnabled = await getIsModuleEnabled(
       safeAddress,
-      "0xC55b9BE4B5959afeb1938e2A1498F69124042294", // TODO: Change to fetched module address
+      moduleAddress,
       destinyProvider
     );
-    setHasModule(hasModule);
+
+    setConnextModule(moduleAddress);
+    setHasModule(isModuleEnabled);
     setLoading(false);
   };
 

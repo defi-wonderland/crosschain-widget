@@ -12,7 +12,7 @@ import {
 import { CheckIcon, CopyIcon } from "~/pages/FinishStep/TxSummary.styles";
 import { useDataContext, useNavigationContext } from "~/providers";
 import { copyData, getChainKey, truncatedAddress } from "~/utils";
-import { BaseModal, Button, Text } from "~/components";
+import { BaseModal, Button } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { LoadingStep } from "./LoadingStep";
 import { getConstants } from "~/config";
@@ -20,8 +20,15 @@ import { getConstants } from "~/config";
 export const ModuleStep = ({ ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
   const { Chains } = getConstants();
-  const { safeAddress, destinyChain, originChainId, userAddress, lightTheme } =
-    useDataContext();
+  const {
+    safeAddress,
+    destinyChain,
+    originChainId,
+    userAddress,
+    lightTheme,
+    destinyProvider,
+    setConnextModule,
+  } = useDataContext();
 
   const [loadinScreen, setLoadingScreen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -44,7 +51,15 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
       onBack={() => setType(StepType.START)}
       header={!loadinScreen ? "Safe module setup" : ""}
     >
-      {loadinScreen && <LoadingStep setType={setType} />}
+      {loadinScreen && (
+        <LoadingStep
+          setType={setType}
+          safeAddress={safeAddress}
+          destinyProvider={destinyProvider}
+          setLoadingScreen={setLoadingScreen}
+          setConnextModule={setConnextModule}
+        />
+      )}
 
       {!loadinScreen && (
         <>

@@ -41,6 +41,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     createSafe,
     owners,
     threshold,
+    connextModule,
   } = useDataContext();
 
   const [finishState, setFinishState] = useState<FinishState>({
@@ -56,9 +57,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   const originChainName = getChainKey(originChainId);
 
   const getParams = (relayerFee: string) => {
-    // temporary ZCM
-    const ZCM = "0xC55b9BE4B5959afeb1938e2A1498F69124042294";
-    const to = createSafe ? Chains[destinyChain].ZCMFactory : ZCM;
+    const to = createSafe ? Chains[destinyChain].ZCMFactory : connextModule;
     const asset =
       Chains[originChainName].assets.WETH ||
       Chains[originChainName].assets.TEST;
@@ -66,7 +65,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
 
     /* xCallParams:
       0: destination domaninId
-      1: to (ZodiacConnextModule | ZodiacConnextModuleFactory) (temporary random address)
+      1: to (ZodiacConnextModule | ZodiacConnextModuleFactory)
       2: asset
       3: delegate
       4: amount

@@ -83,7 +83,6 @@ export const TxSummary = ({
           <DetailText>Decode</DetailText>
         </ToggleSection>
 
-        {/* Temporary: we need add decoded format  */}
         <STextArea
           title={textTitle}
           wrap="on"

@@ -40,6 +40,10 @@ type ContextType = {
   createSafe: boolean;
   setCreateSafe: (val: boolean) => void;
 
+  // ConnextModule
+  connextModule: string;
+  setConnextModule: (val: string) => void;
+
   // Origin Transaction data
   setTx: (tx: string) => void;
 
@@ -83,6 +87,7 @@ export const DataProvider = ({
   const [originChainId, setOriginChainId] = useState<number>(1);
   const [destinyChain, setDestinyChain] = useState<string>("ethereum");
   const [createSafe, setCreateSafe] = useState<boolean>(false);
+  const [connextModule, setConnextModule] = useState<string>("");
 
   const [owners, setOwners] = useState<string[]>([]);
   const [threshold, setThreshold] = useState(1);
@@ -127,6 +132,8 @@ export const DataProvider = ({
         lightTheme,
         modal,
         destinyProvider,
+        connextModule,
+        setConnextModule,
       }}
     >
       {children}

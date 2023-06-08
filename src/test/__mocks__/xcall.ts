@@ -3,7 +3,7 @@
 /* 
   xCallParams:
     0: destination domaninId
-    1: ZodiacConnextModule (temporary random address)
+    1: ZodiacConnextModule
     2: asset
     3: delegate
     4: amount

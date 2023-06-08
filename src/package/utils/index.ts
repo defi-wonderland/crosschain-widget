@@ -8,6 +8,7 @@ export * from "./estimateRelayerFee";
 export * from "./getChainKey";
 export * from "./getContractAbi";
 export * from "./getDestinationProvider";
+export * from "./getModuleFromSafe";
 export * from "./getParams";
 export * from "./getRedeableData";
 export * from "./getSaltNonce";

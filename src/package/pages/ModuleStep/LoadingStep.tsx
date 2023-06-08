@@ -1,57 +1,73 @@
 import { useEffect, useState } from "react";
+import { providers } from "ethers";
 
 import { LoadingContainer } from "./ModuleStep.styles";
+import { getModuleFromSafe, isAddress } from "~/utils";
 import { Spinner, Text } from "~/components";
 import { StepType } from "~/types";
 
 interface LoadingStepProps {
   setType: (val: StepType | null) => void;
+  safeAddress: string;
+  destinyProvider: providers.Provider;
+  setLoadingScreen: (val: boolean) => void;
+  setConnextModule: (val: string) => void;
 }
 
-export const LoadingStep = ({ setType }: LoadingStepProps) => {
-  const [hasModule, setHasModule] = useState(false);
+export const LoadingStep = ({
+  setType,
+  safeAddress,
+  destinyProvider,
+  setLoadingScreen,
+  setConnextModule,
+}: LoadingStepProps) => {
+  const [hasResult, setHasResult] = useState(false);
+  const [error, setError] = useState(false);
   const [count, setCount] = useState(3);
 
   const handleGetModule = async () => {
-    // logic to check if module is enabled here...
+    const moduleAddress = await getModuleFromSafe(safeAddress, destinyProvider);
 
-    // temporaty timeout to simulate loading
-    setTimeout(() => {
-      setHasModule(true);
-    }, 3000);
-
-    // if it isnt enabled, redirect to module setup
-    // setType(StepType.MODULE_SETUP);
-  };
-
-  const handleRedirect = () => {
-    setTimeout(() => {
-      setType(StepType.TRANSACTION);
-    }, 3000);
-  };
-
-  useEffect(() => {
-    if (!hasModule) {
-      handleGetModule();
+    if (isAddress(moduleAddress)) {
+      setConnextModule(moduleAddress);
     } else {
-      handleRedirect();
+      setError(true);
     }
-  }, [hasModule]);
+
+    setHasResult(true);
+    handleRedirect(isAddress(moduleAddress));
+  };
+
+  const handleRedirect = (hasModule: boolean) => {
+    setTimeout(() => {
+      if (hasModule) {
+        setType(StepType.TRANSACTION);
+      } else {
+        setLoadingScreen(false);
+      }
+    }, 3000);
+  };
 
   useEffect(() => {
-    if (count > 0 && hasModule) {
+    handleGetModule();
+  }, []);
+
+  useEffect(() => {
+    if (count > 0 && hasResult) {
       const timer = setTimeout(() => setCount(count - 1), 1000);
       return () => clearTimeout(timer);
     }
-  }, [count, hasModule]);
+  }, [count, hasResult]);
 
   return (
     <LoadingContainer>
       <Spinner />
-      {!hasModule && <h1>Verifying your setup...</h1>}
-      {hasModule && (
+      {!hasResult && <h1>Verifying your setup...</h1>}
+      {hasResult && (
         <>
-          <h1>Verification Successful!</h1>
+          {!error && <h1>Verification Successful!</h1>}
+          {error && <h1>Connext Module not found!</h1>}
+
           <Text>Redirecting you in {count}...</Text>
         </>
       )}
