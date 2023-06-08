@@ -12,5 +12,6 @@ export const estimateRelayerFee = async (
   const relayerFee =
     gasPrice * XCALL_GAS_LIMIT * (1 + GelatoAndPremium + CONNEXT_BUMP);
 
-  return relayerFee;
+  // remove any decimals
+  return Math.ceil(relayerFee);
 };
