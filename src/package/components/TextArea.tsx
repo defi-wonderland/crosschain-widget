@@ -15,7 +15,7 @@ const TextArea = styled.textarea.attrs({ spellcheck: false })<{
   color: ${({ theme }: PropTheme) => theme.textPrimary};
   padding: 15px 14px;
   font-size: 14px;
-  cursor: pointer;
+  cursor: text;
   font-weight: 400;
   line-height: 19px;
   display: flex;

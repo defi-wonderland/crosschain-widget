@@ -13,7 +13,7 @@ const Modal = styled.section`
   text-align: center;
   white-space: nowrap;
   z-index: 100;
-  max-height: 160px;
+  max-height: 166px;
   width: 100%;
 
   overflow-y: overlay;

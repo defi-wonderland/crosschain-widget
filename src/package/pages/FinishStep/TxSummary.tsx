@@ -38,7 +38,7 @@ export const TxSummary = ({
   setShowDetails,
 }: TxSummaryProps) => {
   const { lightTheme } = useDataContext();
-  const [showDecoded, setShowDecoded] = useState(false);
+  const [showDecoded, setShowDecoded] = useState(true);
   const [copied, setCopied] = useState(false);
 
   const componentData = [
@@ -79,7 +79,10 @@ export const TxSummary = ({
         ))}
 
         <ToggleSection>
-          <Toggle onClick={() => setShowDecoded(!showDecoded)} />
+          <Toggle
+            checked={showDecoded}
+            onClick={() => setShowDecoded(!showDecoded)}
+          />
           <DetailText>Decode</DetailText>
         </ToggleSection>
 

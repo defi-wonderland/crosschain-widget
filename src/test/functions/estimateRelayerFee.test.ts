@@ -25,10 +25,12 @@ describe("estimateRelayerFee", () => {
     const { XCALL_GAS_LIMIT, CONNEXT_BUMP } = getConstants();
     const chainName = "ethereum";
     const GelatoAndPremium = getConstants().Chains[chainName].gelatoPremiumFee!;
+    const createSafe = false;
 
     const relayerFee = await estimateRelayerFee(
       new ethers.providers.JsonRpcProvider(),
-      chainName
+      chainName,
+      createSafe
     );
 
     const expectedRelayerFee =

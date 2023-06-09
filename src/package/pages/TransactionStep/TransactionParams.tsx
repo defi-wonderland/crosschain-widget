@@ -99,8 +99,8 @@ export const TransactionParams = ({
       {/* Value */}
       {(method?.payable || showCustomData) && (
         <SInput
-          title="Value"
-          placeholder="value"
+          title="Value (wei)"
+          placeholder="0"
           value={value || ""}
           type="number"
           onChange={(e) => setTxState({ ...txState, value: e.target.value })}

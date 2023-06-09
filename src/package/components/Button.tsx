@@ -20,9 +20,8 @@ const SButton = styled.button`
   height: 50px;
   transition: color 400ms, background-color 400ms;
 
-  &:hover {
-    transform: scale(1.01);
-    transition: transform 400ms;
+  &:not(:disabled):hover {
+    opacity: 0.8;
   }
 
   &:disabled {

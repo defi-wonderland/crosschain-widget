@@ -56,7 +56,7 @@ export const ChainSection = ({
   return (
     <ChainContainer>
       {/* Origin chain dropdown */}
-      <Dropdown.Button title="From" error={error}>
+      <Dropdown.Button title="From" error={error} disabled={true}>
         {!!chainKey && <TokenIcon chainName={chainKey} />}
         <Text>{Chains[chainKey]?.name || "Usupported Chain"}</Text>
       </Dropdown.Button>
@@ -74,7 +74,10 @@ export const ChainSection = ({
           {Object.entries(Chains).map(([key, value]) => (
             <Box key={key}>
               {key !== chainKey && (
-                <ChainOption onClick={() => handleChainDropdown(key)}>
+                <ChainOption
+                  onClick={() => handleChainDropdown(key)}
+                  active={destinyChain === key}
+                >
                   <TokenIcon chainName={key} />
                   <Text>{value.name}</Text>
                 </ChainOption>

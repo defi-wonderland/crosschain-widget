@@ -12,7 +12,7 @@ export const SText = styled(Text)`
 
 /* ------------------ ChainSection styles ------------------ */
 
-export const ChainOption = styled(Box)`
+export const ChainOption = styled(Box)<{ active?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -22,11 +22,16 @@ export const ChainOption = styled(Box)`
   border-bottom: ${({ theme }) => theme.borderPrimary};
   border-radius: 0;
   cursor: pointer;
-  transition: transform 200ms;
 
   &:hover {
-    transform: scale(1.01);
+    background-color: ${({ theme }) => theme.actionHover};
   }
+
+  & p {
+    background-color: inherit;
+  }
+
+  ${({ active, theme }) => active && `background-color: ${theme.actionHover}`};
 `;
 
 export const ChainContainer = styled(Box)`

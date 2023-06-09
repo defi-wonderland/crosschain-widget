@@ -1,10 +1,10 @@
 import { FunctionFragment, Interface } from "ethers/lib/utils";
 
+import { DropdownContainer, MethodOption } from "./Transaction.styles";
 import { filterMethod, filterWritableMethods } from "~/utils";
-import { DropdownContainer } from "./Transaction.styles";
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { TxState } from "~/pages/TransactionStep";
-import { Box, Text } from "~/components";
+import { Text } from "~/components";
 
 interface TransactionDropdownProps {
   contractInterface: Interface;
@@ -37,7 +37,10 @@ export const TransactionDropdown = ({
 
         <Dropdown.Modal>
           {Object.entries(contractInterface.functions).map((functionName) => (
-            <Box key={functionName[1].name}>
+            <MethodOption
+              key={functionName[1].name}
+              active={functionName[1].name === method?.name}
+            >
               {/* Show only writable functions */}
               {filterWritableMethods(functionName) && (
                 <Text
@@ -48,7 +51,7 @@ export const TransactionDropdown = ({
                   {functionName[1].name}
                 </Text>
               )}
-            </Box>
+            </MethodOption>
           ))}
         </Dropdown.Modal>
       </Dropdown>

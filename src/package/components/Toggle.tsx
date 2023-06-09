@@ -69,13 +69,14 @@ const ToggleContainer = styled(Box)`
 
 interface ToggleProps {
   onClick: () => void;
+  checked?: boolean;
 }
 
-export const Toggle = ({ onClick }: ToggleProps) => {
+export const Toggle = ({ onClick, checked }: ToggleProps) => {
   return (
     <ToggleContainer>
       <label className="switch">
-        <input type="checkbox" onClick={onClick} />
+        <input type="checkbox" onClick={onClick} checked={checked} readOnly />
         <span className="slider round"></span>
       </label>
     </ToggleContainer>

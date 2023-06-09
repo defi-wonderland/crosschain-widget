@@ -13,6 +13,7 @@ import {
   ThresoldContainer,
   TrashIcon,
   YourWalletMsg,
+  ThresholdOption,
 } from "./SafeSettings.styles";
 
 export const SafeSettingsStep = ({ ...props }: ModalProps) => {
@@ -103,18 +104,20 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
       <Text>Any transaction requires the confirmation of:</Text>
       <ThresoldContainer>
         <Dropdown {...ownersProps}>
-          <Dropdown.Button title="#" icon={true}>
+          <Dropdown.Button title="#" icon={true} disabled={!owners.length}>
             <Text>{threshold || owners.length}</Text>
           </Dropdown.Button>
           {!!owners.length && (
             <Dropdown.Modal>
               {owners.map((value, index) => (
-                <Text
+                <ThresholdOption
                   key={index + 1}
-                  onClick={() => handleSelectThreshold(index)}
+                  active={index + 1 == threshold}
                 >
-                  {index + 1}
-                </Text>
+                  <Text onClick={() => handleSelectThreshold(index)}>
+                    {index + 1}
+                  </Text>
+                </ThresholdOption>
               ))}
             </Dropdown.Modal>
           )}

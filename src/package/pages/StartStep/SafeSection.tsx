@@ -129,12 +129,13 @@ export const SafeSection = ({
           </Dropdown.Button>
 
           <Dropdown.Modal>
-            {safeList?.map((safeAddress) => (
+            {safeList?.map((sAddress) => (
               <SafeOption
-                key={safeAddress}
-                onClick={() => handleDropwdown(safeAddress)}
+                key={sAddress}
+                onClick={() => handleDropwdown(sAddress)}
+                active={sAddress === safeAddress}
               >
-                <Text>{truncatedAddress(safeAddress)}</Text>
+                <Text>{truncatedAddress(sAddress)}</Text>
               </SafeOption>
             ))}
             <SafeOption onClick={handleShowCustomAddress}>

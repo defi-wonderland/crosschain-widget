@@ -76,4 +76,17 @@ export const GlobalStyle = createGlobalStyle<PropTheme>`
   .modal::-webkit-scrollbar-thumb:active {
     background-color: #999999;
   }
+
+  /* Works for Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+  /* Works for Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
 `;

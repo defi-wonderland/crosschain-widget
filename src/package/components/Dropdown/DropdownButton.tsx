@@ -5,13 +5,15 @@ import { ArrowDown, Box, ErrorText, InputTitle } from "~/components";
 import { useDropdownContext } from "./Dropdown";
 import { useDataContext } from "~/providers";
 
-export const SDropdownButton = styled.button<{ error?: boolean }>`
+export const SDropdownButton = styled.button<{
+  error?: boolean;
+}>`
   border: ${({ theme }: PropTheme) => theme.borderPrimary};
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.background};
   color: ${({ theme }: PropTheme) => theme.textSecondary};
   ${({ error }) => error && `border-color: #FF3F3F;`}
-  margin: 12px 0;
+  margin: 2px 0;
   z-index: 0;
   padding: 14px;
   cursor: pointer;
@@ -22,8 +24,12 @@ export const SDropdownButton = styled.button<{ error?: boolean }>`
   justify-content: space-between;
   width: 184px;
 
-  &:hover {
+  &:not(:disabled):hover {
     opacity: 0.87;
+  }
+
+  &:disabled {
+    cursor: default;
   }
 `;
 
@@ -64,7 +70,7 @@ export const DropdownButton = ({
 
   return (
     <>
-      <SDropdownButton onClick={handleClick} error={error}>
+      <SDropdownButton onClick={handleClick} error={error} disabled={disabled}>
         <TextContainer>
           <InputTitle error={error}>{title}</InputTitle>
           {children}

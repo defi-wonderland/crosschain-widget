@@ -17,16 +17,6 @@ export const Container = styled(Box)`
 
   & .details-section.show {
     display: block;
-    animation: slide-down 0.5s ease-out;
-  }
-
-  @keyframes slide-down {
-    0% {
-      transform: translateY(-5%);
-    }
-    100% {
-      transform: translateY(0%);
-    }
   }
 `;
 

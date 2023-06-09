@@ -40,19 +40,16 @@ export const ThresoldContainer = styled(Box)`
   }
 
   & section section {
-    margin-top: -10px;
     max-height: 100px;
   }
 
   & section section p {
-    text-align: center;
-    margin: 8px 0;
+    text-align: start;
+    padding-left: 14px;
     cursor: pointer;
-
-    &:hover {
-      transform: scale(1.1);
-      transition: transform 200ms;
-    }
+    background-color: inherit;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 `;
 
@@ -69,13 +66,13 @@ export const AddOwnerButton = styled.button`
   margin: 12px 0 22px;
 
   &:disabled {
+    cursor: auto;
     opacity: 0.4;
     transition: opacity 200ms;
   }
 
-  &:hover {
-    transform: scale(1.01);
-    transition: transform 400ms;
+  &:not(:disabled):hover {
+    opacity: 0.7;
   }
 `;
 
@@ -113,7 +110,14 @@ export const DeleteButton = styled.button`
   margin-bottom: 10px;
 
   &:hover {
-    transform: scale(1.1);
-    transition: transform 200ms;
+    opacity: 1;
+  }
+`;
+
+export const ThresholdOption = styled(Box)<{ active?: boolean }>`
+  ${({ active, theme }) => active && `background-color: ${theme.actionHover}`};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.actionHover};
   }
 `;

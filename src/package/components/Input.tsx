@@ -27,7 +27,7 @@ const Input = styled.input<{ error?: boolean }>`
   ${({ error }) => error && `border-color: #FF3F3F;`}
   padding: 12.5px 14px;
   font-size: ${FONT_SIZE_16};
-  cursor: pointer;
+  cursor: text;
   font-weight: 400;
   line-height: 19px;
   display: flex;

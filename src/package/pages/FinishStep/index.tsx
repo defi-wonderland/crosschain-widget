@@ -147,7 +147,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
 
   useEffect(() => {
     if (!relayerFee) {
-      estimateRelayerFee(provider!, originChainName)
+      estimateRelayerFee(provider!, originChainName, createSafe)
         .then((rFee) => {
           const { xCallParams, xCallJson } = getParams(rFee.toString());
           setFinishState({
@@ -190,7 +190,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
       <TxSummary
         title="Destination Transaction"
         txData={txData!}
-        origin={"ZodiacModule Address or Safe Address"}
+        origin={createSafe ? Chains[destinyChain].ZCMFactory : connextModule}
         destiny={txData?.to || ""}
         value={txData?.value || ""}
         textTitle="Data"

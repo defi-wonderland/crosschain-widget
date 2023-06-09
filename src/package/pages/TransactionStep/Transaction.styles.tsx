@@ -33,19 +33,21 @@ export const DropdownContainer = styled(Box)`
   }
 
   & section section {
-    margin-top: -10px;
     max-height: 140px;
   }
 
   & section section p {
     text-align: start;
-    margin: 8px 0;
     cursor: pointer;
-    padding: 4px 12px;
-    transition: transform 200ms;
+    padding: 8px 12px;
+    background-color: inherit;
+  }
+`;
 
-    &:hover {
-      transform: scale(1.01);
-    }
+export const MethodOption = styled(Box)<{ active?: boolean }>`
+  ${({ active, theme }) => active && `background-color: ${theme.actionHover}`};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.actionHover};
   }
 `;
