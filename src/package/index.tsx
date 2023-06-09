@@ -14,6 +14,7 @@ export interface WidgetProps {
   userChainId: number;
   alchemyKey?: string;
   infuraKey?: string;
+  className?: string;
   modal?: boolean;
   text?: string;
 }
@@ -26,6 +27,7 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
   userChainId,
   alchemyKey,
   infuraKey,
+  className,
   modal = true,
   text,
 }) => {
@@ -44,7 +46,7 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
         <NavigationProvider>
           <>
             <GlobalStyle />
-            <WidgetButton text={text} />
+            <WidgetButton text={text} className={className} />
             <Transitions />
           </>
         </NavigationProvider>

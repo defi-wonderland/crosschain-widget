@@ -4,9 +4,10 @@ import { StepType } from "./types";
 
 interface WidgetButtonProps {
   text?: string;
+  className?: string;
 }
 
-export const WidgetButton = ({ text }: WidgetButtonProps) => {
+export const WidgetButton = ({ text, className }: WidgetButtonProps) => {
   const { setType } = useNavigationContext();
   const { modal } = useDataContext();
 
@@ -18,7 +19,10 @@ export const WidgetButton = ({ text }: WidgetButtonProps) => {
   return (
     <>
       {modal && (
-        <button onClick={() => setType(StepType.START)}>
+        <button
+          onClick={() => setType(StepType.START)}
+          className={className || "crosschain-widget-button"}
+        >
           {text && text}
           {!text && "Cross-Chain Widget"}
         </button>

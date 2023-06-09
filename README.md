@@ -71,17 +71,18 @@ Please note that you need to provide appropriate values for the `originAddress`,
 
 The following props are available for the `ZodiacConnextWidget` component:
 
-| Property              | Description                                                                                                | Type                        | Default value          |
-| --------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------- | ---------------------- |
-| originAddress         | The origin address associated with the user's account                                                      | `string`                    | N/A                    |
-| userChainId           | The chain ID of the user's blockchain network                                                              | `number`                    | N/A                    |
-| setTx                 | A callback function that receives the transaction data after submission                                    | `(tx: string) => void`      | N/A                    |
-| text (optional)       | The text to display on the widget button                                                                   | `string`                    | `"Cross-Chain Widget"` |
-| provider (optional)   | An instance of the `providers.JsonRpcProvider` from [ethers.js](https://docs.ethers.org/v5/api/providers/) | `providers.JsonRpcProvider` | `undefined`            |
-| modal (optional)      | Flag to enable or disable modal behavior for the widget                                                    | `boolean`                   | `true`                 |
-| lightTheme (optional) | Flag to enable a light theme for the widget                                                                | `boolean`                   | `false`                |
-| alchemyKey (optional) | [Alchemy](https://www.alchemy.com/) API Key                                                                | `string`                    | `undefined`            |
-| infuraKey (optional)  | [Infura](https://www.infura.io/) API Key                                                                   | `string`                    | `undefined`            |
+| Property              | Description                                                                                                | Type                        | Default value                |
+| --------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------- | ---------------------------- |
+| originAddress         | The origin address associated with the user's account                                                      | `string`                    | N/A                          |
+| userChainId           | The chain ID of the user's blockchain network                                                              | `number`                    | N/A                          |
+| setTx                 | A callback function that receives the transaction data after submission                                    | `(tx: string) => void`      | N/A                          |
+| text (optional)       | The text to display on the widget button                                                                   | `string`                    | `"Cross-Chain Widget"`       |
+| provider (optional)   | An instance of the `providers.JsonRpcProvider` from [ethers.js](https://docs.ethers.org/v5/api/providers/) | `providers.JsonRpcProvider` | `undefined`                  |
+| modal (optional)      | Flag to enable or disable modal behavior for the widget                                                    | `boolean`                   | `true`                       |
+| className (optional)  | classname to add styles to open modal button                                                               | `string`                    | `"crosschain-widget-button"` |
+| lightTheme (optional) | Flag to enable a light theme for the widget                                                                | `boolean`                   | `false`                      |
+| alchemyKey (optional) | [Alchemy](https://www.alchemy.com/) API Key                                                                | `string`                    | `undefined`                  |
+| infuraKey (optional)  | [Infura](https://www.infura.io/) API Key                                                                   | `string`                    | `undefined`                  |
 
 ## Live example
 
