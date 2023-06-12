@@ -10,7 +10,7 @@ export const OnwersList = styled(Box)`
   width: 100%;
   justify-content: space-between;
   margin-bottom: -10px;
-  gap: 8px;
+  gap: 6px;
 
   & input {
     margin-bottom: 0;
@@ -18,6 +18,7 @@ export const OnwersList = styled(Box)`
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    width: 418px;
   }
 `;
 
@@ -81,7 +82,7 @@ export const YourWalletMsg = styled(Text)`
   left: 0;
   font-size: ${FONT_SIZE_12};
   opacity: 0.6;
-  margin-top: -20px;
+  margin-top: -8px;
   margin-left: 14px;
 `;
 

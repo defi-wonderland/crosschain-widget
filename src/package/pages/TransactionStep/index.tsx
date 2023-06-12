@@ -32,7 +32,7 @@ export interface TxState {
 
 export const TransactionStep = ({ ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
-  const { destinyChain, txData, lightTheme } = useDataContext();
+  const { destinyChain, txData, lightTheme, createSafe } = useDataContext();
   const [txState, setTxState] = useState<TxState>({});
 
   const [abiError, setAbiError] = useState(false);
@@ -80,7 +80,9 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
   return (
     <BaseModal
       {...props}
-      onBack={() => setType(StepType.START)}
+      onBack={() =>
+        setType(createSafe ? StepType.SAFE_MODULE_CREATION : StepType.START)
+      }
       header="Transaction Builder"
       initialHeight={515}
       finalHeight={abiItem ? 700 : undefined}

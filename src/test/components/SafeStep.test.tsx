@@ -25,13 +25,13 @@ describe("SafeSettingsStep", () => {
       target: { value: WethAddress },
     });
     expect(screen.getByText("+ Add a new owner")).not.toBeDisabled();
-    expect(screen.getByText("Continue")).toBeDisabled();
+    expect(screen.getByText("Continue")).not.toBeDisabled();
 
     // Add a new owner
     fireEvent.click(screen.getByText("+ Add a new owner"));
 
     // Now we can coninue to the next step
     expect(screen.getByText("+ Add a new owner")).toBeDisabled();
-    expect(screen.getByText("Continue")).not.toBeDisabled();
+    expect(screen.getByText("Continue")).toBeDisabled();
   });
 });
