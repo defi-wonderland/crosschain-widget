@@ -21,14 +21,14 @@ const SButton = styled.button`
   transition: color 400ms, background-color 400ms;
 
   &:not(:disabled):hover {
-    opacity: 0.8;
+    opacity: 0.9;
   }
 
   &:disabled {
     background-color: ${({ theme }: PropTheme) =>
       theme.actionDisabledBackground};
     color: ${({ theme }: PropTheme) => theme.actionDisabled};
-    border: ${({ theme }: PropTheme) => theme.borderPrimary};
+    border: ${({ theme }: PropTheme) => theme.border};
     cursor: default;
   }
 `;

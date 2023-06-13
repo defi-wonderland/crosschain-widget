@@ -11,12 +11,12 @@ import {
   PoweredByConnext,
   Box,
 } from "~/components";
-import { ModalProps, StepType } from "~/types";
+import { isAddress, getContractAbi, getFirstWritableMethod } from "~/utils";
 import { useNavigationContext, useDataContext } from "~/providers";
 import { TransactionTitleContainer } from "./Transaction.styles";
 import { TransactionDropdown } from "./TransactionDropdown";
 import { TransactionParams } from "./TransactionParams";
-import { isAddress, getContractAbi, getFirstWritableMethod } from "~/utils";
+import { ModalProps, StepType } from "~/types";
 
 export interface TxState {
   abiItem?: string;
@@ -25,24 +25,33 @@ export interface TxState {
   contractInterface?: Interface;
   paramsArray?: string[];
   encodedTx?: string;
-  value?: string;
+  txValue?: string;
   customData?: string;
   methodSignature?: string;
+  showCustomData?: boolean;
 }
 
 export const TransactionStep = ({ ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
   const { destinyChain, txData, lightTheme, createSafe } = useDataContext();
-  const [txState, setTxState] = useState<TxState>({});
+  const [txState, setTxState] = useState<TxState>({
+    showCustomData: false,
+  });
 
   const [abiError, setAbiError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [showCustomData, setShowCustomData] = useState(false);
 
-  const { abiItem, method, contractAddress, contractInterface } = txState;
+  const {
+    abiItem,
+    method,
+    contractAddress,
+    contractInterface,
+    showCustomData,
+  } = txState;
 
   const handleSetState = (newValue: TxState) => {
-    setTxState({ ...txState, ...newValue });
+    const newState = { ...txState, ...newValue };
+    setTxState(newState);
   };
 
   useEffect(() => {
@@ -110,7 +119,11 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
           <TransactionTitleContainer>
             <h1>Transaction Information</h1>
             <Box>
-              <Toggle onClick={() => setShowCustomData(!showCustomData)} />
+              <Toggle
+                onClick={() =>
+                  handleSetState({ showCustomData: !showCustomData })
+                }
+              />
               <Text>Custom Data</Text>
             </Box>
           </TransactionTitleContainer>
@@ -127,9 +140,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
           {/* Parameters */}
           <TransactionParams
             handleSetState={handleSetState}
-            setTxState={setTxState}
             txState={txState}
-            showCustomData={showCustomData}
           />
         </>
       )}

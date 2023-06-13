@@ -25,7 +25,7 @@ export const DropdownContainer = styled(Box)`
   flex-direction: row;
   align-items: center;
   gap: 6px;
-  margin: 12px 0 0px;
+  margin: 12px 0;
 
   & section button,
   & section {
@@ -49,5 +49,12 @@ export const MethodOption = styled(Box)<{ active?: boolean }>`
 
   &:hover {
     background-color: ${({ theme }) => theme.actionHover};
+  }
+`;
+
+export const ParamsContainer = styled(Box)`
+  width: 100%;
+  & div {
+    margin-bottom: 8px;
   }
 `;

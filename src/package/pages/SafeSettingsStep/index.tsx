@@ -37,9 +37,9 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
   } = useDataContext();
 
   const [safeState, setSafeState] = useState<SafeSettingsState>({
-    inputAddress: userAddress,
+    ownersIndex: owners.length ? owners.length - 1 : 0,
+    inputAddress: owners[owners.length - 1],
     isRepeated: false,
-    ownersIndex: 0,
     isValid: true,
   });
 
@@ -111,7 +111,7 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
 
   useEffect(() => {
     setCreateSafe(true);
-    handleNewOwner(userAddress);
+    if (!owners.length) handleNewOwner(userAddress);
   }, []);
 
   return (

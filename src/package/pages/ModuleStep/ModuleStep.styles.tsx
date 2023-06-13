@@ -16,10 +16,9 @@ export const ExternalLink = styled.a.attrs({
   target: "_blank",
 })`
   background-color: inherit;
-  color: inherit;
   border-radius: 0;
-  border-bottom: 1px solid ${({ theme }: PropTheme) => theme.buttonBackground};
-  color: ${({ theme }: PropTheme) => theme.buttonBackground};
+  border-bottom: 1px solid ${({ theme }: PropTheme) => theme.textPrimary};
+  color: ${({ theme }: PropTheme) => theme.textPrimary};
   text-decoration: none;
   font-weight: bold;
   margin-left: 4px;
@@ -31,7 +30,7 @@ export const IntructionsText = styled(Box)`
   gap: 4px;
 
   &:hover img {
-    opacity: 0.6;
+    opacity: 0.8;
     transition: opacity 0.2s ease-in-out;
   }
 `;

@@ -47,7 +47,7 @@ const SLoader = styled(Box)`
 export const Spinner = () => {
   return (
     <SLoader>
-      <Box className="spinner"></Box>
+      <Box className="spinner" data-testid="connext-spinner"></Box>
     </SLoader>
   );
 };

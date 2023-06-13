@@ -90,7 +90,7 @@ export const TrashIcon = styled.img.attrs({
   src: trash,
   alt: "delete owner",
 })<{ lightTheme?: boolean }>`
-  background-color: inherit;
+  background-color: transparent;
   border-radius: unset;
   color: inherit;
   width: 16px;

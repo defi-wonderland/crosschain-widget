@@ -35,16 +35,6 @@ export const ChainSection = ({
   };
 
   /* 
-    If the originChain is ethereum, we want to set the destinyChain to
-    the next chain in the list
-  */
-  useEffect(() => {
-    if (chainKey === "ethereum") {
-      setDestinyChain("polygon");
-    }
-  }, [chainKey]);
-
-  /* 
     If the originChain is not supported, we want to show an error
   */
   useEffect(() => {

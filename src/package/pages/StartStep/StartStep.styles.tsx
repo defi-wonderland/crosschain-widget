@@ -19,7 +19,6 @@ export const ChainOption = styled(Box)<{ active?: boolean }>`
   justify-content: start;
   gap: 10px;
   padding: 12px;
-  border-bottom: ${({ theme }) => theme.borderPrimary};
   border-radius: 0;
   cursor: pointer;
 
@@ -76,7 +75,7 @@ export const WriteIcon = styled.img.attrs({
   width: 16px;
   opacity: 0.87;
   ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
-  background-color: inherit;
+  background-color: transparent;
   color: inherit;
   border-radius: inherit;
 `;

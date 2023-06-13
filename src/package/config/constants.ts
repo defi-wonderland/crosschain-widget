@@ -148,7 +148,7 @@ export const getConstants = (): Constants => {
         },
       },
       // optimismGoerli: {
-      //   name: "Optimism-Goerli",
+      //   name: "Optimism Goerli",
       //   id: 420,
       //   domainId: 1735356532,
       //   connextContract: "0x5Ea1bb242326044699C3d81341c5f535d5Af1504",

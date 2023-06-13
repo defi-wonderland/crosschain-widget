@@ -5,22 +5,22 @@ import { PropTheme } from "~/types";
 
 const Modal = styled.section`
   border: ${({ theme }: PropTheme) => theme.borderPrimary};
-  border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.background};
   color: ${({ theme }: PropTheme) => theme.textSecondary};
   font-weight: normal;
   position: absolute;
   text-align: center;
   white-space: nowrap;
-  z-index: 100;
+  border-radius: 6px;
   max-height: 166px;
+  z-index: 100;
   width: 100%;
 
   overflow-y: overlay;
   overflow-x: hidden; /* Hide scrollbars */
 
   &::-webkit-scrollbar {
-    width: 4px;
+    width: 2px;
     background: transparent;
   }
 

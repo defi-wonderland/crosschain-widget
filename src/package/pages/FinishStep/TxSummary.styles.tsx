@@ -103,7 +103,6 @@ export const CheckIcon = styled.img.attrs({
   height: 14px;
   margin: auto 0;
   ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
-  opacity: 0;
   border-radius: 0;
   background-color: transparent;
 `;

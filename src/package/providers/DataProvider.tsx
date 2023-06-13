@@ -1,7 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { providers } from "ethers";
 
-import { getDestinationProvider } from "~/utils";
+import { getChainKey, getDestinationProvider } from "~/utils";
 import { TxData } from "~/types";
 
 type ContextType = {
@@ -101,6 +101,16 @@ export const DataProvider = ({
     setUserAddress(originAddress);
     setOriginChainId(userChainId);
   }, [originAddress, userChainId]);
+
+  /* 
+    If the originChain is ethereum, we want to set the destinyChain to
+    the next chain in the list
+  */
+  useEffect(() => {
+    if (getChainKey(userChainId) === "ethereum") {
+      setDestinyChain("polygon");
+    }
+  }, []);
 
   useEffect(() => {
     setDestinyProvider(

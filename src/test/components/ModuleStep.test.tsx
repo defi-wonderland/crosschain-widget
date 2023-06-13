@@ -22,6 +22,6 @@ describe("ModuleStep", () => {
     });
 
     fireEvent.click(screen.getByText("Verify setup"));
-    expect(screen.getByText("Verifying your setup...")).toBeInTheDocument();
+    expect(screen.getByTestId("connext-spinner")).toBeInTheDocument();
   });
 });

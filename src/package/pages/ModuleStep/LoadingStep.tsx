@@ -23,7 +23,7 @@ export const LoadingStep = ({
 }: LoadingStepProps) => {
   const [hasResult, setHasResult] = useState(false);
   const [error, setError] = useState(false);
-  const [count, setCount] = useState(3);
+  const [count, setCount] = useState(5);
 
   const handleGetModule = async () => {
     const moduleAddress = await getModuleFromSafe(safeAddress, destinyProvider);
@@ -45,7 +45,7 @@ export const LoadingStep = ({
       } else {
         setLoadingScreen(false);
       }
-    }, 3000);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -62,7 +62,6 @@ export const LoadingStep = ({
   return (
     <LoadingContainer>
       <Spinner />
-      {!hasResult && <h1>Verifying your setup...</h1>}
       {hasResult && (
         <>
           {!error && <h1>Verification Successful!</h1>}

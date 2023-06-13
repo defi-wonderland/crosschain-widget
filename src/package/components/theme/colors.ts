@@ -8,7 +8,7 @@ export const darkTheme: Theme = {
   textSecondary: "#B7B7B7",
   textDisabled: "#B7B7B7",
   divider: "",
-  border: "1px solid #EBEBEB",
+  border: "1px solid #777777",
   borderPrimary: "1px solid #B7B7B7",
   actionActive: "#EBEBEB",
   actionHover: "#2b2b2d",

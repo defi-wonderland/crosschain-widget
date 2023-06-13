@@ -31,17 +31,24 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
   } = useDataContext();
 
   const [loadinScreen, setLoadingScreen] = useState(false);
-  const [copied, setCopied] = useState(false);
-
+  const [copiedElements, setCopiedElements] = useState([
+    { copied: false },
+    { copied: false },
+  ]);
   const chainKey = getChainKey(originChainId!);
   const originDomainId = Chains[chainKey]?.domainId.toString();
 
-  const handleCopy = async (content: string) => {
-    setCopied(true);
+  const handleCopy = async (content: string, item: number) => {
     copyData(content);
 
+    const newCopiedElements = [...copiedElements];
+    newCopiedElements[item].copied = true;
+    setCopiedElements(newCopiedElements);
+
     setTimeout(() => {
-      setCopied(false);
+      const newCopiedElements = [...copiedElements];
+      newCopiedElements[item].copied = false;
+      setCopiedElements(newCopiedElements);
     }, 600);
   };
 
@@ -85,23 +92,34 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
             <SText>
               2. Select &quot;Connext Module&quot; and follow the instructions
             </SText>
+
             <IntructionsText>
               <SText>3. In origin address, add:</SText>
-              <TextToCopy onClick={() => handleCopy(userAddress)}>
+              <TextToCopy onClick={() => handleCopy(userAddress, 0)}>
                 {truncatedAddress(userAddress)}
               </TextToCopy>
-              {copied && <CheckIcon lightTheme={lightTheme} />}
-              {!copied && <CopyIcon lightTheme={lightTheme} />}
+              {copiedElements[0].copied && (
+                <CheckIcon lightTheme={lightTheme} />
+              )}
+              {!copiedElements[0].copied && (
+                <CopyIcon lightTheme={lightTheme} />
+              )}
             </IntructionsText>
+
             <IntructionsText>
               <SText>4. In origin chain, add:</SText>
-              <TextToCopy onClick={() => handleCopy(originDomainId)}>
+              <TextToCopy onClick={() => handleCopy(originDomainId, 1)}>
                 {originDomainId}
               </TextToCopy>
-              {copied && <CheckIcon lightTheme={lightTheme} />}
-              {!copied && <CopyIcon lightTheme={lightTheme} />}
+              {copiedElements[1].copied && (
+                <CheckIcon lightTheme={lightTheme} />
+              )}
+              {!copiedElements[1].copied && (
+                <CopyIcon lightTheme={lightTheme} />
+              )}
             </IntructionsText>
           </IntructionsContainer>
+
           <Button onClick={() => setLoadingScreen(true)}>Verify setup</Button>
         </>
       )}

@@ -1,23 +1,20 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { FunctionFragment } from "ethers/lib/utils";
 import { utils } from "ethers";
 
+import { ParamsContainer } from "./Transaction.styles";
 import { encodeFunction, getParams } from "~/utils";
 import { TxState } from "~/pages/TransactionStep";
-import { SInput, STextArea } from "~/components";
+import { STextArea, SInput } from "~/components";
 import { useDataContext } from "~/providers";
 
 interface TransactionParamsProps {
   txState: TxState;
-  showCustomData: boolean;
-  setTxState: (newValue: TxState) => void;
   handleSetState: (newValue: TxState) => void;
 }
 
 export const TransactionParams = ({
   txState,
-  showCustomData,
-  setTxState,
   handleSetState,
 }: TransactionParamsProps) => {
   const { setTxData, txData } = useDataContext();
@@ -26,10 +23,11 @@ export const TransactionParams = ({
     method,
     paramsArray,
     encodedTx,
-    value,
+    txValue,
     customData,
     methodSignature,
     contractAddress,
+    showCustomData,
   } = txState;
 
   const handleSetParam = (value: string, index: number) => {
@@ -38,8 +36,8 @@ export const TransactionParams = ({
     handleSetState({ paramsArray: newParamsArray });
   };
 
-  // Callback to encode the destination transaction
-  const updateEncodedTx = useCallback(() => {
+  // Encode the destination transaction
+  useEffect(() => {
     if (contractInterface && method && paramsArray) {
       const encondedFunction = encodeFunction(
         contractInterface,
@@ -54,10 +52,10 @@ export const TransactionParams = ({
   }, [method, paramsArray]);
 
   /* 
-    Callback to update the destination transaction json and
+    Update the destination transaction json and
     the required params to format the data in the summary
   */
-  const updateTxData = useCallback(() => {
+  useEffect(() => {
     if ((contractAddress && customData) || (contractAddress && encodedTx)) {
       const name = showCustomData ? customData?.slice(0, 10) : methodSignature;
       const data = encodedTx || customData;
@@ -70,21 +68,16 @@ export const TransactionParams = ({
       setTxData({
         ...txData,
         to: contractAddress,
-        value: value || "0",
+        value: txValue || "0",
         data: data || "",
         name: name || "",
         calldatas,
       });
     }
-  }, [encodedTx, value, customData]);
-
-  useEffect(() => {
-    updateEncodedTx();
-    updateTxData();
-  }, [updateEncodedTx, updateTxData]);
+  }, [encodedTx, txValue, customData]);
 
   return (
-    <>
+    <ParamsContainer>
       {/* Parameters */}
       {!showCustomData &&
         method?.inputs.map((inputParam, index) => (
@@ -101,9 +94,9 @@ export const TransactionParams = ({
         <SInput
           title="Value (wei)"
           placeholder="0"
-          value={value || ""}
+          value={txValue}
           type="number"
-          onChange={(e) => setTxState({ ...txState, value: e.target.value })}
+          onChange={(e) => handleSetState({ txValue: e.target.value })}
         />
       )}
 
@@ -112,14 +105,12 @@ export const TransactionParams = ({
         <STextArea
           title="Data"
           value={customData}
-          onChange={(e) =>
-            setTxState({ ...txState, customData: e.target.value })
-          }
+          onChange={(e) => handleSetState({ customData: e.target.value })}
           placeholder="Hex encoded"
           error={!!customData?.length && !utils.isBytesLike(customData)}
           errorMsg="Invalid hex data"
         />
       )}
-    </>
+    </ParamsContainer>
   );
 };

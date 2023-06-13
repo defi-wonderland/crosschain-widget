@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { STextArea, Toggle, ArrowDown, ArrowUp } from "~/components";
 import {
@@ -21,10 +21,16 @@ interface TxSummaryProps {
   txData: TxData;
   origin: string;
   destiny: string;
-  value: string;
+  txValue: string;
   textTitle: string;
   showDetails: boolean;
   setShowDetails: (value: boolean) => void;
+}
+
+interface items {
+  key: string;
+  value: string;
+  itemCopied: boolean;
 }
 
 export const TxSummary = ({
@@ -32,29 +38,38 @@ export const TxSummary = ({
   txData,
   origin,
   destiny,
-  value,
+  txValue,
   textTitle,
   showDetails,
   setShowDetails,
 }: TxSummaryProps) => {
   const { lightTheme } = useDataContext();
   const [showDecoded, setShowDecoded] = useState(true);
-  const [copied, setCopied] = useState(false);
+  const [items, setItems] = useState<items[]>([
+    { key: "From", value: origin, itemCopied: false },
+    { key: "To", value: destiny, itemCopied: false },
+    { key: "Value", value: txValue, itemCopied: false },
+  ]);
 
-  const componentData = [
-    { key: "From", value: origin },
-    { key: "To", value: destiny },
-    { key: "Value", value: value },
-  ];
-
-  const handleCopy = async (content: string) => {
-    setCopied(true);
+  const handleCopy = async (content: string, index: number) => {
     copyData(content);
 
+    const newItems = [...items];
+    newItems[index].itemCopied = true;
+    setItems(newItems);
+
     setTimeout(() => {
-      setCopied(false);
+      const newItems = [...items];
+      newItems[index].itemCopied = false;
+      setItems(newItems);
     }, 600);
   };
+
+  useEffect(() => {
+    const newItems = [...items];
+    newItems[2].value = txValue;
+    setItems(newItems);
+  }, [txData, txValue]);
 
   return (
     <Container>
@@ -67,13 +82,13 @@ export const TxSummary = ({
       <DetailsSection
         className={`details-section ${showDetails ? "show" : ""}`}
       >
-        {componentData.map(({ key, value }) => (
+        {items.map(({ key, value, itemCopied }, index) => (
           <TextContainer key={key}>
             <DetailText isOpaque>{key}</DetailText>
-            <DetailValue onClick={() => handleCopy(value)}>
+            <DetailValue onClick={() => handleCopy(value, index)}>
               <DetailText>{value}</DetailText>
-              {copied && <CheckIcon lightTheme={lightTheme} />}
-              {!copied && <CopyIcon lightTheme={lightTheme} />}
+              {itemCopied && <CheckIcon lightTheme={lightTheme} />}
+              {!itemCopied && <CopyIcon lightTheme={lightTheme} />}
             </DetailValue>
           </TextContainer>
         ))}

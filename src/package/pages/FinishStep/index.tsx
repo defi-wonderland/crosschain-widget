@@ -169,7 +169,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   return (
     <BaseModal
       {...props}
-      // onBack={() => setType(StepType.TRANSACTION)}
+      onBack={() => setType(StepType.TRANSACTION)}
       header="Transaction Confirmation"
       initialHeight={452}
       finalHeight={showDestination || showOrigin ? 700 : undefined}
@@ -181,7 +181,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         txData={xCallJson}
         origin={userAddress}
         destiny={Chains[originChainName]?.connextContract}
-        value={xCallJson.value}
+        txValue={xCallJson.value}
         textTitle="xCall Data"
         showDetails={showOrigin}
         setShowDetails={setShowOrigin}
@@ -192,7 +192,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         txData={txData!}
         origin={createSafe ? Chains[destinyChain].ZCMFactory : connextModule}
         destiny={txData?.to || ""}
-        value={txData?.value || ""}
+        txValue={txData?.value || ""}
         textTitle="Data"
         showDetails={showDestination}
         setShowDetails={setShowDestination}
