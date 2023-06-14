@@ -6,8 +6,13 @@ export const estimateRelayerFee = async (
   chainName: string,
   createSafe: boolean
 ) => {
-  const { Chains, XCALL_GAS_LIMIT, SETUP_SAFE_GAS_LIMIT, CONNEXT_BUMP } =
-    getConstants();
+  const {
+    Chains,
+    XCALL_GAS_LIMIT,
+    SETUP_SAFE_GAS_LIMIT,
+    CONNEXT_BUMP,
+    relayerFeeBoost,
+  } = getConstants();
 
   const gasLimit = createSafe ? SETUP_SAFE_GAS_LIMIT : XCALL_GAS_LIMIT;
 
@@ -16,6 +21,9 @@ export const estimateRelayerFee = async (
   const relayerFee =
     gasPrice * gasLimit * (1 + GelatoAndPremium + CONNEXT_BUMP);
 
+  // Apply boost
+  const relayerFeeBoosted = relayerFee * relayerFeeBoost;
+
   // remove any decimals
-  return Math.ceil(relayerFee);
+  return Math.ceil(relayerFeeBoosted);
 };

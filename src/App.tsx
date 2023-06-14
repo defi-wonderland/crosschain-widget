@@ -7,6 +7,7 @@ import { isAddress } from "~/utils";
 
 function App() {
   const [useModal, setUseModal] = useState(true);
+  const [useSigner, setUseSigner] = useState(false);
   const [useLightTheme, setUseLightTheme] = useState(true);
   const [userAddress, setUserAddress] = useState("");
   const [userChainId, setUserChainId] = useState(1);
@@ -51,11 +52,16 @@ function App() {
     <div className="App">
       <h1>Zodiac-Connext Development Test App</h1>
       <button onClick={() => handleConnect()}>Connect</button>
+      <br />
+      <br />
       <button onClick={() => setUseModal(!useModal)}>
         Use modal: {useModal.toString()}
       </button>
       <button onClick={() => setUseLightTheme(!useLightTheme)}>
         Light theme: {useLightTheme.toString()}
+      </button>
+      <button onClick={() => setUseSigner(!useSigner)}>
+        Signer: {useSigner.toString()}
       </button>
 
       <br />
@@ -63,6 +69,7 @@ function App() {
       <br />
       <input placeholder="user address" value={userAddress} disabled={true} />
       {!isAddress(userAddress) && <p>invalid address</p>}
+      <br />
       <br />
 
       {isAddress(userAddress) && (
@@ -74,7 +81,7 @@ function App() {
           setTx={setTx}
           provider={provider}
           lightTheme={useLightTheme}
-          signer={signer}
+          signer={useSigner ? signer : undefined}
         />
       )}
 

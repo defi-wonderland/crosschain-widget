@@ -8,6 +8,9 @@ export interface Constants {
   XCALL_GAS_LIMIT: number;
   SETUP_SAFE_GAS_LIMIT: number;
   CONNEXT_BUMP: number;
+
+  relayerFeeBoost: number;
+
   Chains: {
     [key: string]: {
       safeIdentifier?: string;

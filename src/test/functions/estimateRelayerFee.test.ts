@@ -34,7 +34,7 @@ describe("estimateRelayerFee", () => {
     );
 
     const expectedRelayerFee =
-      gasPrice * XCALL_GAS_LIMIT * (1 + GelatoAndPremium + CONNEXT_BUMP);
+      gasPrice * XCALL_GAS_LIMIT * (1 + GelatoAndPremium + CONNEXT_BUMP) * 1.5;
 
     expect(relayerFee).toEqual(expectedRelayerFee);
   });
