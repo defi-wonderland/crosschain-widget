@@ -34,7 +34,7 @@ const AllTheProviders = ({ children }: { children: React.ReactElement }) => {
       <DataProvider
         originAddress={""}
         userChainId={0}
-        setTx={function (tx: string): void {
+        setTx={function (): void {
           throw new Error("Function not implemented.");
         }}
         provider={new ethers.providers.JsonRpcProvider()}

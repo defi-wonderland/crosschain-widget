@@ -22,7 +22,7 @@ vi.mock("ethers", () => ({
 
 describe("estimateRelayerFee", () => {
   it("should calculate the correct relayer fee", async () => {
-    const { XCALL_GAS_LIMIT, CONNEXT_BUMP } = getConstants();
+    const { XCALL_GAS_LIMIT, CONNEXT_BUMP, relayerFeeBoost } = getConstants();
     const chainName = "ethereum";
     const GelatoAndPremium = getConstants().Chains[chainName].gelatoPremiumFee!;
     const createSafe = false;
@@ -34,7 +34,10 @@ describe("estimateRelayerFee", () => {
     );
 
     const expectedRelayerFee =
-      gasPrice * XCALL_GAS_LIMIT * (1 + GelatoAndPremium + CONNEXT_BUMP) * 1.5;
+      gasPrice *
+      XCALL_GAS_LIMIT *
+      (1 + GelatoAndPremium + CONNEXT_BUMP) *
+      relayerFeeBoost;
 
     expect(relayerFee).toEqual(expectedRelayerFee);
   });

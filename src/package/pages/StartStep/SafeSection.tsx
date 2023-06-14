@@ -15,6 +15,7 @@ import {
 import { useDataContext, useNavigationContext } from "~/providers";
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { Button, Text } from "~/components";
+import { getConstants } from "~/config";
 import { StepType } from "~/types";
 
 interface SafeSectionProps {
@@ -35,13 +36,16 @@ export const SafeSection = ({
   const {
     setSafeAddress,
     safeAddress,
+    userAddress,
     lightTheme,
     destinyChain,
     destinyProvider,
+    originChainKey,
     setConnextModule,
   } = useDataContext();
   const { setType } = useNavigationContext();
   const dropdownSafeProps = Dropdown.useProps();
+  const { Chains } = getConstants();
 
   const [showCustomAddress, setShowCustomAddress] = useState(true);
   const [customAddress, setCustomAddress] = useState("");
@@ -79,7 +83,13 @@ export const SafeSection = ({
 
   const checkHasModule = async () => {
     setLoading(true);
-    const moduleAddress = await getModuleFromSafe(safeAddress, destinyProvider);
+    const moduleAddress = await getModuleFromSafe(
+      safeAddress,
+      destinyProvider,
+      userAddress,
+      Chains[originChainKey].domainId,
+      Chains[destinyChain].connextContract
+    );
 
     const isModuleEnabled = await getIsModuleEnabled(
       safeAddress,

@@ -12,6 +12,9 @@ interface LoadingStepProps {
   destinyProvider: providers.Provider;
   setLoadingScreen: (val: boolean) => void;
   setConnextModule: (val: string) => void;
+  userAddress: string;
+  domainId: number;
+  connext: string;
 }
 
 export const LoadingStep = ({
@@ -20,13 +23,22 @@ export const LoadingStep = ({
   destinyProvider,
   setLoadingScreen,
   setConnextModule,
+  userAddress,
+  domainId,
+  connext,
 }: LoadingStepProps) => {
   const [hasResult, setHasResult] = useState(false);
   const [error, setError] = useState(false);
   const [count, setCount] = useState(5);
 
   const handleGetModule = async () => {
-    const moduleAddress = await getModuleFromSafe(safeAddress, destinyProvider);
+    const moduleAddress = await getModuleFromSafe(
+      safeAddress,
+      destinyProvider,
+      userAddress,
+      domainId,
+      connext
+    );
 
     if (isAddress(moduleAddress)) {
       setConnextModule(moduleAddress);

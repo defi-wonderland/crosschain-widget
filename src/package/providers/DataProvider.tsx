@@ -16,9 +16,13 @@ type ContextType = {
   safeAddress: string;
   setSafeAddress: (val: string) => void;
 
-  // Origin Chain control
+  // Origin Chain Id control
   originChainId: number;
   setOriginChainId: (val: number) => void;
+
+  // Origin Chain Key control
+  originChainKey: string;
+  setOriginChainKey: (val: string) => void;
 
   // Destiny Chain control
   destinyChain: string;
@@ -90,6 +94,7 @@ export const DataProvider = ({
   const [userAddress, setUserAddress] = useState<string>("");
   const [safeAddress, setSafeAddress] = useState<string>("");
   const [originChainId, setOriginChainId] = useState<number>(1);
+  const [originChainKey, setOriginChainKey] = useState<string>("ethereum");
   const [destinyChain, setDestinyChain] = useState<string>("ethereum");
   const [createSafe, setCreateSafe] = useState<boolean>(false);
   const [connextModule, setConnextModule] = useState<string>("");
@@ -118,13 +123,17 @@ export const DataProvider = ({
     if (getChainKey(userChainId) === "ethereum") {
       setDestinyChain("polygon");
     }
-  }, []);
+  }, [userChainId]);
 
   useEffect(() => {
     setDestinyProvider(
       getDestinationProvider(destinyChain, alchemyKey, infuraKey)
     );
-  }, [destinyChain]);
+  }, [alchemyKey, destinyChain, infuraKey]);
+
+  useEffect(() => {
+    setOriginChainKey(getChainKey(originChainId));
+  }, [originChainId]);
 
   return (
     <DataContext.Provider
@@ -153,6 +162,8 @@ export const DataProvider = ({
         destinyProvider,
         connextModule,
         setConnextModule,
+        originChainKey,
+        setOriginChainKey,
       }}
     >
       {children}

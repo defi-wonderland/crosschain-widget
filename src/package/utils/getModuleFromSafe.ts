@@ -5,7 +5,10 @@ import { getConnextModule } from "./getConnextModule";
 
 export const getModuleFromSafe = async (
   safeAddress: string,
-  provider: providers.Provider
+  provider: providers.Provider,
+  userAddress: string,
+  origin: number,
+  connext: string
 ): Promise<string> => {
   try {
     const addressOne = "0x0000000000000000000000000000000000000001";
@@ -16,7 +19,14 @@ export const getModuleFromSafe = async (
     const listOfModules = modules[0];
 
     // get the first connext module address
-    const connextModule = await getConnextModule(listOfModules, provider);
+    const connextModule = await getConnextModule(
+      listOfModules,
+      provider,
+      safeAddress,
+      userAddress,
+      origin,
+      connext
+    );
     return connextModule;
   } catch (error) {
     console.log("Error getting module address", error);

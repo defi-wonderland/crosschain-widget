@@ -10,7 +10,6 @@ import {
   encodeReceiverCallData,
   estimateRelayerFee,
   encodeXCall,
-  getChainKey,
   encodeInitializer,
   encodeCreateSafe,
   getSaltNonce,
@@ -30,7 +29,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   const { Chains } = getConstants();
   const { setType } = useNavigationContext();
   const {
-    originChainId,
+    originChainKey,
     setTx,
     provider,
     destinationTxData,
@@ -55,13 +54,10 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   });
   const { relayerFee, xCallJson } = finishState;
 
-  const originChainName = getChainKey(originChainId);
-
   const getParams = (relayerFee: string) => {
     const to = createSafe ? Chains[destinyChain].ZCMFactory : connextModule;
     const asset =
-      Chains[originChainName].assets.WETH ||
-      Chains[originChainName].assets.TEST;
+      Chains[originChainKey].assets.WETH || Chains[originChainKey].assets.TEST;
     const calldata = getReceiverCallData();
 
     /* xCallParams:
@@ -89,7 +85,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     const xCallJson: TxData = {
       name: signature,
       value: relayerFee,
-      to: Chains[originChainName].connextContract,
+      to: Chains[originChainKey].connextContract,
       from: userAddress,
       data: encodedData,
       calldatas: params,
@@ -117,7 +113,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
 
       const createSafeData = encodeCreateSafe({
         userAddress: userAddress,
-        originDomainId: Chains[originChainName].domainId,
+        originDomainId: Chains[originChainKey].domainId,
         initializer: initializerData,
         destinationConnext: Chains[destinyChain].connextContract,
         saltNonce1: getSaltNonce(),
@@ -165,7 +161,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
 
   useEffect(() => {
     if (!relayerFee) {
-      estimateRelayerFee(provider!, originChainName, createSafe)
+      estimateRelayerFee(provider!, originChainKey, createSafe)
         .then((rFee) => {
           const { xCallParams, xCallJson } = getParams(rFee.toString());
           setFinishState({
@@ -198,7 +194,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         title="Origin Transaction"
         txData={xCallJson}
         origin={userAddress}
-        destiny={Chains[originChainName]?.connextContract}
+        destiny={Chains[originChainKey]?.connextContract}
         txValue={xCallJson.value}
         textTitle="xCall Data"
         showDetails={showOrigin}

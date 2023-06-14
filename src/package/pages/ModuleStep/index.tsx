@@ -11,7 +11,7 @@ import {
 } from "./ModuleStep.styles";
 import { CheckIcon, CopyIcon } from "~/pages/FinishStep/TxSummary.styles";
 import { useDataContext, useNavigationContext } from "~/providers";
-import { copyData, getChainKey, truncatedAddress } from "~/utils";
+import { copyData, truncatedAddress } from "~/utils";
 import { BaseModal, Button } from "~/components";
 import { ModalProps, StepType } from "~/types";
 import { LoadingStep } from "./LoadingStep";
@@ -23,7 +23,7 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
   const {
     safeAddress,
     destinyChain,
-    originChainId,
+    originChainKey,
     userAddress,
     lightTheme,
     destinyProvider,
@@ -35,8 +35,7 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
     { copied: false },
     { copied: false },
   ]);
-  const chainKey = getChainKey(originChainId!);
-  const originDomainId = Chains[chainKey]?.domainId.toString();
+  const originDomainId = Chains[originChainKey]?.domainId.toString();
 
   const handleCopy = async (content: string, item: number) => {
     copyData(content);
@@ -65,6 +64,9 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
           destinyProvider={destinyProvider}
           setLoadingScreen={setLoadingScreen}
           setConnextModule={setConnextModule}
+          domainId={Chains[originChainKey]?.domainId}
+          connext={Chains[destinyChain]?.connextContract}
+          userAddress={userAddress}
         />
       )}
 

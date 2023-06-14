@@ -5,7 +5,6 @@ import { TokenIcon, Text, ArrowRight, Box } from "~/components";
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { useDataContext } from "~/providers";
 import { getConstants } from "~/config";
-import { getChainKey } from "~/utils";
 
 interface ChainSectionProps {
   disabled?: boolean;
@@ -21,14 +20,9 @@ export const ChainSection = ({
   const dropdownChainProps = Dropdown.useProps();
   const { Chains } = getConstants();
 
-  const {
-    setDestinyChain,
-    destinyChain,
-    originChainId: chainId,
-    lightTheme,
-  } = useDataContext();
+  const { setDestinyChain, destinyChain, lightTheme, originChainKey } =
+    useDataContext();
 
-  const chainKey = getChainKey(chainId!);
   const handleChainDropdown = (key: string) => {
     setDestinyChain(key);
     dropdownChainProps.setShow(false);
@@ -39,16 +33,16 @@ export const ChainSection = ({
   */
   useEffect(() => {
     if (setError) {
-      chainKey ? setError(false) : setError(true);
+      originChainKey ? setError(false) : setError(true);
     }
-  }, [chainKey]);
+  }, [originChainKey]);
 
   return (
     <ChainContainer>
       {/* Origin chain dropdown */}
       <Dropdown.Button title="From" error={error} disabled={true}>
-        {!!chainKey && <TokenIcon chainName={chainKey} />}
-        <Text>{Chains[chainKey]?.name || "Usupported Chain"}</Text>
+        {!!originChainKey && <TokenIcon chainName={originChainKey} />}
+        <Text>{Chains[originChainKey]?.name || "Usupported Chain"}</Text>
       </Dropdown.Button>
 
       <ArrowRight lightTheme={lightTheme} />
@@ -63,7 +57,7 @@ export const ChainSection = ({
         <Dropdown.Modal>
           {Object.entries(Chains).map(([key, value]) => (
             <Box key={key}>
-              {key !== chainKey && (
+              {key !== originChainKey && (
                 <ChainOption
                   onClick={() => handleChainDropdown(key)}
                   active={destinyChain === key}
