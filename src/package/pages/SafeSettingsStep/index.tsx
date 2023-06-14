@@ -141,12 +141,11 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
         <OnwersList>
           <SInput
             title="Owner address"
-            placeholder="Input Owner Address"
             value={inputAddress}
             onChange={(e) => handleNewOwner(e.target.value)}
             error={!isValid || isRepeated}
             errorMsg={
-              isRepeated ? "Owner is already added" : "Invalid Ethereum Address"
+              isRepeated ? "Owner is already added" : "Invalid address format"
             }
             dataTestId="Owner address"
           />
@@ -161,8 +160,12 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
         )}
       </OwnersContainer>
 
-      <AddOwnerButton onClick={addOwner} disabled={isDisabled()}>
-        + Add a new owner
+      <AddOwnerButton
+        onClick={addOwner}
+        disabled={isDisabled()}
+        data-testid="add-owner-button"
+      >
+        + Add new owner
       </AddOwnerButton>
 
       {/* Threshold Section */}

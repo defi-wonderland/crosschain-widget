@@ -33,7 +33,13 @@ export interface TxState {
 
 export const TransactionStep = ({ ...props }: ModalProps) => {
   const { setType } = useNavigationContext();
-  const { destinyChain, txData, lightTheme, createSafe } = useDataContext();
+  const {
+    destinyChain,
+    destinationTxData,
+    lightTheme,
+    createSafe,
+    setDestinationTxData,
+  } = useDataContext();
   const [txState, setTxState] = useState<TxState>({
     showCustomData: false,
   });
@@ -54,6 +60,29 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
     setTxState(newState);
   };
 
+  const handleToggle = () => {
+    // Reset the state
+    const newState = { ...txState, showCustomData: !showCustomData };
+    delete newState.paramsArray;
+    delete newState.encodedTx;
+    setTxState(newState);
+    setDestinationTxData(undefined);
+  };
+
+  // Get the ABI from the contract address
+  useEffect(() => {
+    if (contractAddress && isAddress(contractAddress)) {
+      setLoading(true);
+      getContractAbi(destinyChain, contractAddress).then((abi) => {
+        handleSetState({
+          abiItem: abi,
+        });
+        setLoading(false);
+      });
+    }
+  }, [contractAddress]);
+
+  // Get the contract interface from the ABI
   useEffect(() => {
     if (abiItem) {
       try {
@@ -74,17 +103,10 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
     }
   }, [abiItem]);
 
+  // Reset txData when the modal is open (when the user clicks Back on the final step)
   useEffect(() => {
-    if (contractAddress && isAddress(contractAddress)) {
-      setLoading(true);
-      getContractAbi(destinyChain, contractAddress).then((abi) => {
-        handleSetState({
-          abiItem: abi,
-        });
-        setLoading(false);
-      });
-    }
-  }, [contractAddress]);
+    setDestinationTxData(undefined);
+  }, []);
 
   return (
     <BaseModal
@@ -94,14 +116,14 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
       }
       header="Transaction Builder"
       initialHeight={515}
-      finalHeight={abiItem ? 700 : undefined}
+      finalHeight={abiItem && !abiError ? 700 : undefined}
     >
       <SInput
         title="Contract address"
         value={contractAddress || ""}
         onChange={(e) => handleSetState({ contractAddress: e.target.value })}
         error={!!contractAddress && !isAddress(contractAddress)}
-        errorMsg="Invalid contract address"
+        errorMsg="Invalid address"
         dataTestId="Contract address"
       />
       <STextArea
@@ -119,11 +141,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
           <TransactionTitleContainer>
             <h1>Transaction Information</h1>
             <Box>
-              <Toggle
-                onClick={() =>
-                  handleSetState({ showCustomData: !showCustomData })
-                }
-              />
+              <Toggle onClick={handleToggle} />
               <Text>Custom Data</Text>
             </Box>
           </TransactionTitleContainer>
@@ -146,7 +164,7 @@ export const TransactionStep = ({ ...props }: ModalProps) => {
       )}
       <Button
         onClick={() => setType(StepType.XCALLDATA_REVIEW)}
-        disabled={!txData?.data}
+        disabled={!destinationTxData?.data}
         loading={loading}
       >
         Continue

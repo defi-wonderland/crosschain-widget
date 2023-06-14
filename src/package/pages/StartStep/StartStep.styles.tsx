@@ -54,7 +54,9 @@ export const SafeContainer = styled(Box)`
 
   & section button {
     width: 248px;
+    height: 50px;
   }
+
   & section section {
     max-height: 130px;
   }
@@ -88,7 +90,7 @@ export const CustomInput = styled.input`
   background-color: ${({ theme }: PropTheme) => theme.background};
   color: ${({ theme }: PropTheme) => theme.textPrimary};
   font-size: ${FONT_SIZE_16};
-  cursor: pointer;
+  cursor: text;
   font-weight: 400;
   line-height: 19px;
   display: flex;

@@ -43,7 +43,7 @@ export const SafeSection = ({
   const { setType } = useNavigationContext();
   const dropdownSafeProps = Dropdown.useProps();
 
-  const [showCustomAddress, setShowCustomAddress] = useState(false);
+  const [showCustomAddress, setShowCustomAddress] = useState(true);
   const [customAddress, setCustomAddress] = useState("");
   const [safeError, setSafeError] = useState(false);
   const [hasModule, setHasModule] = useState(false);
@@ -103,24 +103,30 @@ export const SafeSection = ({
     if (safeAddress) checkHasModule();
   }, [safeAddress]);
 
+  // if the user dont have any safe, show the custom address input
+  useEffect(() => {
+    if (!safeList.length) {
+      setShowCustomAddress(true);
+    } else {
+      setShowCustomAddress(false);
+    }
+  }, [safeList]);
+
   return (
     <>
       <SafeContainer>
         <Dropdown {...dropdownSafeProps}>
           <Dropdown.Button
-            title="Input safe address"
+            title="Safe address"
             error={safeError}
-            errorMsg="Please enter a valid Safe address"
-            icon={true}
+            errorMsg="Invalid Safe address"
+            icon={safeList.length > 0}
           >
             {!showCustomAddress && (
-              <Text>
-                {safeAddress ? truncatedAddress(safeAddress) : "No safe here"}
-              </Text>
+              <Text>{safeAddress ? truncatedAddress(safeAddress) : ""}</Text>
             )}
             {showCustomAddress && (
               <CustomInput
-                placeholder="Custom Address"
                 value={customAddress}
                 ref={(input) => input && input.focus()}
                 onChange={(e) => handleCustomAddress(e.target.value)}
@@ -128,21 +134,23 @@ export const SafeSection = ({
             )}
           </Dropdown.Button>
 
-          <Dropdown.Modal>
-            {safeList?.map((sAddress) => (
-              <SafeOption
-                key={sAddress}
-                onClick={() => handleDropwdown(sAddress)}
-                active={sAddress === safeAddress}
-              >
-                <Text>{truncatedAddress(sAddress)}</Text>
+          {safeList.length !== 0 && (
+            <Dropdown.Modal>
+              {safeList?.map((sAddress) => (
+                <SafeOption
+                  key={sAddress}
+                  onClick={() => handleDropwdown(sAddress)}
+                  active={sAddress === safeAddress}
+                >
+                  <Text>{truncatedAddress(sAddress)}</Text>
+                </SafeOption>
+              ))}
+              <SafeOption onClick={handleShowCustomAddress}>
+                <WriteIcon lightTheme={lightTheme} />
+                <Text>Add custom address</Text>
               </SafeOption>
-            ))}
-            <SafeOption onClick={handleShowCustomAddress}>
-              <WriteIcon lightTheme={lightTheme} />
-              <Text>Add custom address</Text>
-            </SafeOption>
-          </Dropdown.Modal>
+            </Dropdown.Modal>
+          )}
         </Dropdown>
 
         <Button
@@ -150,7 +158,7 @@ export const SafeSection = ({
           loading={loading}
           onClick={handleUseExisting}
         >
-          Use existing
+          Use Safe
         </Button>
       </SafeContainer>
     </>

@@ -8,6 +8,7 @@ import { GlobalStyle } from "~/Widget.styles";
 
 export interface WidgetProps {
   provider?: providers.JsonRpcProvider;
+  signer?: providers.JsonRpcSigner;
   setTx: (tx: string) => void;
   originAddress: string;
   lightTheme?: boolean;
@@ -21,6 +22,7 @@ export interface WidgetProps {
 
 export const ZodiacConnextWidget: FC<WidgetProps> = ({
   provider,
+  signer,
   setTx,
   originAddress,
   lightTheme,
@@ -35,6 +37,7 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
     <Themable lightTheme={lightTheme}>
       <DataProvider
         provider={provider}
+        signer={signer}
         setTx={setTx}
         originAddress={originAddress}
         lightTheme={lightTheme}

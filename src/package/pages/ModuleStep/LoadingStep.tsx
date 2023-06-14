@@ -64,8 +64,8 @@ export const LoadingStep = ({
       <Spinner />
       {hasResult && (
         <>
-          {!error && <h1>Verification Successful!</h1>}
-          {error && <h1>Connext Module not found!</h1>}
+          {!error && <h1>Verification successful!</h1>}
+          {error && <h1>Module not found!</h1>}
 
           <Text>Redirecting you in {count}...</Text>
         </>

@@ -17,7 +17,7 @@ const SButton = styled.button`
   letter-spacing: 0.25px;
   padding: 14px;
   line-height: 19px;
-  height: 50px;
+  min-height: 50px;
   transition: color 400ms, background-color 400ms;
 
   &:not(:disabled):hover {

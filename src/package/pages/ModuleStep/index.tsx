@@ -94,7 +94,7 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
             </SText>
 
             <IntructionsText>
-              <SText>3. In origin address, add:</SText>
+              <SText>3. In origin address, paste:</SText>
               <TextToCopy onClick={() => handleCopy(userAddress, 0)}>
                 {truncatedAddress(userAddress)}
               </TextToCopy>
@@ -107,7 +107,7 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
             </IntructionsText>
 
             <IntructionsText>
-              <SText>4. In origin chain, add:</SText>
+              <SText>4. In origin chain, paste:</SText>
               <TextToCopy onClick={() => handleCopy(originDomainId, 1)}>
                 {originDomainId}
               </TextToCopy>

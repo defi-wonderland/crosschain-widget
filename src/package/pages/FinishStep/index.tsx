@@ -33,7 +33,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     originChainId,
     setTx,
     provider,
-    txData,
+    destinationTxData,
     userAddress,
     destinyChain,
     lightTheme,
@@ -42,6 +42,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     owners,
     threshold,
     connextModule,
+    signer,
   } = useDataContext();
 
   const [finishState, setFinishState] = useState<FinishState>({
@@ -99,11 +100,11 @@ export const FinishStep = ({ ...props }: ModalProps) => {
 
   const getReceiverCallData = () => {
     let receiverCalldata = "0x";
-    if (txData) {
+    if (destinationTxData) {
       receiverCalldata = encodeReceiverCallData(
-        txData.to,
-        txData.value,
-        txData.data
+        destinationTxData.to,
+        destinationTxData.value,
+        destinationTxData.data
       );
     }
 
@@ -132,17 +133,34 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   };
 
   const getTransactionJson = (data: TxData) => {
-    return JSON.stringify({
+    return {
       to: data.to,
       from: data.from,
       value: data.value,
       data: data.data,
-    });
+    };
   };
 
   const handleConfirm = () => {
-    setTx(getTransactionJson(xCallJson));
-    setType(isModal ? StepType.None : StepType.START);
+    const txResult = getTransactionJson(xCallJson);
+
+    if (signer) {
+      setLoading(true);
+      signer
+        .sendTransaction(txResult)
+        .then(() => {
+          setLoading(false);
+          setType(isModal ? StepType.None : StepType.START);
+        })
+        .catch((e) => {
+          console.error(e);
+          setLoading(false);
+          setError(true);
+        });
+    } else {
+      setTx(JSON.stringify(txResult));
+      setType(isModal ? StepType.None : StepType.START);
+    }
   };
 
   useEffect(() => {
@@ -189,17 +207,18 @@ export const FinishStep = ({ ...props }: ModalProps) => {
 
       <TxSummary
         title="Destination Transaction"
-        txData={txData!}
+        txData={destinationTxData!}
         origin={createSafe ? Chains[destinyChain].ZCMFactory : connextModule}
-        destiny={txData?.to || ""}
-        txValue={txData?.value || ""}
+        destiny={destinationTxData?.to || ""}
+        txValue={destinationTxData?.value || ""}
         textTitle="Data"
         showDetails={showDestination}
         setShowDetails={setShowDestination}
       />
 
       <Button loading={loading} disabled={loading} onClick={handleConfirm}>
-        {!error && "Confirm"}
+        {!error && !signer && "Confirm"}
+        {!error && signer && "Send transaction"}
         {error && "Something went wrong"}
       </Button>
 

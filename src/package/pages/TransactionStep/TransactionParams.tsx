@@ -17,7 +17,7 @@ export const TransactionParams = ({
   txState,
   handleSetState,
 }: TransactionParamsProps) => {
-  const { setTxData, txData } = useDataContext();
+  const { setDestinationTxData, destinationTxData } = useDataContext();
   const {
     contractInterface,
     method,
@@ -65,8 +65,8 @@ export const TransactionParams = ({
         ? getParams(method as FunctionFragment, paramsArray || [])
         : undefined;
 
-      setTxData({
-        ...txData,
+      setDestinationTxData({
+        ...destinationTxData,
         to: contractAddress,
         value: txValue || "0",
         data: data || "",
@@ -93,7 +93,6 @@ export const TransactionParams = ({
       {(method?.payable || showCustomData) && (
         <SInput
           title="Value (wei)"
-          placeholder="0"
           value={txValue}
           type="number"
           onChange={(e) => handleSetState({ txValue: e.target.value })}
@@ -106,7 +105,6 @@ export const TransactionParams = ({
           title="Data"
           value={customData}
           onChange={(e) => handleSetState({ customData: e.target.value })}
-          placeholder="Hex encoded"
           error={!!customData?.length && !utils.isBytesLike(customData)}
           errorMsg="Invalid hex data"
         />

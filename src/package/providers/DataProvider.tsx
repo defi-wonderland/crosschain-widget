@@ -33,8 +33,8 @@ type ContextType = {
   setThreshold: (val: number) => void;
 
   // Destiny Transaction data
-  txData: TxData | undefined;
-  setTxData: (value: TxData) => void;
+  destinationTxData: TxData | undefined;
+  setDestinationTxData: (value: TxData | undefined) => void;
 
   // Create Safe sentinel
   createSafe: boolean;
@@ -50,6 +50,9 @@ type ContextType = {
   // Provider
   provider?: providers.JsonRpcProvider;
 
+  // Signer
+  signer?: providers.JsonRpcSigner;
+
   // Modal
   modal?: boolean;
 
@@ -59,6 +62,7 @@ type ContextType = {
 
 interface ModalProps {
   provider?: providers.JsonRpcProvider;
+  signer?: providers.JsonRpcSigner;
   children: React.ReactElement;
   setTx: (tx: string) => void;
   originAddress: string;
@@ -73,6 +77,7 @@ const DataContext = createContext({} as ContextType);
 
 export const DataProvider = ({
   provider,
+  signer,
   children,
   setTx,
   originAddress,
@@ -88,10 +93,13 @@ export const DataProvider = ({
   const [destinyChain, setDestinyChain] = useState<string>("ethereum");
   const [createSafe, setCreateSafe] = useState<boolean>(false);
   const [connextModule, setConnextModule] = useState<string>("");
-
   const [owners, setOwners] = useState<string[]>([]);
   const [threshold, setThreshold] = useState(1);
-  const [txData, setTxData] = useState<TxData | undefined>();
+
+  const [destinationTxData, setDestinationTxData] = useState<
+    TxData | undefined
+  >();
+
   const [destinyProvider, setDestinyProvider] =
     useState<providers.JsonRpcProvider>(
       getDestinationProvider(destinyChain, alchemyKey, infuraKey)
@@ -133,12 +141,13 @@ export const DataProvider = ({
         setOwners,
         threshold,
         setThreshold,
-        txData,
-        setTxData,
+        destinationTxData,
+        setDestinationTxData,
         setTx,
         createSafe,
         setCreateSafe,
         provider,
+        signer,
         lightTheme,
         modal,
         destinyProvider,

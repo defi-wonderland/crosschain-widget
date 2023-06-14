@@ -74,6 +74,7 @@ function App() {
           setTx={setTx}
           provider={provider}
           lightTheme={useLightTheme}
+          signer={signer}
         />
       )}
 

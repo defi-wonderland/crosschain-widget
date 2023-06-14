@@ -43,6 +43,7 @@ export const TextContainer = styled(Box)`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  border-radius: 0px;
 `;
 
 export interface IDropdownButton {
