@@ -1,4 +1,5 @@
-import { Contract, providers } from "ethers";
+import { providers } from "ethers";
+import { Contract as MulticallContract, Provider } from "ethers-multicall";
 
 import { CONNEXT_MODULE_ABI } from "~/config";
 
@@ -38,15 +39,22 @@ export const isConnextModule = async (
   connext: string
 ) => {
   try {
-    const contract = new Contract(moduleAddress, CONNEXT_MODULE_ABI, provider);
+    const multicallProvider = new Provider(provider);
+    await multicallProvider.init(); // Only required when `chainId` is not provided in the `Provider` constructor
+
+    const moduleContract = new MulticallContract(
+      moduleAddress,
+      CONNEXT_MODULE_ABI
+    );
+
     const [owner, avatar, target, originSender, origin, connextAddress] =
-      await Promise.all([
-        contract.owner(),
-        contract.avatar(),
-        contract.target(),
-        contract.originSender(),
-        contract.origin(),
-        contract.connext(),
+      await multicallProvider.all([
+        moduleContract.owner(),
+        moduleContract.avatar(),
+        moduleContract.target(),
+        moduleContract.originSender(),
+        moduleContract.origin(),
+        moduleContract.connext(),
       ]);
 
     // Check if the module is configured with the correct values

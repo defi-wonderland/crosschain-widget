@@ -12,7 +12,10 @@ export const getInfuraProvider = (chainName: string, apiKey: string) => {
 };
 
 export const getPublicProvider = (chainName: string) => {
-  return new providers.JsonRpcProvider(Chains[chainName].publicRpcProvider);
+  return new providers.JsonRpcProvider(
+    Chains[chainName].publicRpcProvider,
+    Chains[chainName].id
+  );
 };
 
 export const getDestinationProvider = (
