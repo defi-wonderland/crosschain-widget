@@ -67,6 +67,7 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
           domainId={Chains[originChainKey]?.domainId}
           connext={Chains[destinyChain]?.connextContract}
           userAddress={userAddress}
+          multicallAddress={Chains[destinyChain]?.multicallAddress}
         />
       )}
 

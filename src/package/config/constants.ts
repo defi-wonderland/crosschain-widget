@@ -19,6 +19,7 @@ export const getConstants = (): Constants => {
         connextContract: "0x8898B472C54c31894e3B9bb83cEA802a5d0e63C6",
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         gelatoPremiumFee: 0.2,
         publicRpcProvider: "https://eth.llamarpc.com",
         assets: {
@@ -36,6 +37,7 @@ export const getConstants = (): Constants => {
         connextContract: "0x11984dc4465481512eb5b777E44061C158CF2259",
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         gelatoPremiumFee: 0.7,
         publicRpcProvider: "https://polygon.llamarpc.com",
         assets: {
@@ -57,6 +59,7 @@ export const getConstants = (): Constants => {
         connextContract: "0x8f7492DE823025b4CfaAB1D34c58963F2af5DEDA",
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         gelatoPremiumFee: 0.5,
         publicRpcProvider: "https://mainnet.optimism.io",
         assets: {
@@ -78,6 +81,7 @@ export const getConstants = (): Constants => {
         connextContract: "0xEE9deC2712cCE65174B561151701Bf54b99C24C8",
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         gelatoPremiumFee: 0.5,
         publicRpcProvider: "https://arb1.arbitrum.io/rpc",
         assets: {
@@ -99,6 +103,7 @@ export const getConstants = (): Constants => {
         connextContract: "0xCd401c10afa37d641d2F594852DA94C700e4F2CE",
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         gelatoPremiumFee: 0.3,
         publicRpcProvider: "https://bsc.publicnode.com",
         assets: {
@@ -120,6 +125,7 @@ export const getConstants = (): Constants => {
         connextContract: "0x5bB83e95f63217CDa6aE3D181BA580Ef377D2109",
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         gelatoPremiumFee: 1,
         publicRpcProvider: "https://rpc.gnosischain.com",
         assets: {
@@ -143,6 +149,7 @@ export const getConstants = (): Constants => {
         connextContract: "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
         ZCMFactory: "0x0C173261C925d5B560B40acDC21e5226760cCbf1",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         publicRpcProvider: "https://ethereum-goerli.publicnode.com",
         assets: {
           TEST: "0x7ea6eA49B0b0Ae9c5db7907d139D9Cd3439862a1",
@@ -154,6 +161,10 @@ export const getConstants = (): Constants => {
       //   id: 420,
       //   domainId: 1735356532,
       //   connextContract: "0x5Ea1bb242326044699C3d81341c5f535d5Af1504",
+      //   ZCMFactory: "0x0000000000000000000000000000000000000000",
+      //   safeMasterCopy: "0x0000000000000000000000000000000000000000",
+      //   multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
+      //   publicRpcProvider: "https://goerli.optimism.io",
       //   assets: {
       //     TEST: "0x68Db1c8d85C09d546097C65ec7DCBFF4D6497CbF",
       //     nextWETH: "0x39B061B7e41DE8B721f9aEcEB6b3f17ECB7ba63E",
@@ -165,6 +176,7 @@ export const getConstants = (): Constants => {
       //   id: 80001,
       //   domainId: 9991,
       //   connextContract: "0x2334937846Ab2A3FCE747b32587e1A1A2f6EEC5a",
+      //   multicallAddress: "0x08411ADd0b5AA8ee47563b146743C13b3556c9Cc",
       //   assets: {
       //     TEST: "0xeDb95D8037f769B72AAab41deeC92903A98C9E16",
       //     nextWETH: "0x1E5341E4b7ed5D0680d9066aac0396F0b1bD1E69",
@@ -176,6 +188,7 @@ export const getConstants = (): Constants => {
       //   id: 421613,
       //   domainId: 1734439522,
       //   connextContract: "0x2075c9E31f973bb53CAE5BAC36a8eeB4B082ADC2",
+      //   multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
       //   assets: {
       //     TEST: "0xDC805eAaaBd6F68904cA706C221c72F8a8a68F9f",
       //     WETH: "0x1346786E6A5e07b90184a1Ba58E55444b99DC4A2",
@@ -195,6 +208,7 @@ export const getConstants = (): Constants => {
       //   id: 59140,
       //   domainId: 1668247156,
       //   connextContract: "0xfdb6B853C1945Dbffe78A3091BeBB9A928234fA3",
+      //   multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
       //   assets: {
       //     TEST: "0xB706319D37b945727E71ae0d4353699d19112576",
       //   },

@@ -20,6 +20,7 @@ export interface Constants {
       connextContract: string;
       ZCMFactory: string; // Zodiac Connext Module Factory
       safeMasterCopy: string;
+      multicallAddress: string;
       gelatoPremiumFee?: number;
       assets: {
         [key: string]: string;

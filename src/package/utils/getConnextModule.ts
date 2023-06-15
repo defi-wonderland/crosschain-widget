@@ -1,5 +1,9 @@
 import { providers } from "ethers";
-import { Contract as MulticallContract, Provider } from "ethers-multicall";
+import {
+  Contract as MulticallContract,
+  Provider,
+  setMulticallAddress,
+} from "ethers-multicall";
 
 import { CONNEXT_MODULE_ABI } from "~/config";
 
@@ -10,9 +14,11 @@ export const getConnextModule = async (
   safeAddress: string,
   userAddress: string,
   domainId: number,
-  connext: string
+  connext: string,
+  multicallAddress: string
 ) => {
   const connextModuleAddress: string[] = [];
+  const network = await provider.getNetwork();
   for (let i = 0; i < listOfModules.length; i++) {
     const isConnext = await isConnextModule(
       listOfModules[i],
@@ -20,7 +26,9 @@ export const getConnextModule = async (
       safeAddress,
       userAddress,
       domainId,
-      connext
+      connext,
+      multicallAddress,
+      network.chainId
     );
     if (isConnext) {
       connextModuleAddress.push(listOfModules[i]);
@@ -36,10 +44,13 @@ export const isConnextModule = async (
   safeAddress: string,
   userAddress: string,
   domainId: number,
-  connext: string
+  connext: string,
+  multicallAddress: string,
+  chainId: number
 ) => {
   try {
     const multicallProvider = new Provider(provider);
+    setMulticallAddress(chainId, multicallAddress);
     await multicallProvider.init(); // Only required when `chainId` is not provided in the `Provider` constructor
 
     const moduleContract = new MulticallContract(

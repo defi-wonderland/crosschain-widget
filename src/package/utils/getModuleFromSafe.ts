@@ -8,7 +8,8 @@ export const getModuleFromSafe = async (
   provider: providers.Provider,
   userAddress: string,
   origin: number,
-  connext: string
+  connext: string,
+  multicallAddress: string
 ): Promise<string> => {
   try {
     const addressOne = "0x0000000000000000000000000000000000000001";
@@ -25,7 +26,8 @@ export const getModuleFromSafe = async (
       safeAddress,
       userAddress,
       origin,
-      connext
+      connext,
+      multicallAddress
     );
     return connextModule;
   } catch (error) {

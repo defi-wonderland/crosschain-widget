@@ -15,6 +15,7 @@ interface LoadingStepProps {
   userAddress: string;
   domainId: number;
   connext: string;
+  multicallAddress: string;
 }
 
 export const LoadingStep = ({
@@ -26,6 +27,7 @@ export const LoadingStep = ({
   userAddress,
   domainId,
   connext,
+  multicallAddress,
 }: LoadingStepProps) => {
   const [hasResult, setHasResult] = useState(false);
   const [error, setError] = useState(false);
@@ -37,7 +39,8 @@ export const LoadingStep = ({
       destinyProvider,
       userAddress,
       domainId,
-      connext
+      connext,
+      multicallAddress
     );
 
     if (isAddress(moduleAddress)) {
