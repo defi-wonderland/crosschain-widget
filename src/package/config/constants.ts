@@ -8,6 +8,33 @@ export const getConstants = (): Constants => {
 
     relayerFeeBoost: 1.5,
 
+    AVAILABLE_ORIGIN_NETWORKS: [
+      "ethereum",
+      "polygon",
+      "optimism",
+      "arbitrum",
+      "bnbChain",
+      "gnosisChain",
+    ],
+    AVAILABLE_DESTINY_NETWORKS: [
+      "ethereum",
+      "polygon",
+      "optimism",
+      "arbitrum",
+      "bnbChain",
+      "gnosisChain",
+    ],
+
+    TESTNET_AVAILABLE_ORIGIN_NETWORKS: [
+      "optimismGoerli",
+      "mumbai",
+      "arbitrumGoerli",
+      "zkSyncEraTestnet",
+      "lineaTestnet",
+      "polygonZkEvmTestnet",
+    ],
+    TESTNET_AVAILABLE_DESTINY_NETWORKS: ["goerli"],
+
     // See: https://docs.connext.network/resources/supported-chains#mainnet
     //      https://docs.gelato.network/developer-services/relay/payment-and-fees#gelatos-fees
     Chains: {
@@ -147,7 +174,7 @@ export const getConstants = (): Constants => {
         domainId: 1735353714,
         safeIdentifier: "gor",
         connextContract: "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
-        ZCMFactory: "0x0C173261C925d5B560B40acDC21e5226760cCbf1",
+        ZCMFactory: "0x3caf9C0EB71b84FBd42e717cfE81c17855eE5f61",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         publicRpcProvider: "https://ethereum-goerli.publicnode.com",
@@ -156,72 +183,89 @@ export const getConstants = (): Constants => {
           WETH: "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
         },
       },
-      // optimismGoerli: {
-      //   name: "Optimism Goerli",
-      //   id: 420,
-      //   domainId: 1735356532,
-      //   connextContract: "0x5Ea1bb242326044699C3d81341c5f535d5Af1504",
-      //   ZCMFactory: "0x0000000000000000000000000000000000000000",
-      //   safeMasterCopy: "0x0000000000000000000000000000000000000000",
-      //   multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
-      //   publicRpcProvider: "https://goerli.optimism.io",
-      //   assets: {
-      //     TEST: "0x68Db1c8d85C09d546097C65ec7DCBFF4D6497CbF",
-      //     nextWETH: "0x39B061B7e41DE8B721f9aEcEB6b3f17ECB7ba63E",
-      //     WETH: "0x74c6FD7D2Bc6a8F0Ebd7D78321A95471b8C2B806",
-      //   },
-      // },
-      // mumbai: {
-      //   name: "Mumbai",
-      //   id: 80001,
-      //   domainId: 9991,
-      //   connextContract: "0x2334937846Ab2A3FCE747b32587e1A1A2f6EEC5a",
-      //   multicallAddress: "0x08411ADd0b5AA8ee47563b146743C13b3556c9Cc",
-      //   assets: {
-      //     TEST: "0xeDb95D8037f769B72AAab41deeC92903A98C9E16",
-      //     nextWETH: "0x1E5341E4b7ed5D0680d9066aac0396F0b1bD1E69",
-      //     WETH: "0xFD2AB41e083c75085807c4A65C0A14FDD93d55A9",
-      //   },
-      // },
-      // arbitrumGoerli: {
-      //   name: "Arbitrum-Goerli",
-      //   id: 421613,
-      //   domainId: 1734439522,
-      //   connextContract: "0x2075c9E31f973bb53CAE5BAC36a8eeB4B082ADC2",
-      //   multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
-      //   assets: {
-      //     TEST: "0xDC805eAaaBd6F68904cA706C221c72F8a8a68F9f",
-      //     WETH: "0x1346786E6A5e07b90184a1Ba58E55444b99DC4A2",
-      //   },
-      // },
-      // zkSyncEraTestnet: {
-      //   name: "zkSync Era Testnet",
-      //   id: 280,
-      //   domainId: 2053862260,
-      //   connextContract: "0xB0694fEcEdd88e5590A563aDb5f194d2dE30F0b6",
-      //   assets: {
-      //     TEST: "0x7c1412e456ad60b8ee458c4eb3a9852c3e389353",
-      //   },
-      // },
-      // lineaTestnet: {
-      //   name: "Linea Testnet",
-      //   id: 59140,
-      //   domainId: 1668247156,
-      //   connextContract: "0xfdb6B853C1945Dbffe78A3091BeBB9A928234fA3",
-      //   multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
-      //   assets: {
-      //     TEST: "0xB706319D37b945727E71ae0d4353699d19112576",
-      //   },
-      // },
-      // polygonZkEvmTestnet: {
-      //   name: "Polygon zkEVM Testnet",
-      //   id: 1442,
-      //   domainId: 1887071092,
-      //   connextContract: "0x20b4789065DE09c71848b9A4FcAABB2c10006FA2",
-      //   assets: {
-      //     TEST: "0x5f921E4DE609472632CEFc72a3846eCcfbed4ed8",
-      //   },
-      // },
+      optimismGoerli: {
+        name: "Optimism Goerli",
+        id: 420,
+        domainId: 1735356532,
+        connextContract: "0x5Ea1bb242326044699C3d81341c5f535d5Af1504",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0x0000000000000000000000000000000000000000",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
+        publicRpcProvider: "https://goerli.optimism.io",
+        assets: {
+          TEST: "0x68Db1c8d85C09d546097C65ec7DCBFF4D6497CbF",
+          nextWETH: "0x39B061B7e41DE8B721f9aEcEB6b3f17ECB7ba63E",
+          WETH: "0x74c6FD7D2Bc6a8F0Ebd7D78321A95471b8C2B806",
+        },
+      },
+      mumbai: {
+        name: "Mumbai",
+        id: 80001,
+        domainId: 9991,
+        connextContract: "0x2334937846Ab2A3FCE747b32587e1A1A2f6EEC5a",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0x0000000000000000000000000000000000000000",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
+        publicRpcProvider: "https://polygon-mumbai-bor.publicnode.com",
+        assets: {
+          TEST: "0xeDb95D8037f769B72AAab41deeC92903A98C9E16",
+          nextWETH: "0x1E5341E4b7ed5D0680d9066aac0396F0b1bD1E69",
+          WETH: "0xFD2AB41e083c75085807c4A65C0A14FDD93d55A9",
+        },
+      },
+      arbitrumGoerli: {
+        name: "Arbitrum-Goerli",
+        id: 421613,
+        domainId: 1734439522,
+        connextContract: "0x2075c9E31f973bb53CAE5BAC36a8eeB4B082ADC2",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0x0000000000000000000000000000000000000000",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
+        publicRpcProvider: "https://arbitrum-goerli.publicnode.com",
+        assets: {
+          TEST: "0xDC805eAaaBd6F68904cA706C221c72F8a8a68F9f",
+          WETH: "0x1346786E6A5e07b90184a1Ba58E55444b99DC4A2",
+        },
+      },
+      zkSyncEraTestnet: {
+        name: "zkSync Era Testnet",
+        id: 280,
+        domainId: 2053862260,
+        connextContract: "0xB0694fEcEdd88e5590A563aDb5f194d2dE30F0b6",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0x0000000000000000000000000000000000000000",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
+        publicRpcProvider: "https://testnet.era.zksync.dev",
+        assets: {
+          TEST: "0x7c1412e456ad60b8ee458c4eb3a9852c3e389353",
+        },
+      },
+      lineaTestnet: {
+        name: "Linea Testnet",
+        id: 59140,
+        domainId: 1668247156,
+        connextContract: "0xfdb6B853C1945Dbffe78A3091BeBB9A928234fA3",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0x0000000000000000000000000000000000000000",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
+        publicRpcProvider: "https://rpc.goerli.linea.build",
+        assets: {
+          TEST: "0xB706319D37b945727E71ae0d4353699d19112576",
+        },
+      },
+      polygonZkEvmTestnet: {
+        name: "Polygon zkEVM Testnet",
+        id: 1442,
+        domainId: 1887071092,
+        connextContract: "0x20b4789065DE09c71848b9A4FcAABB2c10006FA2",
+        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        safeMasterCopy: "0x0000000000000000000000000000000000000000",
+        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
+        publicRpcProvider: "https://rpc.public.zkevm-test.net",
+        assets: {
+          TEST: "0x5f921E4DE609472632CEFc72a3846eCcfbed4ed8",
+        },
+      },
     },
   };
 };

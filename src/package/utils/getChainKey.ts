@@ -1,9 +1,8 @@
-import { getConstants } from "~/config";
+import { ChainData } from "~/types";
 
-export const getChainKey = (chainId: number): string => {
+export const getChainKey = (chainId: number, chainList: ChainData): string => {
   try {
-    const { Chains } = getConstants();
-    const decostructedChains = Object.entries(Chains);
+    const decostructedChains = Object.entries(chainList);
     const chainName = decostructedChains.filter(
       ([, value]) => value.id === chainId
     );

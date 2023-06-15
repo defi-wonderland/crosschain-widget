@@ -10,23 +10,29 @@ export interface Constants {
   CONNEXT_BUMP: number;
 
   relayerFeeBoost: number;
+  Chains: ChainData;
+  AVAILABLE_ORIGIN_NETWORKS: string[];
+  AVAILABLE_DESTINY_NETWORKS: string[];
 
-  Chains: {
-    [key: string]: {
-      safeIdentifier?: string;
-      name: string;
-      id: number;
-      domainId: number;
-      connextContract: string;
-      ZCMFactory: string; // Zodiac Connext Module Factory
-      safeMasterCopy: string;
-      multicallAddress: string;
-      gelatoPremiumFee?: number;
-      assets: {
-        [key: string]: string;
-      };
-      publicRpcProvider: string;
+  TESTNET_AVAILABLE_ORIGIN_NETWORKS: string[];
+  TESTNET_AVAILABLE_DESTINY_NETWORKS: string[];
+}
+
+export interface ChainData {
+  [key: string]: {
+    safeIdentifier?: string | undefined;
+    name: string;
+    id: number;
+    domainId: number;
+    connextContract: string;
+    ZCMFactory: string;
+    safeMasterCopy: string;
+    multicallAddress: string;
+    gelatoPremiumFee?: number | undefined;
+    assets: {
+      [key: string]: string;
     };
+    publicRpcProvider: string;
   };
 }
 

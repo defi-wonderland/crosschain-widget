@@ -84,6 +84,7 @@ The following props are available for the `ZodiacConnextWidget` component:
 | lightTheme (optional) | Flag to enable a light theme for the widget                                                                | `boolean`                   | `false`                      |
 | alchemyKey (optional) | [Alchemy](https://www.alchemy.com/) API Key                                                                | `string`                    | `undefined`                  |
 | infuraKey (optional)  | [Infura](https://www.infura.io/) API Key                                                                   | `string`                    | `undefined`                  |
+| testnet (optional)    | Flag to enable or disable testnet chains                                                                   | `boolean`                   | `false`                      |
 
 ## Live example
 

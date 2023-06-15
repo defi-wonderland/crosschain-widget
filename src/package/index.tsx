@@ -16,6 +16,7 @@ export interface WidgetProps {
   alchemyKey?: string;
   infuraKey?: string;
   className?: string;
+  testnet?: boolean;
   modal?: boolean;
   text?: string;
 }
@@ -30,6 +31,7 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
   alchemyKey,
   infuraKey,
   className,
+  testnet,
   modal = true,
   text,
 }) => {
@@ -45,6 +47,7 @@ export const ZodiacConnextWidget: FC<WidgetProps> = ({
         alchemyKey={alchemyKey}
         infuraKey={infuraKey}
         modal={modal}
+        testnet={testnet}
       >
         <NavigationProvider>
           <>

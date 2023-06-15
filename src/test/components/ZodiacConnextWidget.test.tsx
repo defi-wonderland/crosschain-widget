@@ -44,7 +44,7 @@ describe("ZodiacConnextWidget", () => {
     });
 
     expect(screen.getByText("Cross chain action")).toBeInTheDocument();
-    expect(screen.getByText("Ethereum")).toBeInTheDocument();
+    expect(screen.getByTestId("origin-chain")).toHaveTextContent("Ethereum");
   });
 
   it("should handle invalid chainId", async () => {
@@ -63,6 +63,8 @@ describe("ZodiacConnextWidget", () => {
     });
 
     expect(screen.getByText("Cross chain action")).toBeInTheDocument();
-    expect(screen.getByText("Usupported Chain")).toBeInTheDocument();
+    expect(screen.getByTestId("origin-chain")).not.toHaveTextContent(
+      "Ethereum"
+    );
   });
 });

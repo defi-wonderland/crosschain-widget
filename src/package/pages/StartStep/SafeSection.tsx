@@ -87,9 +87,9 @@ export const SafeSection = ({
       safeAddress,
       destinyProvider,
       userAddress,
-      Chains[originChainKey].domainId,
-      Chains[destinyChain].connextContract,
-      Chains[destinyChain].multicallAddress
+      Chains[originChainKey]?.domainId,
+      Chains[destinyChain]?.connextContract,
+      Chains[destinyChain]?.multicallAddress
     );
 
     const isModuleEnabled = await getIsModuleEnabled(

@@ -6,8 +6,9 @@ import { ZodiacConnextWidget } from "./package";
 import { isAddress } from "~/utils";
 
 function App() {
-  const [useModal, setUseModal] = useState(true);
+  const [useModal, setUseModal] = useState(false);
   const [useSigner, setUseSigner] = useState(false);
+  const [useTestnet, setUseTestnet] = useState(false);
   const [useLightTheme, setUseLightTheme] = useState(true);
   const [userAddress, setUserAddress] = useState("");
   const [userChainId, setUserChainId] = useState(1);
@@ -63,6 +64,9 @@ function App() {
       <button onClick={() => setUseSigner(!useSigner)}>
         Signer: {useSigner.toString()}
       </button>
+      <button onClick={() => setUseTestnet(!useTestnet)}>
+        Testnet: {useTestnet.toString()}
+      </button>
 
       <br />
       <p>Connected to chainId: {userChainId}</p>
@@ -82,6 +86,7 @@ function App() {
           provider={provider}
           lightTheme={useLightTheme}
           signer={useSigner ? signer : undefined}
+          testnet={useTestnet}
         />
       )}
 

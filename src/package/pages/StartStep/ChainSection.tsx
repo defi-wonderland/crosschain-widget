@@ -4,12 +4,11 @@ import { ChainContainer, ChainOption } from "./StartStep.styles";
 import { TokenIcon, Text, ArrowRight, Box } from "~/components";
 import Dropdown from "~/components/Dropdown/Dropdown";
 import { useDataContext } from "~/providers";
-import { getConstants } from "~/config";
 
 interface ChainSectionProps {
+  setError?: (error: boolean) => void;
   disabled?: boolean;
   error?: boolean;
-  setError?: (error: boolean) => void;
 }
 
 export const ChainSection = ({
@@ -18,57 +17,77 @@ export const ChainSection = ({
   setError,
 }: ChainSectionProps) => {
   const dropdownChainProps = Dropdown.useProps();
-  const { Chains } = getConstants();
 
-  const { setDestinyChain, destinyChain, lightTheme, originChainKey } =
-    useDataContext();
+  const {
+    setDestinyChain,
+    destinyChain,
+    lightTheme,
+    originChainKey,
+    originChainList,
+    destinyChainList,
+    testnet,
+  } = useDataContext();
 
   const handleChainDropdown = (key: string) => {
     setDestinyChain(key);
     dropdownChainProps.setShow(false);
   };
 
-  /* 
-    If the originChain is not supported, we want to show an error
-  */
+  // If the originChain is not supported, we want to show an error
   useEffect(() => {
     if (setError) {
-      originChainKey ? setError(false) : setError(true);
+      originChainList[originChainKey]?.name ? setError(false) : setError(true);
     }
-  }, [originChainKey]);
+  }, [originChainList, originChainKey]);
+
+  // If the originChain is equal to the destinyChain,
+  // we want to set the destinyChain to the next chain in the list
+  useEffect(() => {
+    if (originChainKey === destinyChain) {
+      setDestinyChain(Object.keys(destinyChainList)[1]);
+    }
+  }, [originChainKey, destinyChainList, testnet]);
 
   return (
     <ChainContainer>
       {/* Origin chain dropdown */}
       <Dropdown.Button title="From" error={error} disabled={true}>
-        {!!originChainKey && <TokenIcon chainName={originChainKey} />}
-        <Text>{Chains[originChainKey]?.name || "Usupported Chain"}</Text>
+        {!error && <TokenIcon chainName={originChainKey} />}
+        <Text data-testid={"origin-chain"}>
+          {error ? "Usupported Chain" : originChainList[originChainKey]?.name}
+        </Text>
       </Dropdown.Button>
 
       <ArrowRight lightTheme={lightTheme} />
 
       {/* Destination chain dropdown */}
       <Dropdown {...dropdownChainProps}>
-        <Dropdown.Button title="To" icon={!disabled} disabled={disabled}>
+        <Dropdown.Button
+          title="To"
+          icon={!disabled && Object.keys(destinyChainList).length > 1}
+          disabled={disabled || !(Object.keys(destinyChainList).length > 1)}
+        >
           <TokenIcon chainName={destinyChain} />
-          <Text>{Chains[destinyChain].name}</Text>
+          <Text>{destinyChainList[destinyChain]?.name}</Text>
         </Dropdown.Button>
 
-        <Dropdown.Modal>
-          {Object.entries(Chains).map(([key, value]) => (
-            <Box key={key}>
-              {key !== originChainKey && (
-                <ChainOption
-                  onClick={() => handleChainDropdown(key)}
-                  active={destinyChain === key}
-                >
-                  <TokenIcon chainName={key} />
-                  <Text>{value.name}</Text>
-                </ChainOption>
-              )}
-            </Box>
-          ))}
-        </Dropdown.Modal>
+        {Object.keys(destinyChainList).length > 1 && (
+          <Dropdown.Modal>
+            {Object.entries(destinyChainList).map(([key, value]) => (
+              <Box key={key}>
+                {key !== originChainKey && (
+                  <ChainOption
+                    onClick={() => handleChainDropdown(key)}
+                    active={destinyChain === key}
+                  >
+                    <TokenIcon chainName={key} />
+                    <Text>{value.name}</Text>
+                  </ChainOption>
+                )}
+              </Box>
+            ))}
+          </Dropdown.Modal>
+        )}
       </Dropdown>
     </ChainContainer>
   );

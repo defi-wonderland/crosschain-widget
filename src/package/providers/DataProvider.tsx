@@ -1,8 +1,13 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { providers } from "ethers";
 
-import { getChainKey, getDestinationProvider } from "~/utils";
-import { TxData } from "~/types";
+import {
+  getAvailableChains,
+  getChainKey,
+  getDestinationProvider,
+} from "~/utils";
+import { ChainData, TxData } from "~/types";
+import { getConstants } from "~/config";
 
 type ContextType = {
   // Theme
@@ -27,6 +32,10 @@ type ContextType = {
   // Destiny Chain control
   destinyChain: string;
   setDestinyChain: (val: string) => void;
+
+  // Available chains
+  originChainList: ChainData;
+  destinyChainList: ChainData;
 
   // Safe onwners
   owners: string[];
@@ -62,6 +71,9 @@ type ContextType = {
 
   // Destination Provider
   destinyProvider: providers.JsonRpcProvider;
+
+  // Testnet
+  testnet?: boolean;
 };
 
 interface ModalProps {
@@ -75,6 +87,7 @@ interface ModalProps {
   alchemyKey?: string;
   infuraKey?: string;
   modal?: boolean;
+  testnet?: boolean;
 }
 
 const DataContext = createContext({} as ContextType);
@@ -90,12 +103,43 @@ export const DataProvider = ({
   alchemyKey,
   infuraKey,
   modal,
+  testnet,
 }: ModalProps) => {
+  const {
+    Chains,
+    AVAILABLE_DESTINY_NETWORKS,
+    AVAILABLE_ORIGIN_NETWORKS,
+    TESTNET_AVAILABLE_DESTINY_NETWORKS,
+    TESTNET_AVAILABLE_ORIGIN_NETWORKS,
+  } = getConstants();
+
+  const [originChainList, setOriginChainList] = useState<ChainData>(
+    getAvailableChains(
+      Chains,
+      TESTNET_AVAILABLE_ORIGIN_NETWORKS,
+      AVAILABLE_ORIGIN_NETWORKS,
+      testnet
+    )
+  );
+  const [destinyChainList, setDestinyChainList] = useState<ChainData>(
+    getAvailableChains(
+      Chains,
+      TESTNET_AVAILABLE_DESTINY_NETWORKS,
+      AVAILABLE_DESTINY_NETWORKS,
+      testnet
+    )
+  );
+
+  const [originChainKey, setOriginChainKey] = useState<string>(
+    Object.keys(originChainList)[0]
+  );
+  const [destinyChain, setDestinyChain] = useState<string>(
+    Object.keys(destinyChainList)[0]
+  );
+
   const [userAddress, setUserAddress] = useState<string>("");
   const [safeAddress, setSafeAddress] = useState<string>("");
   const [originChainId, setOriginChainId] = useState<number>(1);
-  const [originChainKey, setOriginChainKey] = useState<string>("ethereum");
-  const [destinyChain, setDestinyChain] = useState<string>("ethereum");
   const [createSafe, setCreateSafe] = useState<boolean>(false);
   const [connextModule, setConnextModule] = useState<string>("");
   const [owners, setOwners] = useState<string[]>([]);
@@ -110,30 +154,52 @@ export const DataProvider = ({
       getDestinationProvider(destinyChain, alchemyKey, infuraKey)
     );
 
+  // Set the user address and origin chain id when the origin address changes
   useEffect(() => {
     setUserAddress(originAddress);
     setOriginChainId(userChainId);
   }, [originAddress, userChainId]);
 
-  /* 
-    If the originChain is ethereum, we want to set the destinyChain to
-    the next chain in the list
-  */
+  // Set the origin chain list when the testnet changes
   useEffect(() => {
-    if (getChainKey(userChainId) === "ethereum") {
-      setDestinyChain("polygon");
-    }
-  }, [userChainId]);
+    setOriginChainList(
+      getAvailableChains(
+        Chains,
+        TESTNET_AVAILABLE_ORIGIN_NETWORKS,
+        AVAILABLE_ORIGIN_NETWORKS,
+        testnet
+      )
+    );
+  }, [testnet]);
 
+  // Set the destiny chain list when the testnet changes
+  useEffect(() => {
+    setDestinyChainList(
+      getAvailableChains(
+        Chains,
+        TESTNET_AVAILABLE_DESTINY_NETWORKS,
+        AVAILABLE_DESTINY_NETWORKS,
+        testnet
+      )
+    );
+  }, [testnet]);
+
+  // Set the origin chain key when the origin chain id changes
+  useEffect(() => {
+    setOriginChainKey(getChainKey(originChainId, originChainList));
+  }, [originChainId, originChainList]);
+
+  // Set the destiny chain when the origin chain key changes
+  useEffect(() => {
+    setDestinyChain(Object.keys(destinyChainList)[0]);
+  }, [destinyChainList, testnet, originChainKey]);
+
+  // Set the provider for the destination chain when the chain changes
   useEffect(() => {
     setDestinyProvider(
       getDestinationProvider(destinyChain, alchemyKey, infuraKey)
     );
-  }, [alchemyKey, destinyChain, infuraKey]);
-
-  useEffect(() => {
-    setOriginChainKey(getChainKey(originChainId));
-  }, [originChainId]);
+  }, [destinyChain, alchemyKey, infuraKey]);
 
   return (
     <DataContext.Provider
@@ -145,6 +211,8 @@ export const DataProvider = ({
         originChainId,
         setOriginChainId,
         destinyChain,
+        originChainList,
+        destinyChainList,
         setDestinyChain,
         owners,
         setOwners,
@@ -164,6 +232,7 @@ export const DataProvider = ({
         setConnextModule,
         originChainKey,
         setOriginChainKey,
+        testnet,
       }}
     >
       {children}

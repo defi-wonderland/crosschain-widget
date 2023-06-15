@@ -5,6 +5,7 @@ export * from "./encodeFunction";
 export * from "./encodeInitializer";
 export * from "./encodeXCall";
 export * from "./estimateRelayerFee";
+export * from "./getAvailableChains";
 export * from "./getChainKey";
 export * from "./getContractAbi";
 export * from "./getDestinationProvider";
