@@ -90,6 +90,7 @@ export const CopyIcon = styled.img.attrs({
 })<{ lightTheme?: boolean }>`
   height: 14px;
   margin: auto 0;
+  cursor: pointer;
   ${({ lightTheme }) => !lightTheme && "filter: invert(1)"};
   opacity: 0;
   border-radius: 0;

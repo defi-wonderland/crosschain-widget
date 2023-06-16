@@ -105,12 +105,15 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
                 <CheckIcon lightTheme={lightTheme} />
               )}
               {!copiedElements[0].copied && (
-                <CopyIcon lightTheme={lightTheme} />
+                <CopyIcon
+                  lightTheme={lightTheme}
+                  onClick={() => handleCopy(userAddress, 0)}
+                />
               )}
             </IntructionsText>
 
             <IntructionsText>
-              <SText>4. In origin chain, paste:</SText>
+              <SText>4. In origin domain ID, paste:</SText>
               <TextToCopy onClick={() => handleCopy(originDomainId, 1)}>
                 {originDomainId}
               </TextToCopy>
@@ -118,7 +121,10 @@ export const ModuleStep = ({ ...props }: ModalProps) => {
                 <CheckIcon lightTheme={lightTheme} />
               )}
               {!copiedElements[1].copied && (
-                <CopyIcon lightTheme={lightTheme} />
+                <CopyIcon
+                  lightTheme={lightTheme}
+                  onClick={() => handleCopy(originDomainId, 1)}
+                />
               )}
             </IntructionsText>
           </IntructionsContainer>
