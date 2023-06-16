@@ -50,6 +50,7 @@ interface ButtonProps {
   disabled?: boolean;
   loading?: boolean;
   error?: boolean;
+  dataTestId?: string;
 }
 
 export const Button = ({
@@ -58,9 +59,15 @@ export const Button = ({
   disabled,
   loading,
   error,
+  dataTestId,
 }: ButtonProps) => {
   return (
-    <SButton onClick={onClick} disabled={disabled || error} error={error}>
+    <SButton
+      onClick={onClick}
+      disabled={disabled || error}
+      error={error}
+      data-testid={dataTestId}
+    >
       {loading && <BasicSpinner />}
       {!loading && children}
     </SButton>

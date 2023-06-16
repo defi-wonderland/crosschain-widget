@@ -28,7 +28,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   const [invalidChain, setInvalidChain] = useState(false);
   const [showOrigin, setShowOrigin] = useState(false);
   const [sendMessage, setSendMessage] = useState("Send transaction");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("Something went wrong");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { Chains } = getConstants();
@@ -155,17 +155,17 @@ export const FinishStep = ({ ...props }: ModalProps) => {
           });
       } else {
         // if the user is in the right network, send the transaction
-        handleSendTransaction(txResult);
+        sendTransaction(txResult);
       }
     } else {
-      // if the user doesn't have signer, we just return the stringified transaction
+      // if the user doesn't have signer, just return the stringified transaction
       setTx(JSON.stringify(txResult));
       setType(isModal ? StepType.None : StepType.START);
     }
   };
 
   // function to exceute the transaction
-  const handleSendTransaction = useCallback(
+  const sendTransaction = useCallback(
     (txResult: Tx) => {
       if (signer) {
         signer
@@ -205,7 +205,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     if (!relayerFee) {
       estimateRelayerFee(provider!, originChainKey, createSafe)
         .then((rFee) => {
-          const { xCallParams, xCallJson } = getParams(rFee.toString());
+          const { xCallParams, xCallJson } = getParams(rFee);
           setFinishState({
             ...finishState,
             relayerFee: rFee.toString(),
@@ -268,6 +268,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         disabled={loading}
         onClick={handleConfirm}
         error={error}
+        dataTestId="confirm-button"
       >
         {!error && !signer && "Confirm"}
         {!error && signer && sendMessage}

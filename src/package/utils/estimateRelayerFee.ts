@@ -1,4 +1,4 @@
-import { providers } from "ethers";
+import { providers, BigNumber } from "ethers";
 import { getConstants } from "~/config/constants";
 
 export const estimateRelayerFee = async (
@@ -16,14 +16,14 @@ export const estimateRelayerFee = async (
 
   const gasLimit = createSafe ? SETUP_SAFE_GAS_LIMIT : XCALL_GAS_LIMIT;
 
-  const gasPrice = (await provider.getGasPrice()).toNumber();
+  const gasPrice = await provider.getGasPrice();
   const GelatoAndPremium = Chains[chainName]?.gelatoPremiumFee || 0.2;
-  const relayerFee =
-    gasPrice * gasLimit * (1 + GelatoAndPremium + CONNEXT_BUMP);
 
-  // Apply boost
-  const relayerFeeBoosted = relayerFee * relayerFeeBoost;
+  const premium = (1 + GelatoAndPremium + CONNEXT_BUMP + relayerFeeBoost) * 100;
+  const relayerFee = BigNumber.from(gasPrice)
+    .mul(gasLimit)
+    .mul(premium)
+    .div(100);
 
-  // remove any decimals
-  return Math.ceil(relayerFeeBoosted);
+  return relayerFee.toString();
 };

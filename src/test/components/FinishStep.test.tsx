@@ -13,6 +13,6 @@ describe("FinishStep", () => {
     expect(screen.getByText("Transaction Confirmation")).toBeInTheDocument();
     expect(screen.getByText("Origin Transaction")).toBeInTheDocument();
     expect(screen.getByText("Destination Transaction")).toBeInTheDocument();
-    expect(screen.getByText("Confirm")).toBeInTheDocument();
+    expect(screen.getByTestId("confirm-button")).toBeInTheDocument();
   });
 });

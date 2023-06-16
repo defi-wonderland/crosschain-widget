@@ -6,19 +6,20 @@ import { estimateRelayerFee } from "~/utils";
 
 const gasPrice = 100;
 
-const mockResult = {
-  toNumber: vi.fn(() => gasPrice),
-};
+vi.mock("ethers", async () => {
+  const actual: any = await vi.importActual("ethers");
 
-vi.mock("ethers", () => ({
-  ethers: {
-    providers: {
-      JsonRpcProvider: vi.fn().mockImplementation(() => ({
-        getGasPrice: vi.fn().mockResolvedValue(mockResult),
-      })),
+  return {
+    ...actual,
+    ethers: {
+      providers: {
+        JsonRpcProvider: vi.fn().mockImplementation(() => ({
+          getGasPrice: vi.fn(() => gasPrice),
+        })),
+      },
     },
-  },
-}));
+  };
+});
 
 describe("estimateRelayerFee", () => {
   it("should calculate the correct relayer fee", async () => {
@@ -36,9 +37,8 @@ describe("estimateRelayerFee", () => {
     const expectedRelayerFee =
       gasPrice *
       XCALL_GAS_LIMIT *
-      (1 + GelatoAndPremium + CONNEXT_BUMP) *
-      relayerFeeBoost;
+      (1 + GelatoAndPremium + CONNEXT_BUMP + relayerFeeBoost);
 
-    expect(relayerFee).toEqual(expectedRelayerFee);
+    expect(relayerFee).toEqual(expectedRelayerFee.toString());
   });
 });

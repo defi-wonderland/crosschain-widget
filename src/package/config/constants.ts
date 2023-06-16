@@ -6,7 +6,7 @@ export const getConstants = (): Constants => {
     SETUP_SAFE_GAS_LIMIT: 6000000,
     CONNEXT_BUMP: 0.2,
 
-    relayerFeeBoost: 1.5,
+    relayerFeeBoost: 0.5,
 
     AVAILABLE_ORIGIN_NETWORKS: [
       "ethereum",
