@@ -3,7 +3,7 @@ import { PropTheme } from "~/types";
 import { FONT_SIZE_16 } from "./Variables";
 import { BasicSpinner } from "./BasicSpinner";
 
-const SButton = styled.button`
+const SButton = styled.button<{ error?: boolean }>`
   border: none;
   border-radius: ${({ theme }: PropTheme) => theme.borderRadius};
   background-color: ${({ theme }: PropTheme) => theme.buttonBackground};
@@ -31,6 +31,17 @@ const SButton = styled.button`
     border: ${({ theme }: PropTheme) => theme.border};
     cursor: default;
   }
+
+  ${({ error, theme }) =>
+    error &&
+    `
+      &:disabled {
+        background-color: inherit;
+        color: ${theme.error};
+        border: ${theme.borderError};
+        cursor: default;
+      }
+    `}
 `;
 
 interface ButtonProps {
@@ -38,6 +49,7 @@ interface ButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   loading?: boolean;
+  error?: boolean;
 }
 
 export const Button = ({
@@ -45,9 +57,10 @@ export const Button = ({
   onClick,
   disabled,
   loading,
+  error,
 }: ButtonProps) => {
   return (
-    <SButton onClick={onClick} disabled={disabled}>
+    <SButton onClick={onClick} disabled={disabled || error} error={error}>
       {loading && <BasicSpinner />}
       {!loading && children}
     </SButton>

@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { utils } from "ethers";
 
 import { Button, BaseModal, PoweredByConnext } from "~/components";
 import { useDataContext, useNavigationContext } from "~/providers";
 import { ChainSection } from "~/pages/StartStep/ChainSection";
-import { ModalProps, StepType, TxData } from "~/types";
+import { ModalProps, StepType, Tx, TxData } from "~/types";
 import { getConstants } from "~/config";
 import { TxSummary } from "./TxSummary";
 import {
@@ -13,6 +14,7 @@ import {
   encodeInitializer,
   encodeCreateSafe,
   getSaltNonce,
+  getTransactionJson,
 } from "~/utils";
 
 interface FinishState {
@@ -23,7 +25,10 @@ interface FinishState {
 
 export const FinishStep = ({ ...props }: ModalProps) => {
   const [showDestination, setShowDestination] = useState(false);
+  const [invalidChain, setInvalidChain] = useState(false);
   const [showOrigin, setShowOrigin] = useState(false);
+  const [sendMessage, setSendMessage] = useState("Send transaction");
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { Chains } = getConstants();
@@ -43,7 +48,6 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     connextModule,
     signer,
   } = useDataContext();
-
   const [finishState, setFinishState] = useState<FinishState>({
     xCallJson: {
       value: "",
@@ -128,37 +132,75 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     }
   };
 
-  const getTransactionJson = (data: TxData) => {
-    return {
-      to: data.to,
-      from: data.from,
-      value: data.value,
-      data: data.data,
-    };
-  };
-
+  // function called when the user clicks on the "Send transaction" button
   const handleConfirm = () => {
     const txResult = getTransactionJson(xCallJson);
 
     if (signer) {
       setLoading(true);
-      signer
-        .sendTransaction(txResult)
-        .then(() => {
-          setLoading(false);
-          setType(isModal ? StepType.None : StepType.START);
-        })
-        .catch((e) => {
-          console.error(e);
-          setLoading(false);
-          setError(true);
-        });
+      // if the user is not in the right network, we ask him to switch
+      if (invalidChain) {
+        signer.provider
+          .send("wallet_switchEthereumChain", [
+            { chainId: utils.hexValue(Chains[originChainKey].id) },
+          ])
+          .then(() => {
+            setLoading(false);
+            setSendMessage("Send transaction");
+          })
+          .catch(() => {
+            setLoading(false);
+            setError(true);
+            setErrorMessage("Network change rejected");
+          });
+      } else {
+        // if the user is in the right network, send the transaction
+        handleSendTransaction(txResult);
+      }
     } else {
+      // if the user doesn't have signer, we just return the stringified transaction
       setTx(JSON.stringify(txResult));
       setType(isModal ? StepType.None : StepType.START);
     }
   };
 
+  // function to exceute the transaction
+  const handleSendTransaction = useCallback(
+    (txResult: Tx) => {
+      if (signer) {
+        signer
+          .sendTransaction(txResult)
+          .then(() => {
+            setLoading(false);
+            setError(false);
+            // after sending the transaction, we go back to the start
+            setType(isModal ? StepType.None : StepType.START);
+          })
+          .catch(() => {
+            setError(true);
+            setLoading(false);
+            setErrorMessage("Something went wrong");
+          });
+      }
+    },
+    [signer]
+  );
+
+  // check if the user is in the right network
+  useEffect(() => {
+    if (signer) {
+      signer.getChainId().then((chainId) => {
+        if (chainId != Chains[originChainKey].id) {
+          setInvalidChain(true);
+          setSendMessage(`Switch to ${Chains[originChainKey].name}`);
+        } else {
+          setInvalidChain(false);
+        }
+      });
+    }
+  }, [signer, error]);
+
+  // get the relayer fee
   useEffect(() => {
     if (!relayerFee) {
       estimateRelayerFee(provider!, originChainKey, createSafe)
@@ -179,6 +221,15 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         });
     }
   }, []);
+
+  // show the error message for 3 seconds
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+    }
+  }, [error]);
 
   return (
     <BaseModal
@@ -212,10 +263,15 @@ export const FinishStep = ({ ...props }: ModalProps) => {
         setShowDetails={setShowDestination}
       />
 
-      <Button loading={loading} disabled={loading} onClick={handleConfirm}>
+      <Button
+        loading={loading}
+        disabled={loading}
+        onClick={handleConfirm}
+        error={error}
+      >
         {!error && !signer && "Confirm"}
-        {!error && signer && "Send transaction"}
-        {error && "Something went wrong"}
+        {!error && signer && sendMessage}
+        {error && errorMessage}
       </Button>
 
       <PoweredByConnext lightTheme={lightTheme} />

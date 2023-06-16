@@ -15,6 +15,8 @@ export interface Theme {
   textPrimary: string;
   textSecondary: string;
   borderRadius: string;
+  error: string;
+  borderError: string;
   type: "dark" | "light";
 }
 

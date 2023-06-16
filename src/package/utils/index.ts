@@ -13,6 +13,7 @@ export * from "./getModuleFromSafe";
 export * from "./getParams";
 export * from "./getRedeableData";
 export * from "./getSaltNonce";
+export * from "./getTransactionJson";
 export * from "./fetchData";
 export * from "./filterWritableMethods";
 export * from "./isAddress";

@@ -22,3 +22,10 @@ export interface XCallData {
   slippage: string;
   callData: string;
 }
+
+export interface Tx {
+  to: string;
+  from?: string;
+  value: string;
+  data: string;
+}

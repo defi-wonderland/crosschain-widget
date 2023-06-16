@@ -187,7 +187,7 @@ export const DataProvider = ({
   // Set the origin chain key when the origin chain id changes
   useEffect(() => {
     setOriginChainKey(getChainKey(originChainId, originChainList));
-  }, [originChainId, originChainList]);
+  }, [originChainList]);
 
   // Set the destiny chain when the origin chain key changes
   useEffect(() => {

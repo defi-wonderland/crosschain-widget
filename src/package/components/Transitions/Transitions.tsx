@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import {
@@ -29,7 +29,7 @@ export const Backdrop = ({ setType }: BackdropProps) => {
 
 export const Transitions = () => {
   const modalTimeout = 200;
-  const { originChainId, modal } = useDataContext();
+  const { modal } = useDataContext();
   const { setType, type } = useNavigationContext();
   const backdropRef = useRef(null);
   const startStepRef = useRef(null);
@@ -37,14 +37,6 @@ export const Transitions = () => {
   const moduleRef = useRef(null);
   const txRef = useRef(null);
   const confirmationRef = useRef(null);
-
-  /* 
-    If the user changes the originChainId, we want to reset the modal
-    to avoid any errors
-  */
-  useEffect(() => {
-    if (type) setType(StepType.START);
-  }, [originChainId]);
 
   return (
     <StyledBackdrop>

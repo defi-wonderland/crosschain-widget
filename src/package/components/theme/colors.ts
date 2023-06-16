@@ -16,6 +16,8 @@ export const darkTheme: Theme = {
   actionDisabled: "#B7B7B7",
   actionDisabledBackground: "#2B2B2D",
   borderRadius: "8px",
+  error: "#FF3F3F",
+  borderError: "2px solid #FF3F3F",
 };
 
 export const lightTheme: Theme = {
@@ -34,4 +36,6 @@ export const lightTheme: Theme = {
   actionDisabled: "#777777",
   actionDisabledBackground: "#EBEBEB",
   borderRadius: "8px",
+  error: "#FF3F3F",
+  borderError: "2px solid #FF3F3F",
 };
