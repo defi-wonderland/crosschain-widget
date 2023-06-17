@@ -16,7 +16,8 @@ export const estimateRelayerFee = async (
 
   const gasLimit = createSafe ? SETUP_SAFE_GAS_LIMIT : XCALL_GAS_LIMIT;
 
-  const gasPrice = await provider.getGasPrice();
+  const feeData = await provider.getFeeData();
+  const gasPrice = feeData.maxFeePerGas!.add(feeData.maxPriorityFeePerGas!);
   const GelatoAndPremium = Chains[chainName]?.gelatoPremiumFee || 0.2;
 
   const premium = (1 + GelatoAndPremium + CONNEXT_BUMP + relayerFeeBoost) * 100;
@@ -24,6 +25,23 @@ export const estimateRelayerFee = async (
     .mul(gasLimit)
     .mul(premium)
     .div(100);
+
+  // console.log("gasLimit: ", gasLimit);
+  // console.log("gasPrice: ", gasPrice.toNumber());
+  // console.log("GelatoAndPremium: ", GelatoAndPremium);
+  // console.log("CONNEXT_BUMP: ", CONNEXT_BUMP);
+  // console.log("relayerFee: ", relayerFee.toNumber());
+
+  // console.log("feeData gas price: ", feeData.gasPrice?.toNumber());
+  // console.log(
+  //   "feeData lastBaseFeePerGas: ",
+  //   feeData.lastBaseFeePerGas?.toNumber()
+  // );
+  // console.log("feeData maxFeePerGas: ", feeData.maxFeePerGas?.toNumber());
+  // console.log(
+  //   "feeData maxPriorityFeePerGas: ",
+  //   feeData.maxPriorityFeePerGas?.toNumber()
+  // );
 
   return relayerFee.toString();
 };
