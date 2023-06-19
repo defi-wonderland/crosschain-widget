@@ -73,6 +73,10 @@ export const TransactionParams = ({
         name: name || "",
         calldatas,
       });
+    } else {
+      // if there is no contractAdress, customData or encodedTx
+      // we don't let the user continue
+      setDestinationTxData(undefined);
     }
   }, [encodedTx, txValue, customData]);
 
