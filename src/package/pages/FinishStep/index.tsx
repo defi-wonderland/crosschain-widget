@@ -11,7 +11,6 @@ import {
   encodeReceiverCallData,
   estimateRelayerFee,
   encodeXCall,
-  encodeInitializer,
   encodeCreateSafe,
   getSaltNonce,
   getTransactionJson,
@@ -109,21 +108,16 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     }
 
     if (createSafe) {
-      const initializerData = encodeInitializer({
-        owners,
-        threshold,
-        connextFactory: Chains[destinyChain].ZCMFactory,
-      });
-
       const createSafeData = encodeCreateSafe({
         userAddress: userAddress,
         originDomainId: Chains[originChainKey].domainId,
-        initializer: initializerData,
         destinationConnext: Chains[destinyChain].connextContract,
         saltNonce1: getSaltNonce(),
         saltNonce2: getSaltNonce(),
         destinationSafeMasterCopy: Chains[destinyChain].safeMasterCopy,
         safeTransactionData: receiverCalldata,
+        owners,
+        threshold,
       });
 
       return createSafeData;

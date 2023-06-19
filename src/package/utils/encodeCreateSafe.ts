@@ -2,7 +2,8 @@ import { ethers } from "ethers";
 
 interface SafeData {
   singleton: string;
-  initializer: string;
+  owners: string[];
+  threshold: number;
   saltNonce: string;
 }
 
@@ -21,7 +22,8 @@ interface CreateSafeParams {
   safeTransactionData: string;
   saltNonce1: string;
   saltNonce2: string;
-  initializer: string;
+  owners: string[];
+  threshold: number;
 }
 
 export function encodeCreateSafe({
@@ -32,11 +34,13 @@ export function encodeCreateSafe({
   safeTransactionData,
   saltNonce1,
   saltNonce2,
-  initializer,
+  owners,
+  threshold,
 }: CreateSafeParams) {
   const safeData: SafeData = {
     singleton: destinationSafeMasterCopy,
-    initializer: initializer,
+    owners,
+    threshold,
     saltNonce: saltNonce1,
   };
 
@@ -50,7 +54,7 @@ export function encodeCreateSafe({
   const abiCoder = new ethers.utils.AbiCoder();
   const encodedData = abiCoder.encode(
     [
-      "tuple(address singleton, bytes initializer, uint256 saltNonce)",
+      "tuple(address singleton, address[] owners, uint256 threshold, uint256 saltNonce)",
       "tuple(address,uint32,address,uint256)",
       "bytes",
     ],

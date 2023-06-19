@@ -2,7 +2,6 @@ export * from "./copyData";
 export * from "./encodeCreateSafe";
 export * from "./encodeReceiverCalldata";
 export * from "./encodeFunction";
-export * from "./encodeInitializer";
 export * from "./encodeXCall";
 export * from "./estimateRelayerFee";
 export * from "./getAvailableChains";

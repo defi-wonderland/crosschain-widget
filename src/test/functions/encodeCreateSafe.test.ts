@@ -1,14 +1,8 @@
-import { encodeCreateSafe, encodeInitializer } from "~/utils";
+import { encodeCreateSafe } from "~/utils";
 import { validCreateSafeResult } from "../__mocks__/receive";
 
 describe("encodeCreateSafe", () => {
   it("should return the encoded data", () => {
-    const encondedInitializer = encodeInitializer({
-      owners: ["0xbe6D2b769119E8515F8376a1D7878523DFDECf7B"],
-      connextFactory: "0xf1a0a24acEB56D6F3E954ae6592941eE25ddb53F",
-      threshold: 1,
-    });
-
     const params = {
       safeTransactionData: "0x",
       destinationConnext: "0x8898B472C54c31894e3B9bb83cEA802a5d0e63C6",
@@ -17,11 +11,11 @@ describe("encodeCreateSafe", () => {
       userAddress: "0xbe6D2b769119E8515F8376a1D7878523DFDECf7B",
       saltNonce1: "1",
       saltNonce2: "1",
-      initializer: encondedInitializer,
+      owners: ["0xbe6D2b769119E8515F8376a1D7878523DFDECf7B"],
+      threshold: 1,
     };
 
     const result = encodeCreateSafe(params);
-
     expect(result).toEqual(validCreateSafeResult);
   });
 });
