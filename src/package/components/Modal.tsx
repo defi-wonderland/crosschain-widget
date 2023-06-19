@@ -28,7 +28,7 @@ const SBaseModal = styled(Box)<ModalProps>`
   font-weight: 400;
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.textPrimary};
-  border: ${({ theme }) => theme.borderPrimary};
+  border: ${({ theme }) => theme.border};
 
   scroll-behavior: unset;
 
@@ -98,7 +98,7 @@ export const BaseModal: FC<ModalProps> = ({
     );
   }
   return (
-    <SBaseModal className={className + " modal"} {...props}>
+    <SBaseModal className={className + " crosschain-widget-modal"} {...props}>
       {closeButton}
       <ModalHeader>{header}</ModalHeader>
 

@@ -20,13 +20,13 @@ export const GlobalStyle = createGlobalStyle<PropTheme>`
     font-weight: 500;
   }
 
-  .modal span,.modal strong {
+  .crosschain-widget-modal span,.crosschain-widget-modal strong {
     padding: 0;
     margin: 0;
     font-size: ${FONT_SIZE_16};
   }
 
-  .modal h1 {
+  .crosschain-widget-modal h1 {
     font-size: ${FONT_SIZE_20};
     color: inherit;
     background-color: inherit;
@@ -36,7 +36,7 @@ export const GlobalStyle = createGlobalStyle<PropTheme>`
     line-height: 1.125;
   }
 
-  .modal * {
+  .crosschain-widget-modal * {
     box-sizing: border-box;
     font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
@@ -58,22 +58,22 @@ export const GlobalStyle = createGlobalStyle<PropTheme>`
     line-height: inherit;
   }
 
-  .modal::-webkit-scrollbar {
+  .crosschain-widget-modal::-webkit-scrollbar {
     width: 0px;
     background: transparent;
   }
 
-  .modal::-webkit-scrollbar-thumb {
+  .crosschain-widget-modal::-webkit-scrollbar-thumb {
     background: #373737;
     border-radius: 4px;
   }
 
-  .modal::-webkit-scrollbar-thumb:hover {
+  .crosschain-widget-modal::-webkit-scrollbar-thumb:hover {
     background: #b3b3b3;
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
   }
 
-  .modal::-webkit-scrollbar-thumb:active {
+  .crosschain-widget-modal::-webkit-scrollbar-thumb:active {
     background-color: #999999;
   }
 

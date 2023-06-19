@@ -8,8 +8,8 @@ import { isAddress } from "~/utils";
 function App() {
   const [useModal, setUseModal] = useState(false);
   const [useSigner, setUseSigner] = useState(false);
-  const [useTestnet, setUseTestnet] = useState(false);
-  const [useLightTheme, setUseLightTheme] = useState(true);
+  const [useTestnet, setUseTestnet] = useState(true);
+  const [useLightTheme, setUseLightTheme] = useState(false);
   const [userAddress, setUserAddress] = useState("");
   const [userChainId, setUserChainId] = useState(1);
   const [tx, setTx] = useState("");
@@ -51,31 +51,10 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Zodiac-Connext Development Test App</h1>
-      <button onClick={() => handleConnect()}>Connect</button>
+      <h1>Crosschain Governance Widget</h1>
+      <h2>Development App</h2>
+      {/* <button onClick={() => handleConnect()}>Connect</button> */}
       <br />
-      <br />
-      <button onClick={() => setUseModal(!useModal)}>
-        Use modal: {useModal.toString()}
-      </button>
-      <button onClick={() => setUseLightTheme(!useLightTheme)}>
-        Light theme: {useLightTheme.toString()}
-      </button>
-      <button onClick={() => setUseSigner(!useSigner)}>
-        Signer: {useSigner.toString()}
-      </button>
-      <button onClick={() => setUseTestnet(!useTestnet)}>
-        Testnet: {useTestnet.toString()}
-      </button>
-
-      <br />
-      <p>Connected to chainId: {userChainId}</p>
-      <br />
-      <input placeholder="user address" value={userAddress} disabled={true} />
-      {!isAddress(userAddress) && <p>invalid address</p>}
-      <br />
-      <br />
-
       {isAddress(userAddress) && (
         <ZodiacConnextWidget
           originAddress={userAddress}
@@ -90,23 +69,46 @@ function App() {
         />
       )}
 
-      <br />
-      <textarea
-        value={tx}
-        onChange={(e) => setTx(e.target.value)}
-        style={{ width: 500, height: 250 }}
-        placeholder="{value: string; to: string; from: string; data: string;}"
-      />
-      <br />
       {tx && (
-        <button
-          onClick={() => {
-            signer?.sendTransaction(JSON.parse(tx));
-          }}
-        >
-          Send tx
-        </button>
+        <>
+          <br />
+          <textarea
+            value={tx}
+            onChange={(e) => setTx(e.target.value)}
+            style={{ width: 500, height: 250 }}
+            placeholder="{value: string; to: string; from: string; data: string;}"
+          />
+          <br />
+          <button
+            onClick={() => {
+              signer?.sendTransaction(JSON.parse(tx));
+            }}
+          >
+            Send tx
+          </button>
+        </>
       )}
+      <div>
+        <br />
+        <button onClick={() => setUseModal(!useModal)}>
+          Use modal: {useModal.toString()}
+        </button>
+        <button onClick={() => setUseLightTheme(!useLightTheme)}>
+          Light theme: {useLightTheme.toString()}
+        </button>
+      </div>
+      <div>
+        <button onClick={() => setUseSigner(!useSigner)}>
+          Signer: {useSigner.toString()}
+        </button>
+        <button onClick={() => setUseTestnet(!useTestnet)}>
+          Testnet: {useTestnet.toString()}
+        </button>
+      </div>
+
+      <br />
+      <p>Connected address: {userAddress}</p>
+      <p>Connected to chainId: {userChainId}</p>
       <br />
     </div>
   );

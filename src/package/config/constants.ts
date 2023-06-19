@@ -174,7 +174,7 @@ export const getConstants = (): Constants => {
         domainId: 1735353714,
         safeIdentifier: "gor",
         connextContract: "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
-        ZCMFactory: "0x3caf9C0EB71b84FBd42e717cfE81c17855eE5f61",
+        ZCMFactory: "0xeED91f4dA5a54Ef20a0DaA5849E447a9b2fFDFa4",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         publicRpcProvider: "https://ethereum-goerli.publicnode.com",
