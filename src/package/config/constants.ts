@@ -84,7 +84,7 @@ export const getConstants = (): Constants => {
         domainId: 1869640809,
         safeIdentifier: "oeth",
         connextContract: "0x8f7492DE823025b4CfaAB1D34c58963F2af5DEDA",
-        ZCMFactory: "0x0000000000000000000000000000000000000000",
+        ZCMFactory: "0xb1ccdc2c91a6a868757bdac7d0ce6a88ea2244d2",
         safeMasterCopy: "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         gelatoPremiumFee: 0.5,
