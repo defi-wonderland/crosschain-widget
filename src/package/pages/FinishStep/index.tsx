@@ -36,7 +36,6 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   const {
     originChainKey,
     setTx,
-    provider,
     destinationTxData,
     userAddress,
     destinyChain,
@@ -47,6 +46,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     threshold,
     connextModule,
     signer,
+    destinyProvider,
   } = useDataContext();
   const [finishState, setFinishState] = useState<FinishState>({
     xCallJson: {
@@ -203,12 +203,12 @@ export const FinishStep = ({ ...props }: ModalProps) => {
   // get the relayer fee
   useEffect(() => {
     if (!relayerFee) {
-      estimateRelayerFee(provider!, originChainKey, createSafe)
+      estimateRelayerFee(destinyProvider!, originChainKey, createSafe)
         .then((rFee) => {
           const { xCallParams, xCallJson } = getParams(rFee);
           setFinishState({
             ...finishState,
-            relayerFee: rFee.toString(),
+            relayerFee: rFee,
             xCallJson,
             xCallParams,
           });

@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { getConstants } from "~/config";
 import { estimateRelayerFee } from "~/utils";
 
-const gasPrice = 100;
+const gasPrice = { maxFeePerGas: 100 };
 
 vi.mock("ethers", async () => {
   const actual: any = await vi.importActual("ethers");
@@ -14,7 +14,7 @@ vi.mock("ethers", async () => {
     ethers: {
       providers: {
         JsonRpcProvider: vi.fn().mockImplementation(() => ({
-          getGasPrice: vi.fn(() => gasPrice),
+          getFeeData: vi.fn(() => gasPrice),
         })),
       },
     },
@@ -35,7 +35,7 @@ describe("estimateRelayerFee", () => {
     );
 
     const expectedRelayerFee =
-      gasPrice *
+      gasPrice.maxFeePerGas *
       XCALL_GAS_LIMIT *
       (1 + GelatoAndPremium + CONNEXT_BUMP + relayerFeeBoost);
 
