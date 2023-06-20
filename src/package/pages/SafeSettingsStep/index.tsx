@@ -141,7 +141,7 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
         <OnwersList>
           <SInput
             title="Owner address"
-            value={inputAddress}
+            value={inputAddress || ""}
             onChange={(e) => handleNewOwner(e.target.value)}
             error={!isValid || isRepeated}
             errorMsg={

@@ -3,7 +3,7 @@ import { Constants } from "~/types";
 export const getConstants = (): Constants => {
   return {
     XCALL_GAS_LIMIT: 400000,
-    SETUP_SAFE_GAS_LIMIT: 6000000,
+    SETUP_SAFE_GAS_LIMIT: 3000000,
     CONNEXT_BUMP: 0.2,
 
     relayerFeeBoost: 0.5,
