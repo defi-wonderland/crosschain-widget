@@ -34,6 +34,7 @@ export const TitleContainer = styled.button`
   justify-content: space-between;
   align-items: center;
   padding: 28px 0;
+  margin: 0;
 `;
 
 export const TextContainer = styled(Box)`

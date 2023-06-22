@@ -252,7 +252,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
       {...props}
       onBack={() => setType(StepType.TRANSACTION)}
       header="Transaction Confirmation"
-      initialHeight={518}
+      initialHeight={480}
       finalHeight={showDestination || showOrigin ? 700 : undefined}
     >
       <ChainSection disabled />

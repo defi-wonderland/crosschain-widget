@@ -132,6 +132,7 @@ export const SafeSection = ({
             error={safeError}
             errorMsg="Invalid Safe address"
             icon={safeList.length > 0}
+            disabled={loading}
           >
             {!showCustomAddress && (
               <Text>{safeAddress ? truncatedAddress(safeAddress) : ""}</Text>
