@@ -1,0 +1,58 @@
+#root {
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+p,
+h1,
+h2 {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #e1e1e1;
+  background-color: #1a1919;
+  font-family: "Roboto", sans-serif;
+}
+
+textarea {
+  color: #e1e1e1;
+  background-color: #1a1919;
+  font-family: "Roboto", sans-serif;
+  border-radius: 8px;
+}
+
+button {
+  border: 1px solid #777777;
+  padding: 0.5rem 1.5rem;
+  outline: none;
+  border-radius: 8px;
+  margin: 8px;
+  cursor: pointer;
+  width: 160px;
+}
+
+.crosschain-widget-button {
+  color: #e1e1e1;
+  background-color: #1a1919;
+}
+.crosschain-widget-button:hover {
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: auto 0;
+  padding-bottom: 100px;
+}
+
+.crosschain-widget-modal {
+  box-shadow: 0px 16px 128px 64px rgba(99, 104, 144, 0.2);
+}
