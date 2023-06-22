@@ -5,9 +5,7 @@ export interface Env {
 }
 
 export interface Constants {
-  XCALL_GAS_LIMIT: number;
   SETUP_SAFE_GAS_LIMIT: number;
-  CONNEXT_BUMP: number;
 
   relayerFeeBoost: number;
   Chains: ChainData;
@@ -28,7 +26,6 @@ export interface ChainData {
     ZCMFactory: string;
     safeMasterCopy: string;
     multicallAddress: string;
-    gelatoPremiumFee?: number | undefined;
     assets: {
       [key: string]: string;
     };

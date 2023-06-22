@@ -1,30 +1,35 @@
-import { providers, BigNumber } from "ethers";
 import { getConstants } from "~/config/constants";
+// import { SdkBase } from "@connext/sdk";
+import { getConnextSdkConfig } from "./getConnextSdkConfig";
+import { SdkBase } from "~/connext";
 
-export const estimateRelayerFee = async (
-  provider: providers.JsonRpcProvider,
-  chainName: string,
-  createSafe: boolean
-) => {
-  const {
-    Chains,
-    XCALL_GAS_LIMIT,
-    SETUP_SAFE_GAS_LIMIT,
-    CONNEXT_BUMP,
-    relayerFeeBoost,
-  } = getConstants();
+interface EstimateRelayerFeeProps {
+  originChain: string;
+  destinyChain: string;
+  createSafe: boolean;
+  txGasLimit: number;
+}
 
-  const gasLimit = createSafe ? SETUP_SAFE_GAS_LIMIT : XCALL_GAS_LIMIT;
+export const estimateRelayerFee = async ({
+  originChain,
+  destinyChain,
+  createSafe,
+  txGasLimit,
+}: EstimateRelayerFeeProps) => {
+  const { Chains, relayerFeeBoost, SETUP_SAFE_GAS_LIMIT } = getConstants();
 
-  const feeData = await provider.getFeeData();
-  const gasPrice = feeData.maxFeePerGas;
-  const GelatoAndPremium = Chains[chainName]?.gelatoPremiumFee || 0.2;
+  const config = await getConnextSdkConfig();
+  const sdkBase = await SdkBase.create(config);
 
-  const premium = (1 + GelatoAndPremium + CONNEXT_BUMP + relayerFeeBoost) * 100;
-  const relayerFee = BigNumber.from(gasPrice)
-    .mul(gasLimit)
-    .mul(premium)
-    .div(100);
+  const txDomains = {
+    originDomain: Chains[originChain].domainId.toString(),
+    destinationDomain: Chains[destinyChain].domainId.toString(),
+    callDataGasAmount: createSafe
+      ? txGasLimit + SETUP_SAFE_GAS_LIMIT
+      : txGasLimit,
+  };
+  const relayerFeeSdk = await sdkBase.estimateRelayerFee(txDomains);
+  const boostedRelayerFee = relayerFeeSdk.mul(relayerFeeBoost).div(100);
 
-  return relayerFee.toString();
+  return boostedRelayerFee.toString();
 };

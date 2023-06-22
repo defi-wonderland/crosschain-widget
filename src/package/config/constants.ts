@@ -2,11 +2,9 @@ import { Constants } from "~/types";
 
 export const getConstants = (): Constants => {
   return {
-    XCALL_GAS_LIMIT: 400000,
-    SETUP_SAFE_GAS_LIMIT: 3000000,
-    CONNEXT_BUMP: 0.2,
+    SETUP_SAFE_GAS_LIMIT: 2400000,
 
-    relayerFeeBoost: 0.5,
+    relayerFeeBoost: 150, // 1.5x
 
     AVAILABLE_ORIGIN_NETWORKS: [
       "ethereum",
@@ -31,7 +29,6 @@ export const getConstants = (): Constants => {
       "arbitrumGoerli",
       "zkSyncEraTestnet",
       "lineaTestnet",
-      "polygonZkEvmTestnet",
     ],
     TESTNET_AVAILABLE_DESTINY_NETWORKS: ["goerli"],
 
@@ -47,7 +44,6 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
-        gelatoPremiumFee: 0.2,
         publicRpcProvider: "https://eth.llamarpc.com",
         assets: {
           USDC: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
@@ -65,7 +61,6 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
-        gelatoPremiumFee: 0.7,
         publicRpcProvider: "https://polygon.llamarpc.com",
         assets: {
           nextUSDC: "0xF96C6d2537e1af1a9503852eB2A4AF264272a5B6",
@@ -87,7 +82,6 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0xb1ccdc2c91a6a868757bdac7d0ce6a88ea2244d2",
         safeMasterCopy: "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
-        gelatoPremiumFee: 0.5,
         publicRpcProvider: "https://mainnet.optimism.io",
         assets: {
           nextUSDC: "0x67E51f46e8e14D4E4cab9dF48c59ad8F512486DD",
@@ -109,7 +103,6 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
-        gelatoPremiumFee: 0.5,
         publicRpcProvider: "https://arb1.arbitrum.io/rpc",
         assets: {
           nextUSDC: "0x8c556cF37faa0eeDAC7aE665f1Bb0FbD4b2eae36",
@@ -131,7 +124,6 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
-        gelatoPremiumFee: 0.3,
         publicRpcProvider: "https://bsc.publicnode.com",
         assets: {
           nextUSDC: "0x5e7D83dA751F4C9694b13aF351B30aC108f32C38",
@@ -153,7 +145,6 @@ export const getConstants = (): Constants => {
         ZCMFactory: "0x0000000000000000000000000000000000000000",
         safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
-        gelatoPremiumFee: 1,
         publicRpcProvider: "https://rpc.gnosischain.com",
         assets: {
           nextUSDC: "0x44CF74238d840a5fEBB0eAa089D05b763B73faB8",
@@ -253,19 +244,19 @@ export const getConstants = (): Constants => {
           TEST: "0xB706319D37b945727E71ae0d4353699d19112576",
         },
       },
-      polygonZkEvmTestnet: {
-        name: "Polygon zkEVM Testnet",
-        id: 1442,
-        domainId: 1887071092,
-        connextContract: "0x20b4789065DE09c71848b9A4FcAABB2c10006FA2",
-        ZCMFactory: "0x0000000000000000000000000000000000000000",
-        safeMasterCopy: "0x0000000000000000000000000000000000000000",
-        multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
-        publicRpcProvider: "https://rpc.public.zkevm-test.net",
-        assets: {
-          TEST: "0x5f921E4DE609472632CEFc72a3846eCcfbed4ed8",
-        },
-      },
+      // polygonZkEvmTestnet: {
+      //   name: "Polygon zkEVM Testnet",
+      //   id: 1442,
+      //   domainId: 1887071092,
+      //   connextContract: "0x20b4789065DE09c71848b9A4FcAABB2c10006FA2",
+      //   ZCMFactory: "0x0000000000000000000000000000000000000000",
+      //   safeMasterCopy: "0x0000000000000000000000000000000000000000",
+      //   multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
+      //   publicRpcProvider: "https://rpc.public.zkevm-test.net",
+      //   assets: {
+      //     TEST: "0x5f921E4DE609472632CEFc72a3846eCcfbed4ed8",
+      //   },
+      // },
     },
   };
 };

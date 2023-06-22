@@ -87,5 +87,6 @@ export const LoadingContainer = styled(Box)`
   & h1 {
     margin-bottom: 12px;
     margin-top: 20px;
+    text-align: center;
   }
 `;

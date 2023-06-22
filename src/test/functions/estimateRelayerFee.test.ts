@@ -1,43 +1,39 @@
 import { vi } from "vitest";
-import { ethers } from "ethers";
+import { BigNumber } from "ethers";
 
-import { getConstants } from "~/config";
 import { estimateRelayerFee } from "~/utils";
 
-const gasPrice = { maxFeePerGas: 100 };
+const relayerFee = BigNumber.from(100);
 
-vi.mock("ethers", async () => {
-  const actual: any = await vi.importActual("ethers");
+vi.mock("~/connext", async () => {
+  const actual: any = await vi.importActual("~/connext");
 
   return {
     ...actual,
-    ethers: {
-      providers: {
-        JsonRpcProvider: vi.fn().mockImplementation(() => ({
-          getFeeData: vi.fn(() => gasPrice),
-        })),
-      },
+    SdkBase: {
+      create: vi.fn(() => ({
+        estimateRelayerFee: vi.fn(() => relayerFee),
+      })),
     },
   };
 });
 
 describe("estimateRelayerFee", () => {
   it("should calculate the correct relayer fee", async () => {
-    const { XCALL_GAS_LIMIT, CONNEXT_BUMP, relayerFeeBoost } = getConstants();
-    const chainName = "ethereum";
-    const GelatoAndPremium = getConstants().Chains[chainName].gelatoPremiumFee!;
+    const originChain = "ethereum";
+    const destinyChain = "polygon";
     const createSafe = false;
+    const txGasLimit = 100;
 
-    const relayerFee = await estimateRelayerFee(
-      new ethers.providers.JsonRpcProvider(),
-      chainName,
-      createSafe
-    );
+    const relayerFee = await estimateRelayerFee({
+      originChain,
+      destinyChain,
+      createSafe,
+      txGasLimit,
+    });
 
-    const expectedRelayerFee =
-      gasPrice.maxFeePerGas *
-      XCALL_GAS_LIMIT *
-      (1 + GelatoAndPremium + CONNEXT_BUMP + relayerFeeBoost);
+    // relayer fee (100) * boost (1.5) = 150
+    const expectedRelayerFee = 150;
 
     expect(relayerFee).toEqual(expectedRelayerFee.toString());
   });

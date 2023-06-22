@@ -180,6 +180,45 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     [signer]
   );
 
+  const getRelayerFee = async () => {
+    if (!relayerFee) {
+      let txGasLimit = 0;
+      if (destinationTxData) {
+        // estimate the gasLimit of the destination transaction to calculate relayer fee
+        txGasLimit = (
+          await destinyProvider.estimateGas({
+            to: destinationTxData.to,
+            value: destinationTxData.value,
+            data: destinationTxData.data,
+          })
+        ).toNumber();
+      }
+
+      estimateRelayerFee({
+        originChain: originChainKey,
+        destinyChain: destinyChain,
+        createSafe,
+        txGasLimit,
+      })
+        .then((rFee) => {
+          const { xCallParams, xCallJson } = getParams(rFee);
+          setFinishState({
+            ...finishState,
+            relayerFee: rFee,
+            xCallJson,
+            xCallParams,
+          });
+          setLoading(false);
+        })
+        .catch((e) => {
+          console.error("Error: ", e);
+          setErrorMessage("Error estimating relayer fee");
+          setLoading(false);
+          setError(true);
+        });
+    }
+  };
+
   // check if the user is in the right network
   useEffect(() => {
     if (signer) {
@@ -194,31 +233,14 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     }
   }, [signer, error]);
 
-  // get the relayer fee
+  // get the relayer fee when the component is mounted
   useEffect(() => {
-    if (!relayerFee) {
-      estimateRelayerFee(destinyProvider!, originChainKey, createSafe)
-        .then((rFee) => {
-          const { xCallParams, xCallJson } = getParams(rFee);
-          setFinishState({
-            ...finishState,
-            relayerFee: rFee,
-            xCallJson,
-            xCallParams,
-          });
-          setLoading(false);
-        })
-        .catch((e) => {
-          console.log("Error: ", e);
-          setLoading(false);
-          setError(true);
-        });
-    }
+    getRelayerFee();
   }, []);
 
   // show the error message for 3 seconds
   useEffect(() => {
-    if (error) {
+    if (error && relayerFee) {
       setTimeout(() => {
         setError(false);
       }, 3000);
