@@ -42,7 +42,7 @@ export const getConstants = (): Constants => {
         domainId: 6648936,
         connextContract: "0x8898B472C54c31894e3B9bb83cEA802a5d0e63C6",
         ZCMFactory: "0xAE76442a5a9E2bf27bb1B2bA4171d1e83Bd0277c",
-        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        safeMasterCopy: "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         publicRpcProvider: "https://eth.llamarpc.com",
         assets: {
@@ -59,7 +59,7 @@ export const getConstants = (): Constants => {
         safeIdentifier: "matic",
         connextContract: "0x11984dc4465481512eb5b777E44061C158CF2259",
         ZCMFactory: "0xAE76442a5a9E2bf27bb1B2bA4171d1e83Bd0277c",
-        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        safeMasterCopy: "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         publicRpcProvider: "https://polygon.llamarpc.com",
         assets: {
@@ -80,7 +80,7 @@ export const getConstants = (): Constants => {
         safeIdentifier: "oeth",
         connextContract: "0x8f7492DE823025b4CfaAB1D34c58963F2af5DEDA",
         ZCMFactory: "0xAE76442a5a9E2bf27bb1B2bA4171d1e83Bd0277c",
-        safeMasterCopy: "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
+        safeMasterCopy: "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         publicRpcProvider: "https://mainnet.optimism.io",
         assets: {
@@ -101,7 +101,7 @@ export const getConstants = (): Constants => {
         safeIdentifier: "arb1",
         connextContract: "0xEE9deC2712cCE65174B561151701Bf54b99C24C8",
         ZCMFactory: "0xAE76442a5a9E2bf27bb1B2bA4171d1e83Bd0277c",
-        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        safeMasterCopy: "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         publicRpcProvider: "https://arb1.arbitrum.io/rpc",
         assets: {
@@ -122,7 +122,7 @@ export const getConstants = (): Constants => {
         safeIdentifier: "bnb",
         connextContract: "0xCd401c10afa37d641d2F594852DA94C700e4F2CE",
         ZCMFactory: "0xAE76442a5a9E2bf27bb1B2bA4171d1e83Bd0277c",
-        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        safeMasterCopy: "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         publicRpcProvider: "https://bsc-dataseed1.binance.org",
         assets: {
@@ -143,7 +143,7 @@ export const getConstants = (): Constants => {
         domainId: 6778479,
         connextContract: "0x5bB83e95f63217CDa6aE3D181BA580Ef377D2109",
         ZCMFactory: "0xAE76442a5a9E2bf27bb1B2bA4171d1e83Bd0277c",
-        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        safeMasterCopy: "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         publicRpcProvider: "https://rpc.gnosischain.com",
         assets: {
@@ -166,7 +166,7 @@ export const getConstants = (): Constants => {
         safeIdentifier: "gor",
         connextContract: "0xFCa08024A6D4bCc87275b1E4A1E22B71fAD7f649",
         ZCMFactory: "0xAE76442a5a9E2bf27bb1B2bA4171d1e83Bd0277c",
-        safeMasterCopy: "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        safeMasterCopy: "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         multicallAddress: "0xcA11bde05977b3631167028862bE2a173976CA11",
         publicRpcProvider: "https://ethereum-goerli.publicnode.com",
         assets: {
