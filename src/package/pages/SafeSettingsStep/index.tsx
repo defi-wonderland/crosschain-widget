@@ -34,6 +34,7 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
     threshold,
     lightTheme,
     setCreateSafe,
+    setSafeAddress,
   } = useDataContext();
 
   const [safeState, setSafeState] = useState<SafeSettingsState>({
@@ -112,6 +113,9 @@ export const SafeSettingsStep = ({ ...props }: ModalProps) => {
   useEffect(() => {
     setCreateSafe(true);
     if (!owners.length) handleNewOwner(userAddress);
+
+    // remove safe address when the user wants to create a new safe
+    setSafeAddress("");
   }, []);
 
   return (
