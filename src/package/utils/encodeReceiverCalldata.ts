@@ -9,8 +9,8 @@ export const encodeReceiverCallData = (
   to: string,
   value: string,
   data: string,
-  // Temporary: We are harding coding the operation to 0 (Call) for now
-  // because we are not support multicall yet
+  // Temporary: We are hardcoding the operation to 0 (Call) for now
+  // because we don't support multicall yet
   operation: Operation = 0
 ) => {
   const encodedParams = utils.defaultAbiCoder.encode(

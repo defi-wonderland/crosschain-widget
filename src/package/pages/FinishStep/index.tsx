@@ -46,6 +46,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
     connextModule,
     signer,
     destinyProvider,
+    safeAddress,
   } = useDataContext();
   const [finishState, setFinishState] = useState<FinishState>({
     xCallJson: {
@@ -190,7 +191,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
             to: destinationTxData.to,
             value: destinationTxData.value,
             data: destinationTxData.data,
-            from: userAddress,
+            from: safeAddress || userAddress,
           })
         ).toNumber();
       }
@@ -272,7 +273,7 @@ export const FinishStep = ({ ...props }: ModalProps) => {
       <TxSummary
         title="Destination Transaction"
         txData={destinationTxData!}
-        origin={createSafe ? Chains[destinyChain].ZCMFactory : connextModule}
+        origin={createSafe ? Chains[destinyChain].ZCMFactory : safeAddress}
         destiny={destinationTxData?.to || ""}
         txValue={destinationTxData?.value || ""}
         textTitle="Data"
